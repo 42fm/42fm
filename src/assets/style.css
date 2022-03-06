@@ -1,0 +1,60 @@
+.goldDev {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(
+    to right,
+    #462523 0,
+    #cb9b51 22%,
+    #f6e27a 45%,
+    #f6f2c0 50%,
+    #f6e27a 55%,
+    #cb9b51 78%,
+    #462523 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0 0;
+  animation: gold_animation 2s linear infinite;
+}
+
+@keyframes gold_animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.badge-42fm {
+  position: relative;
+  border-radius: 2px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.8rem;
+  display: inline-block;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  margin: 0 0.3rem 0.2rem 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.badge-42fm:hover::after {
+  display: block;
+}
+.badge-42fm::after {
+  display: none;
+  content: attr(data-42fm-badge-tooltip);
+  position: absolute;
+  background: #fff;
+  color: #000;
+  text-align: center;
+  top: -200%;
+  right: 50%;
+  transform: translateX(50%);
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  z-index: 10;
+  width: max-content;
+}
