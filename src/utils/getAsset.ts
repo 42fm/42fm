@@ -1,8 +1,7 @@
-var browser = require("webextension-polyfill/dist/browser-polyfill.min");
+import browser from "webextension-polyfill";
 
 const getAsset = (assetName: string) => {
   return browser.runtime.getURL("../assets/" + assetName);
 };
-
 
 export default getAsset;
