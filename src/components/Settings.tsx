@@ -76,9 +76,7 @@ function Settings() {
     return getSettings();
   });
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = event.target;
     const name = target.name;
     //@ts-ignore
@@ -99,16 +97,12 @@ function Settings() {
     {
       name: "general",
       label: "General",
-      element: (
-        <SettingsGeneral handleChange={handleChange} settings={settings} />
-      ),
+      element: <SettingsGeneral handleChange={handleChange} settings={settings} />,
     },
     {
       name: "behaviour",
       label: "Behaviour",
-      element: (
-        <SettingsBehaviour handleChange={handleChange} settings={settings} />
-      ),
+      element: <SettingsBehaviour handleChange={handleChange} settings={settings} />,
     },
     {
       name: "chat",
@@ -131,17 +125,9 @@ function Settings() {
           ))}
         </Section>
         <Horizontal>
-          <ButtonIcon
-            icon={icons.github}
-            onClick={() => window.open("https://github.com/42fm", "_blank")}
-          />
-          {/* <ButtonIcon icon={icons.paypal} /> */}
-          {/* <ButtonIcon icon={icons.twitter} /> */}
-          {/* <ButtonIcon icon="../assets/github.svg" />
-          <ButtonIcon icon="../assets/github.svg" />
-          <ButtonIcon icon="../assets/github.svg" /> */}
+          Version: {browser.runtime.getManifest().version}
+          <ButtonIcon icon={icons.github} onClick={() => window.open("https://github.com/42fm", "_blank")} />
         </Horizontal>
-        Version: {browser.runtime.getManifest().version}
       </SidePanel>
       <Container>{tabs[tab].element}</Container>
     </Wrapper>
