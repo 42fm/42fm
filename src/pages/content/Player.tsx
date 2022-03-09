@@ -190,10 +190,21 @@ function Popup({ room }: { room: string }) {
     }
   };
 
+  const error = () => {
+    if (currentSong?.isPlaying) {
+      log("debug", "Could not load audio");
+      socket.emit("couldNotLoad", room);
+    } else {
+      log("debug", "Could not load audio but is paused");
+    }
+  };
+
   useEffect(() => {
     audio.addEventListener("canplaythrough", playthrough);
+    audio.addEventListener("error", error);
     return () => {
       audio.removeEventListener("canplaythrough", playthrough);
+      audio.removeEventListener("error", error);
     };
   }, [currentSong]);
 
