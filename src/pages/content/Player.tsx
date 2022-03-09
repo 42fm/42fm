@@ -58,8 +58,7 @@ const ProgressLine = styled.hr<{
   ${(props) => (props.position === "center" ? `height: auto;` : `height: 1px;`)}
   width: ${(props) => `${props.progress}%`};
   background-color: #7f00ff;
-  transition: width ${(props) => (props.duration ? props.duration / 100 : 1)}+
-    "s" linear;
+  transition: width ${(props) => (props.duration ? props.duration / 100 : 1)}+ "s" linear;
   z-index: 10;
   left: 0;
   ${(props) => props.position === "top" && `top: -1px;`}
@@ -101,7 +100,7 @@ function Popup({ room }: { room: string }) {
 
     socket.on("song", (data) => {
       audio.src = data.current.url;
-      let prevCurrent: Song | null = null;
+      let prevCurrent: CurrentSong | null = null;
       setCurrentSong((prev) => {
         prevCurrent = prev;
         return data.current;
@@ -139,7 +138,6 @@ function Popup({ room }: { room: string }) {
 
     socket.on("skip", (data) => {
       if (data.type === "noplaylist") {
-        audio.pause();
         audio.src = "";
         setTotal({ seconds: 0, minutes: 0 });
         setCurrentSong(null);
@@ -171,13 +169,6 @@ function Popup({ room }: { room: string }) {
       setIsAvailable(true);
     });
 
-    audio.addEventListener("canplaythrough", () => {
-      audio.play().then(() => {
-        log("info", `Player can play and started playing`);
-        setIsPlaying(true);
-      });
-    });
-
     audio.addEventListener("play", () => {
       socket.emit("sync", { room });
     });
@@ -187,6 +178,24 @@ function Popup({ room }: { room: string }) {
       audio.remove();
     };
   }, []);
+
+  const playthrough = () => {
+    if (currentSong?.isPlaying) {
+      audio.play().then(() => {
+        log("info", `Player can play and started playing`);
+        setIsPlaying(true);
+      });
+    } else {
+      log("info", `Player can play but is paused`);
+    }
+  };
+
+  useEffect(() => {
+    audio.addEventListener("canplaythrough", playthrough);
+    return () => {
+      audio.removeEventListener("canplaythrough", playthrough);
+    };
+  }, [currentSong]);
 
   useEffect(() => {
     socket.on("songSync", function (data) {
@@ -198,9 +207,7 @@ function Popup({ room }: { room: string }) {
 
   useEffect(() => {
     audio.addEventListener("loadedmetadata", () => {
-      setTotal(
-        intervalToDuration({ start: 0, end: Math.floor(audio.duration) * 1000 })
-      );
+      setTotal(intervalToDuration({ start: 0, end: Math.floor(audio.duration) * 1000 }));
     });
 
     audio.addEventListener("ended", () => {
@@ -208,9 +215,7 @@ function Popup({ room }: { room: string }) {
     });
 
     const interval = setInterval(() => {
-      const newProgress = Math.floor(
-        (audio.currentTime / audio.duration) * 100
-      );
+      const newProgress = Math.floor((audio.currentTime / audio.duration) * 100);
       setCurrent(
         intervalToDuration({
           start: 0,
@@ -235,21 +240,6 @@ function Popup({ room }: { room: string }) {
     setVolume(event.target.value);
   };
 
-  const toggle = () => {
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      if (socket.connected) {
-        audio.play().then(() => {
-          setIsPlaying(true);
-        });
-      } else {
-        socket.connect();
-      }
-    }
-  };
-
   const sync = () => {
     socket.emit("sync", { room });
   };
@@ -271,10 +261,7 @@ function Popup({ room }: { room: string }) {
     return (
       <Wrapper>
         <Content>
-          <InfoCard
-            text="42FM is not added on this channel"
-            left={<ButtonIcon icon={icons.warning} />}
-          />
+          <InfoCard text="42FM is not added on this channel" left={<ButtonIcon icon={icons.warning} />} />
         </Content>
       </Wrapper>
     );
@@ -286,14 +273,7 @@ function Popup({ room }: { room: string }) {
         <Content>
           <InfoCard
             text="Not conected"
-            right={
-              <ButtonIcon
-                icon={icons.connect}
-                onClick={() => connect()}
-                tooltip={"Connect"}
-                placement="left"
-              />
-            }
+            right={<ButtonIcon icon={icons.connect} onClick={() => connect()} tooltip={"Connect"} placement="left" />}
           />
         </Content>
       </Wrapper>
@@ -302,15 +282,8 @@ function Popup({ room }: { room: string }) {
 
   return (
     <Wrapper>
-      {/* <Moderation /> */}
       <Content>
-        {isCompact && (
-          <ProgressLine
-            progress={progress}
-            duration={currentSong?.duration}
-            position={getPosition()}
-          />
-        )}
+        {isCompact && <ProgressLine progress={progress} duration={currentSong?.duration} position={getPosition()} />}
         {!isCompact &&
           (!currentSong ? (
             <InfoCard text="Type &#34;!fm &lt;link&gt;&#34; to add a song" />
@@ -325,20 +298,13 @@ function Popup({ room }: { room: string }) {
                   username={currentSong?.username}
                 />
                 <ButtonsWrapper>
-                  <ButtonIcon
-                    icon={icons.reload}
-                    onClick={() => sync()}
-                    tooltip="Sync"
-                    placement="top-end"
-                  />
+                  <ButtonIcon icon={icons.reload} onClick={() => sync()} tooltip="Sync" placement="top-end" />
                   <ButtonIcon
                     icon={icons.disconnect}
                     onClick={() => disconnect()}
                     tooltip="Disconnect"
                     placement="top-end"
                   />
-                  {/* <ButtonIcon icon={icons.add} onClick={() => addSong()} tooltip="Add song" placement="top-end" /> */}
-                  {/* <ButtonIcon icon={icons.skip} onClick={() => skip()} tooltip="Skip" placement="top-end" /> */}
                 </ButtonsWrapper>
               </Header>
               <Progress audioProgress={progress} />
@@ -346,26 +312,18 @@ function Popup({ room }: { room: string }) {
           ))}
         <Header>
           <ButtonsWrapper>
-            {/* <ButtonIcon
+            <ButtonIcon
               icon={isPlaying ? icons.pause : icons.play}
-              onClick={toggle}
-              tooltip={isPlaying ? "Pause" : "Play"}
+              tooltip={isPlaying ? "Playing" : "Paused"}
               placement="bottom-start"
-            /> */}
+            />
             <ButtonIcon
               icon={audio.muted ? icons.volumeMuted : icons.volumeMedium}
               onClick={() => mute()}
               tooltip={audio.muted ? "Unmute" : "Mute"}
               placement="bottom-start"
             />
-            <StyledRange
-              type="range"
-              name="volume"
-              min={0}
-              max={100}
-              value={volume}
-              onChange={handleVolumeChange}
-            />
+            <StyledRange type="range" name="volume" min={0} max={100} value={volume} onChange={handleVolumeChange} />
             <span>{distanceFormatHMS(current, total)}</span>
           </ButtonsWrapper>
           <ButtonsWrapper>
@@ -389,10 +347,7 @@ function Popup({ room }: { room: string }) {
         </Header>
       </Content>
       <HorizontalLine />
-
       {isPlaylistOpen && <List history={history} playlist={songs} />}
-      {/* {isPlaylistOpen && <Playlist songs={songs} />} */}
-      {/* <History songs={history} /> */}
     </Wrapper>
   );
 }
