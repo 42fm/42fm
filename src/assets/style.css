@@ -17,6 +17,21 @@
   animation: gold_animation 2s linear infinite;
 }
 
+.botPaint {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(225deg, #ff7a00 0%, #ff00f5 50%, #ff7a00 100%);
+  background-size: 200% 100%;
+  background-position: 0 0;
+  animation: gold_animation 1s linear infinite;
+  font-weight: 800 !important;
+}
+
+.transparent42fm {
+  color: transparent !important;
+}
+
 @keyframes gold_animation {
   0% {
     background-position: 0 0;

@@ -31,7 +31,9 @@ const icons = {
   connect: browser.runtime.getURL("/assets/connect.svg"),
   disconnect: browser.runtime.getURL("/assets/disconnect.svg"),
   warning: browser.runtime.getURL("/assets/warning.svg"),
-  devBadge: browser.runtime.getURL("/assets/badge.gif"),
+  contributor: browser.runtime.getURL("/assets/contributor.png"),
+  botBadge: browser.runtime.getURL("/assets/botBadge.png"),
+  devBadge: browser.runtime.getURL("/assets/devBadge.gif"),
   pepeds: browser.runtime.getURL("/assets/pepeds.gif"),
   modcheck: browser.runtime.getURL("/assets/modcheck.gif"),
 };

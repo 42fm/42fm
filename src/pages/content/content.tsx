@@ -59,6 +59,54 @@ ReactDOM.render(
   headerElement
 );
 
+const badges: {
+  [key: string]: {
+    icon: string;
+    tooltip: string;
+  };
+} = {
+  dev: {
+    icon: icons.devBadge,
+    tooltip: "42FM Developer",
+  },
+  contributor: {
+    icon: icons.contributor,
+    tooltip: "42FM Contributor",
+  },
+  bot: {
+    icon: icons.botBadge,
+    tooltip: "42FM Bot",
+  },
+};
+
+const createBadge = (name: string) => {
+  const badgeElement = document.createElement("div");
+  badgeElement.style.backgroundImage = `url(${badges[name].icon})`;
+  badgeElement.setAttribute("class", "badge-42fm");
+  badgeElement.setAttribute("data-42fm-badge-tooltip", badges[name].tooltip);
+  return badgeElement;
+};
+
+const badgeOwners = [
+  {
+    twitch_id: "36768120",
+    twitch_name: "loczuk",
+    badge: createBadge("dev"),
+    paint: "goldDev",
+  },
+  {
+    twitch_id: "217273053",
+    twitch_name: "mat5son",
+    badge: createBadge("contributor"),
+  },
+  {
+    twitch_id: "773987717",
+    twitch_name: "42FM",
+    badge: createBadge("bot"),
+    paint: "botPaint",
+  },
+];
+
 const badge = document.createElement("span");
 badge.style.cssText = `
 background-image: url(${icons.devBadge});
@@ -97,25 +145,30 @@ const render = async () => {
     const messagesContainer = chat.querySelector(".chat-scrollable-area__message-container");
 
     if (messagesContainer) {
-      const observer = new MutationObserver(mutations => {
+      const observer = new MutationObserver((mutations) => {
         for (const mut of mutations) {
           for (const node of mut.addedNodes) {
             const line = node as Element;
             console.log(line);
-            if (
-              line.getAttribute("data-user-id") === "36768120" ||
-              line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user") === "loczuk"
-            ) {
+            const badgeOwner = badgeOwners.find(
+              (b) =>
+                b.twitch_id === line.getAttribute("data-user-id") ||
+                b.twitch_name === line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user")
+            );
+            if (badgeOwner) {
               const badges: HTMLElement = line.querySelector(".chat-line__message--badges")!;
               const badges2: HTMLElement = line.querySelector(".chat-line__username-container")!;
               const author: HTMLElement = line.querySelector(".chat-author__display-name")!;
 
-              if (!getSetting("disableBadges")) {
-                author.classList.add("goldDev");
+              if (!getSetting("disablePaints")) {
+                if (badgeOwner.paint) {
+                  author.classList.add("transparent42fm");
+                  author.classList.add(badgeOwner.paint);
+                }
               }
 
-              if (!getSetting("disablePaints")) {
-                const clone = badge.cloneNode();
+              if (!getSetting("disableBadges")) {
+                const clone = badgeOwner.badge.cloneNode();
                 if (badges !== null) {
                   badges.appendChild(clone);
                 } else if (badges2) {
