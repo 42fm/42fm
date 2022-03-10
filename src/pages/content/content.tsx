@@ -101,7 +101,7 @@ const badgeOwners = [
   },
   {
     twitch_id: "773987717",
-    twitch_name: "42FM",
+    twitch_name: "42fm",
     badge: createBadge("bot"),
     paint: "botPaint",
   },
