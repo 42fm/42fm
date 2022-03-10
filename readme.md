@@ -33,7 +33,7 @@ yarn build:chromium:dev
 
 OR
 
-# Building for Firefox (doesn't work at the moment)
+# Building for Firefox
 yarn build:firefox:prod
 ```
 
