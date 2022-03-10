@@ -17,9 +17,6 @@ uploads/
 access.log
 requests.http
 
-# types
-types/*
-
 # misc
 .DS_Store
 .env
