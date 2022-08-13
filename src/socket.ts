@@ -12,7 +12,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URI, {
   transports: ["websocket"],
 });
 
-getSetting("autoconnect") && socket.connect();
+getSetting("autoConnect") && socket.connect();
 
 socket.onAny((event, ...args) => {
   log("info", `Socket event: ${event}`);
