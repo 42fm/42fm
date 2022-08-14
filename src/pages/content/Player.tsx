@@ -79,7 +79,7 @@ function Popup({ room }: { room: string }) {
   const [history, push] = useHistory<Song>([]);
   const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
   const [volume, setVolume] = useState(() => {
-    return Number(localStorage.getItem("42FM:volume")) ?? 50;
+    return Number(localStorage.getItem("42FM:volume") ?? 50);
   });
   const [isCompact, setIsCompact] = useState(() => {
     return getSetting("isExpanded") ? true : false;
