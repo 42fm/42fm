@@ -22,9 +22,7 @@ function SettingsBehaviour({
   handleChange,
 }: {
   settings: any;
-  handleChange: (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }) {
   return (
     <div>
@@ -32,8 +30,8 @@ function SettingsBehaviour({
       <CheckboxWrapper>
         <Checkbox
           type="checkbox"
-          name="autoconnect"
-          checked={settings["autoconnect"]}
+          name="autoConnect"
+          checked={settings["autoConnect"]}
           onChange={handleChange}
           label="Connect automatically"
         />
