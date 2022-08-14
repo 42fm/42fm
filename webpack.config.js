@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const config = (env) => ({
   mode: "development",
-  devtool: env.NODE_ENV === "production" ? "" : "inline-source-map",
+  devtool: env.NODE_ENV === "production" ? "source-map" : "inline-source-map",
   entry: {
     content: path.resolve(__dirname, "src/pages/content/content.tsx"),
     background: path.resolve(__dirname, "src/pages/background/background.ts"),
