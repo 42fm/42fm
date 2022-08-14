@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Player from "./Player";
-import { ThemeProvider, DefaultTheme } from "styled-components";
-import { getSetting } from "../../utils/settings";
-import { log } from "../../utils/log";
-import { theme } from "../../theme";
+import { DefaultTheme, ThemeProvider } from "styled-components";
+import browser from "webextension-polyfill";
 import HeaderButton from "../../components/HeaderButton";
 import icons from "../../icons";
-import browser from "webextension-polyfill";
+import { theme } from "../../theme";
+import { log } from "../../utils/log";
+import { getSetting } from "../../utils/settings";
+import Player from "./Player";
 
 try {
   browser.runtime.sendMessage({ text: "load" });
@@ -33,7 +33,8 @@ const getChat = () => {
   return new Promise<HTMLDivElement>((resolve, reject) => {
     const interval = setInterval(() => {
       const chat = document.querySelector<HTMLDivElement>(".stream-chat");
-      if (chat) {
+      const isChatVisible = document.querySelector<HTMLDivElement>("#live-page-chat");
+      if (isChatVisible && chat) {
         clearInterval(interval);
         resolve(chat);
       }
@@ -149,7 +150,6 @@ const render = async () => {
         for (const mut of mutations) {
           for (const node of mut.addedNodes) {
             const line = node as Element;
-            console.log(line);
             const badgeOwner = badgeOwners.find(
               (b) =>
                 b.twitch_id === line.getAttribute("data-user-id") ||
