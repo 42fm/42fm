@@ -24,7 +24,7 @@
 ## Building
 
 ```
-git clone git@github.com:42fm/42fm.git --recursive
+git clone https://github.com/42fm/42fm --recursive
 cd 42fm
 yarn install
 
