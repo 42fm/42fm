@@ -85,6 +85,7 @@ function Popup({ room }: { room: string }) {
     return getSetting("isExpanded") ? true : false;
   });
   const debouncedVolume = useDebounce(volume, 1000);
+  const [userCount, setUserCount] = useState(0);
 
   const getPosition = () => {
     const pos = getSetting("position");
@@ -168,6 +169,10 @@ function Popup({ room }: { room: string }) {
     socket.on("yes42fm", () => {
       setIsAvailable(true);
     });
+
+    // socket.on("userCount", (count) => {
+    //   setUserCount(count);
+    // });
 
     audio.addEventListener("play", () => {
       socket.emit("sync", { room });
@@ -272,7 +277,7 @@ function Popup({ room }: { room: string }) {
     return (
       <Wrapper>
         <Content>
-          <InfoCard text="42FM is not added on this channel" left={<ButtonIcon icon={icons.warning} />} />
+          <InfoCard text="42FM is not added on this channel" left={<ButtonIcon icon={icons.warning} noInvert />} />
         </Content>
       </Wrapper>
     );
@@ -358,7 +363,7 @@ function Popup({ room }: { room: string }) {
         </Header>
       </Content>
       <HorizontalLine />
-      {isPlaylistOpen && <List history={history} playlist={songs} />}
+      {isPlaylistOpen && <List userCount={userCount} history={history} playlist={songs} />}
     </Wrapper>
   );
 }
