@@ -1,13 +1,12 @@
-import { io, Socket } from "socket.io-client";
 import { ClientToServerEvents, ServerToClientEvents } from "@typings/index";
+import { io, Socket } from "socket.io-client";
 import { log } from "./utils/log";
 import { getSetting } from "./utils/settings";
 
 // must be string or else it wont work in firefox
-const URI = process.env.NODE_ENV === "production" ? "https://twitch-chat-music.herokuapp.com" : "http://localhost:5000";
+const URI = process.env.NODE_ENV === "production" ? "https://api.42fm.app" : "http://localhost:5000";
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URI, {
-  withCredentials: true,
   autoConnect: false,
   transports: ["websocket"],
 });
