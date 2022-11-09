@@ -9,12 +9,13 @@ const Wrapper = styled.button`
   background-color: transparent;
   cursor: pointer;
   :hover {
-    background-color: #3a3a3d;
+    background-color: ${(props) => props.theme.color.iconHover};
   }
   :disabled {
     cursor: not-allowed;
     opacity: 0.5;
   }
+  user-select: none;
 `;
 
 const Arrow = styled.div`
@@ -84,6 +85,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: string;
   tooltip?: string;
   placement?: Placement;
+  noInvert?: boolean;
 }
 
 function ButtonIcon(props: Props) {
@@ -93,9 +95,9 @@ function ButtonIcon(props: Props) {
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [
       { name: "arrow", options: { element: arrowElement } },
-      { name: "offset", options: { offset: [0, 8] } }
+      { name: "offset", options: { offset: [0, 8] } },
     ],
-    placement: props.placement || "bottom"
+    placement: props.placement || "bottom",
   });
   const [show, setShow] = useState(false);
 
@@ -108,7 +110,7 @@ function ButtonIcon(props: Props) {
         onMouseEnter={() => setShow(true)}
         onMouseLeave={() => setShow(false)}
       >
-        {props.icon && <img src={props.icon} alt="Icon" />}
+        {props.icon && <img src={props.icon} className={props.noInvert ? "" : "icon-42fm"} alt="Icon" />}
         {props.children}
       </Wrapper>
       {props.tooltip && show && (
