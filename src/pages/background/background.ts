@@ -8,11 +8,11 @@ browserOrChrome.runtime.onMessage.addListener((msg: any, sender: browserOrChrome
     if (isChrome) {
       browserOrChrome.scripting.insertCSS({
         target: { tabId: sender.tab.id },
-        files: ["assets/style.css"]
+        files: ["assets/style.css"],
       });
     } else {
       browserOrChrome.tabs.insertCSS(sender.tab.id, {
-        file: "assets/style.css"
+        file: "assets/style.css",
       });
     }
   }
@@ -20,11 +20,11 @@ browserOrChrome.runtime.onMessage.addListener((msg: any, sender: browserOrChrome
     if (isChrome) {
       browserOrChrome.scripting.insertCSS({
         target: { tabId: sender.tab.id },
-        css: ".channel-leaderboard{display:none !important}"
+        css: ".channel-leaderboard{display:none !important}",
       });
     } else {
       browserOrChrome.tabs.insertCSS(sender.tab.id, {
-        code: ".channel-leaderboard{display:none !important}"
+        code: ".channel-leaderboard{display:none !important}",
       });
     }
   }
