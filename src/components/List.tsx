@@ -1,7 +1,7 @@
 import icons from "@/icons";
+import { Song } from "@typings/index";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Song } from "@typings/index";
 import ButtonIcon from "./ButtonIcon";
 import History from "./History";
 import { HorizontalLine } from "./HorizontalLine";
@@ -40,14 +40,16 @@ const SongWrapper = styled.div`
   }
 `;
 
-const Title = styled.h4`
+const Title = styled.div`
   text-align: center;
   padding: 16px;
+  position: relative;
+`;
+
+const TitleText = styled.h4`
   font-weight: bold;
   font-size: 16px;
   line-height: 19px;
-
-  position: relative;
 `;
 
 const AbsoluteButton = styled(ButtonIcon)`
@@ -56,23 +58,44 @@ const AbsoluteButton = styled(ButtonIcon)`
   right: 10px;
 `;
 
+const UserCount = styled.div`
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  span {
+    display: block;
+  }
+`;
+
+const Dot = styled.div`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #00f593;
+  margin-right: 8px;
+`;
+
 interface Props {
+  userCount: number;
   playlist: Song[];
   history: Song[];
 }
 
-function List({ playlist, history }: Props) {
+function List({ userCount, playlist, history }: Props) {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
   if (isHistoryOpen) {
     return (
       <Wrapper>
         <Title>
-          History
-          <AbsoluteButton
-            icon={icons.history}
-            onClick={() => setIsHistoryOpen((prev) => !prev)}
-          />
+          <TitleText>History</TitleText>
+          <AbsoluteButton icon={icons.history} onClick={() => setIsHistoryOpen((prev) => !prev)} />
         </Title>
         <Content>
           {history.length > 0 ? (
@@ -102,11 +125,12 @@ function List({ playlist, history }: Props) {
   return (
     <Wrapper>
       <Title>
-        Playlist
-        <AbsoluteButton
-          icon={icons.history}
-          onClick={() => setIsHistoryOpen((prev) => !prev)}
-        />
+        {/* <UserCount>
+          <Dot />
+          <span>{userCount}</span>
+        </UserCount> */}
+        <TitleText>Playlist</TitleText>
+        <AbsoluteButton icon={icons.history} onClick={() => setIsHistoryOpen((prev) => !prev)} />
       </Title>
       <Content>
         {playlist.length > 0 ? (

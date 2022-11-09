@@ -4,7 +4,7 @@ import { DefaultTheme, ThemeProvider } from "styled-components";
 import browser from "webextension-polyfill";
 import HeaderButton from "../../components/HeaderButton";
 import icons from "../../icons";
-import { theme } from "../../theme";
+import { darkMode, lightMode } from "../../theme";
 import { log } from "../../utils/log";
 import { getSetting } from "../../utils/settings";
 import Player from "./Player";
@@ -53,7 +53,7 @@ setInterval(async () => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkMode}>
       <HeaderButton />
     </ThemeProvider>
   </React.StrictMode>,
@@ -134,7 +134,7 @@ const render = async () => {
 
     ReactDOM.render(
       <React.StrictMode>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={darkMode}>
           <Player room={channelName} />
         </ThemeProvider>
       </React.StrictMode>,

@@ -12,7 +12,7 @@ const StyledInput = styled.input`
     height: 16px;
     width: 16px;
     border-radius: 16px;
-    background: white;
+    background: ${(props) => props.theme.text.primary};
     cursor: pointer;
     margin-top: -7px;
     position: relative;
