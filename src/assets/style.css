@@ -73,3 +73,7 @@
   z-index: 10;
   width: max-content;
 }
+
+.tw-root--theme-light #root-42fm .icon-42fm {
+  filter: invert(1);
+}

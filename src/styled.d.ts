@@ -9,6 +9,7 @@ declare module "styled-components" {
       twitch: string;
       input: string;
       hover: string;
+      iconHover: string;
     };
     text: {
       primary: string;
