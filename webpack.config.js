@@ -11,7 +11,6 @@ const config = (env) => ({
   entry: {
     content: path.resolve(__dirname, "src/pages/content/content.tsx"),
     background: path.resolve(__dirname, "src/pages/background/background.ts"),
-    popup: path.resolve(__dirname, "src/pages/popup/popup.tsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist", env.DIST),
@@ -57,11 +56,6 @@ const config = (env) => ({
     }),
     new CopyPlugin({
       patterns: [{ from: "src/assets", to: "assets" }],
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "src", "pages", "popup", "index.html"),
-      chunks: ["popup"],
-      filename: "popup.html",
     }),
   ],
   resolve: {
