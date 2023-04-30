@@ -68,7 +68,7 @@ const ProgressLine = styled.hr<{
 
 const audio = new Audio();
 
-function Popup({ room }: { room: string }) {
+function Player({ room }: { room: string }) {
   const [isAvailable, setIsAvailable] = useState<boolean>();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -368,4 +368,4 @@ function Popup({ room }: { room: string }) {
   );
 }
 
-export default Popup;
+export default Player;
