@@ -1,9 +1,4 @@
-// var isFirefox = true;
-// if (typeof browser === "undefined") {
-//   isFirefox = false;
-// }
-import getAsset from "./utils/getAsset";
-import browser from "webextension-polyfill";
+const browser = require("webextension-polyfill");
 
 const icons = {
   play: browser.runtime.getURL("/assets/play.svg"),
