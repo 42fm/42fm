@@ -1,6 +1,6 @@
-import icons from "@/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
+import icons from "../icons";
 import ButtonIcon from "./ButtonIcon";
 import Portal from "./Portal";
 import Settings from "./Settings";
@@ -58,7 +58,7 @@ const HeaderButton = () => {
       <Portal domNode={root}>
         {isOpen && (
           <Backdrop onClick={() => setisOpen(false)}>
-            <div onClick={e => e.stopPropagation()}>
+            <div onClick={(e) => e.stopPropagation()}>
               <Settings />
             </div>
           </Backdrop>
