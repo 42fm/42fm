@@ -1,3 +1,7 @@
+svg {
+  display: block;
+}
+
 .goldDev {
   background-clip: text;
   -webkit-background-clip: text;
@@ -67,8 +71,8 @@
   right: 50%;
   transform: translateX(50%);
   font-weight: bold;
-  padding: 4px 8px;
-  font-size: 13px;
+  padding: 4px;
+  font-size: 12px;
   border-radius: 4px;
   z-index: 10;
   width: max-content;
