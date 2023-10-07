@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "outDir": "./dist/",
     "baseUrl": "./",
+    "rootDir": "src",
     "sourceMap": true,
     "noImplicitReturns": true,
     "allowSyntheticDefaultImports": true,
@@ -12,13 +13,13 @@
     "jsx": "react",
     "paths": {
       "@/*": ["src/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@typings/*": ["types/*"]
+      "@hooks/*": ["src/hooks/*"]
     },
     "esModuleInterop": true,
     "strict": true,
     "resolveJsonModule": true,
-    "types": ["vite/client", "node"]
+    "types": ["vite/client", "node", "chrome", "youtube", "./types"]
   },
-  "include": ["./src"]
+  "include": ["./src/**/*"],
+  "exclude": ["./src/**/*.js"]
 }
