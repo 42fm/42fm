@@ -8,7 +8,7 @@
 
 ## Table of contents
 
-- [Installation](#installation)
+- [Installation](#installing)
 - [Building](#building)
 - [Contributing](#contributing)
 
@@ -29,7 +29,7 @@ cd 42fm
 yarn install
 
 # Building for Chromium based browsers (Chrome, Edge, Opera)
-yarn build:chromium:dev
+yarn build:chromium:prod
 
 OR
 
@@ -39,4 +39,4 @@ yarn build:firefox:prod
 
 ## Contributing
 
-If you want to contribute feel free to open a pull request. Be sure to checkout to the `dev` branch before making a pull request.
+If you want to contribute feel free to open a pull request.
