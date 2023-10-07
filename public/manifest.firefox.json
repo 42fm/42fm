@@ -29,5 +29,10 @@
       "matches": ["*://*.twitch.tv/*"]
     }
   ],
-  "host_permissions": ["*://*.twitch.tv/*"]
+  "host_permissions": ["*://*.twitch.tv/*"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{f68ef10c-b969-4023-8477-287af1b78e45}"
+    }
+  }
 }
