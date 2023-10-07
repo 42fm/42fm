@@ -7,9 +7,17 @@ const StyledInput = styled.input`
   width: 100%;
   background: transparent;
   appearance: none;
-  ::-webkit-slider-thumb,
-  ::-moz-range-thumb {
+  ::-webkit-slider-thumb {
     -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 16px;
+    background: ${(props) => props.theme.text.primary};
+    cursor: pointer;
+    margin-top: -7px;
+    position: relative;
+  }
+  ::-moz-range-thumb {
     height: 16px;
     width: 16px;
     border-radius: 16px;
