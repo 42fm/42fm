@@ -7,12 +7,26 @@ import Range from "@/components/Range";
 import SongInfo from "@/components/SongInfo";
 import useDebounce from "@/hooks/useDebounce";
 import useHistory from "@/hooks/useHistory";
-import icons from "@/icons";
+import useIsConnected from "@/hooks/useIsConnected";
 import socket from "@/socket";
+import { defaultIconProps } from "@/utils/icon";
 import { log } from "@/utils/log";
 import { getSetting } from "@/utils/settings";
 import { distanceFormatHMS } from "@/utils/utils";
-import { CurrentSong, Song } from "@typings/index";
+import {
+  UilArrowDown,
+  UilArrowUp,
+  UilBars,
+  UilExclamationTriangle,
+  UilLink,
+  UilLinkBroken,
+  UilPause,
+  UilPlay,
+  UilSync,
+  UilVideo,
+  UilVolume,
+  UilVolumeMute,
+} from "@iconscout/react-unicons";
 import { intervalToDuration } from "date-fns";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -58,7 +72,7 @@ const ProgressLine = styled.hr<{
   ${(props) => (props.position === "center" ? `height: auto;` : `height: 1px;`)}
   width: ${(props) => `${props.progress}%`};
   background-color: #7f00ff;
-  transition: width ${(props) => (props.duration ? props.duration / 100 : 1)}+ "s" linear;
+  transition: width ${(props) => (props.duration ? props.duration / 100 : 1)} + "s" linear;
   z-index: 10;
   left: 0;
   ${(props) => props.position === "top" && `top: -1px;`}
@@ -66,11 +80,16 @@ const ProgressLine = styled.hr<{
   ${(props) => props.position === "center" && `top: 0; bottom: 0`}
 `;
 
-const audio = new Audio();
+interface Props {
+  room: string;
+  player: YT.Player;
+  // togglePlayerVisibility: () => void;
+}
 
-function Player({ room }: { room: string }) {
+function Player({ room, player }: Props) {
   const [isAvailable, setIsAvailable] = useState<boolean>();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [total, setTotal] = useState<Duration>({ seconds: 0, minutes: 0 });
   const [current, setCurrent] = useState<Duration>({ seconds: 0, minutes: 0 });
@@ -79,13 +98,16 @@ function Player({ room }: { room: string }) {
   const [history, push] = useHistory<Song>([]);
   const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
   const [volume, setVolume] = useState(() => {
-    return Number(localStorage.getItem("42FM:volume") ?? 50);
+    const vol = Number(localStorage.getItem("42fm:volume")) ?? 50;
+    player.setVolume(vol);
+    return vol;
   });
   const [isCompact, setIsCompact] = useState(() => {
-    return getSetting("isExpanded") ? true : false;
+    return !getSetting("isExpanded");
   });
   const debouncedVolume = useDebounce(volume, 1000);
   const [userCount, setUserCount] = useState(0);
+  const isConnected = useIsConnected();
 
   const getPosition = () => {
     const pos = getSetting("position");
@@ -97,10 +119,16 @@ function Player({ room }: { room: string }) {
   };
 
   useEffect(() => {
-    socket.emit("joinRoom", { room });
+    if (getSetting("autoConnect")) {
+      socket.connect();
+      socket.emit("joinRoom", { room });
+    }
 
-    socket.on("song", (data) => {
-      audio.src = data.current.url;
+    socket.io.on("reconnect", () => {
+      socket.emit("joinRoom", { room });
+    });
+
+    function onSongEvent(data: Channel) {
       let prevCurrent: CurrentSong | null = null;
       setCurrentSong((prev) => {
         prevCurrent = prev;
@@ -109,42 +137,48 @@ function Player({ room }: { room: string }) {
       if (prevCurrent !== null) {
         push(prevCurrent);
       }
-      setSongs(data.list);
-    });
-
-    socket.on("playlistAdd", (data) => {
-      setSongs((prev) => [...prev, data]);
-    });
-
-    socket.on("pause", () => {
-      audio.pause();
-      setIsPlaying(false);
-    });
-
-    socket.on("play", () => {
-      audio.play().then(() => {
-        log("info", `Player started playing`);
-        setIsPlaying(true);
+      player.loadVideoById({
+        videoId: data.current.yt_id!,
+        startSeconds: data.current.duration - data.current.durationRemaining,
       });
-    });
+      setTotal(
+        intervalToDuration({
+          start: 1,
+          end: data.current.duration * 1000,
+        })
+      );
+      setSongs(data.list);
+    }
 
-    socket.on("clear", () => {
-      audio.pause();
-      audio.src = "";
+    function onPlaylistAddEvent(data: Song) {
+      setSongs((prev) => [...prev, data]);
+    }
+
+    function onPauseEvent() {
+      setIsPlaying(false);
+      player.pauseVideo();
+    }
+
+    function onPlayEvent() {
+      log("info", "Player started playing");
+      setIsPlaying(true);
+      player.playVideo();
+    }
+
+    function onClearEvent() {
+      player.pauseVideo();
       setTotal({ seconds: 0, minutes: 0 });
       setCurrentSong(null);
       setIsPlaying(false);
       setSongs([]);
-    });
+    }
 
-    socket.on("skip", (data) => {
+    function onSkipEvent(data: Skip) {
       if (data.type === "noplaylist") {
-        audio.src = "";
         setTotal({ seconds: 0, minutes: 0 });
         setCurrentSong(null);
         setIsPlaying(false);
       } else if (data.type === "playlist") {
-        audio.src = data.current.url;
         let prevCurrent: Song | null = null;
         setCurrentSong((prev) => {
           prevCurrent = prev;
@@ -154,106 +188,91 @@ function Player({ room }: { room: string }) {
           push(prevCurrent);
         }
         setSongs((prev) => prev.slice(1));
+        player.loadVideoById({
+          videoId: data.current.yt_id,
+        });
       }
-    });
+    }
 
-    socket.io.on("reconnect", () => {
-      socket.emit("joinRoom", { room });
-    });
-
-    socket.on("no42fm", () => {
+    function onNo42fmEvent() {
       setIsAvailable(false);
-    });
+    }
 
-    // not used but may be useful in the future
-    socket.on("yes42fm", () => {
+    function onYes42fmEvent() {
       setIsAvailable(true);
-    });
+    }
 
-    // socket.on("userCount", (count) => {
-    //   setUserCount(count);
-    // });
+    function onUserCountEvent(count: number) {
+      setUserCount(count);
+    }
 
-    audio.addEventListener("play", () => {
-      socket.emit("sync", { room });
-    });
+    socket.on("song", onSongEvent);
+    socket.on("playlistAdd", onPlaylistAddEvent);
+    socket.on("pause", onPauseEvent);
+    socket.on("play", onPlayEvent);
+    socket.on("clear", onClearEvent);
+    socket.on("skip", onSkipEvent);
+    socket.on("no42fm", onNo42fmEvent);
+    socket.on("yes42fm", onYes42fmEvent);
+    socket.on("userCount", onUserCountEvent);
 
     return () => {
-      audio.pause();
-      audio.remove();
+      socket.off("song", onSongEvent);
+      socket.off("playlistAdd", onPlaylistAddEvent);
+      socket.off("pause", onPauseEvent);
+      socket.off("play", onPlayEvent);
+      socket.off("clear", onClearEvent);
+      socket.off("skip", onSkipEvent);
+      socket.off("no42fm", onNo42fmEvent);
+      socket.off("yes42fm", onYes42fmEvent);
+      socket.off("userCount", onUserCountEvent);
     };
   }, []);
 
-  const playthrough = () => {
-    if (currentSong?.isPlaying) {
-      audio.play().then(() => {
-        log("info", `Player can play and started playing`);
-        setIsPlaying(true);
-      });
-    } else {
-      log("info", `Player can play but is paused`);
-    }
-  };
-
-  const error = () => {
-    if (currentSong?.isPlaying) {
-      log("debug", "Could not load audio");
-      socket.emit("couldNotLoad", room);
-    } else {
-      log("debug", "Could not load audio but is paused");
-    }
-  };
-
   useEffect(() => {
-    audio.addEventListener("canplaythrough", playthrough);
-    audio.addEventListener("error", error);
+    function onSongSyncEvent(data: number) {
+      if (currentSong) {
+        player.seekTo(currentSong?.duration - data, true);
+      }
+    }
+
+    socket.on("songSync", onSongSyncEvent);
+
     return () => {
-      audio.removeEventListener("canplaythrough", playthrough);
-      audio.removeEventListener("error", error);
+      socket.off("songSync", onSongSyncEvent);
     };
   }, [currentSong]);
 
   useEffect(() => {
-    socket.on("songSync", function (data) {
-      if (currentSong) {
-        audio.currentTime = currentSong?.duration - data;
-      }
-    });
-  }, [currentSong]);
-
-  useEffect(() => {
-    audio.addEventListener("loadedmetadata", () => {
-      setTotal(intervalToDuration({ start: 0, end: Math.floor(audio.duration) * 1000 }));
-    });
-
-    audio.addEventListener("ended", () => {
-      setIsPlaying(false);
-    });
+    setTotal(
+      intervalToDuration({
+        start: 0,
+        end: player.getDuration() * 1000,
+      })
+    );
 
     const interval = setInterval(() => {
-      const newProgress = Math.floor((audio.currentTime / audio.duration) * 100);
+      const newProgress = Math.floor((player.getCurrentTime() / player.getDuration()) * 100);
+
       setCurrent(
         intervalToDuration({
-          start: 0,
-          end: Math.floor(audio.currentTime) * 1000,
+          start: 1,
+          end: Math.floor(player.getCurrentTime()) * 1000,
         })
       );
       setProgress(newProgress);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [audio]);
+  }, []);
 
   useEffect(() => {
-    audio.volume = volume / 100;
-  }, [volume]);
-
-  useEffect(() => {
-    localStorage.setItem("42FM:volume", debouncedVolume.toString());
+    localStorage.setItem("42fm:volume", debouncedVolume.toString());
   }, [debouncedVolume]);
 
   const handleVolumeChange = (event: any) => {
     setVolume(event.target.value);
+    player.setVolume(event.target.value);
   };
 
   const sync = () => {
@@ -262,34 +281,58 @@ function Player({ room }: { room: string }) {
 
   const connect = () => {
     socket.connect();
+
+    socket.emit("joinRoom", { room });
   };
 
   const disconnect = () => {
-    audio.pause();
+    player.pauseVideo();
     socket.disconnect();
   };
 
   const mute = () => {
-    audio.muted = !audio.muted;
+    if (isMuted) {
+      player.unMute();
+      setIsMuted(false);
+    } else {
+      player.mute();
+      setIsMuted(true);
+    }
   };
 
-  if (isAvailable === false) {
+  const handlePlayerVisiblityChange = () => {
+    let curr = localStorage.getItem("42fm:hidePlayer");
+
+    localStorage.setItem("42fm:hidePlayer", curr === "true" ? "false" : "true");
+  };
+
+  if (!isConnected) {
     return (
       <Wrapper>
         <Content>
-          <InfoCard text="42FM is not added on this channel" left={<ButtonIcon icon={icons.warning} noInvert />} />
+          <InfoCard
+            text="Not connected to server"
+            right={
+              <ButtonIcon
+                icon={<UilLink {...defaultIconProps} />}
+                onClick={() => connect()}
+                tooltip="Connect"
+                placement="left"
+              />
+            }
+          />
         </Content>
       </Wrapper>
     );
   }
 
-  if (!socket.connected) {
+  if (isAvailable === false) {
     return (
       <Wrapper>
         <Content>
           <InfoCard
-            text="Not conected"
-            right={<ButtonIcon icon={icons.connect} onClick={() => connect()} tooltip={"Connect"} placement="left" />}
+            text="42FM is not added on this channel"
+            left={<ButtonIcon icon={<UilExclamationTriangle {...defaultIconProps} color="red" />} noInvert />}
           />
         </Content>
       </Wrapper>
@@ -314,29 +357,40 @@ function Player({ room }: { room: string }) {
                   username={currentSong?.username}
                 />
                 <ButtonsWrapper>
-                  <ButtonIcon icon={icons.reload} onClick={() => sync()} tooltip="Sync" placement="top-end" />
                   <ButtonIcon
-                    icon={icons.disconnect}
+                    icon={<UilVideo {...defaultIconProps} />}
+                    onClick={() => handlePlayerVisiblityChange()}
+                    tooltip="Toggle Player"
+                    placement="top-end"
+                  />
+                  <ButtonIcon
+                    icon={<UilSync {...defaultIconProps} />}
+                    onClick={() => sync()}
+                    tooltip="Sync"
+                    placement="top-end"
+                  />
+                  <ButtonIcon
+                    icon={<UilLinkBroken {...defaultIconProps} />}
                     onClick={() => disconnect()}
                     tooltip="Disconnect"
                     placement="top-end"
                   />
                 </ButtonsWrapper>
               </Header>
-              <Progress audioProgress={progress} />
+              {getSetting("hideProgress") === false && <Progress audioProgress={progress} />}
             </>
           ))}
         <Header>
           <ButtonsWrapper>
             <ButtonIcon
-              icon={isPlaying ? icons.pause : icons.play}
+              icon={isPlaying ? <UilPause {...defaultIconProps} /> : <UilPlay {...defaultIconProps} />}
               tooltip={isPlaying ? "Playing" : "Paused"}
               placement="bottom-start"
             />
             <ButtonIcon
-              icon={audio.muted ? icons.volumeMuted : icons.volumeMedium}
+              icon={isMuted ? <UilVolumeMute {...defaultIconProps} /> : <UilVolume {...defaultIconProps} />}
               onClick={() => mute()}
-              tooltip={audio.muted ? "Unmute" : "Mute"}
+              tooltip={isMuted ? "Unmute" : "Mute"}
               placement="bottom-start"
             />
             <StyledRange type="range" name="volume" min={0} max={100} value={volume} onChange={handleVolumeChange} />
@@ -344,7 +398,7 @@ function Player({ room }: { room: string }) {
           </ButtonsWrapper>
           <ButtonsWrapper>
             <ButtonIcon
-              icon={icons.list}
+              icon={<UilBars {...defaultIconProps} />}
               onClick={() => {
                 setIsPlaylistOpen(!isPlaylistOpen);
               }}
@@ -352,7 +406,7 @@ function Player({ room }: { room: string }) {
               placement="bottom-end"
             />
             <ButtonIcon
-              icon={isCompact ? icons.expand : icons.compact}
+              icon={isCompact ? <UilArrowDown {...defaultIconProps} /> : <UilArrowUp {...defaultIconProps} />}
               onClick={() => {
                 setIsCompact(!isCompact);
               }}

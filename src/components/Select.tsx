@@ -1,4 +1,3 @@
-import icons from "@/icons";
 import React from "react";
 import styled from "styled-components";
 
@@ -10,7 +9,7 @@ const Wrapper = styled.div`
   ::before {
     content: "";
     position: absolute;
-    background: ${`url(${icons.carrot})`};
+    background: "";
     right: 10px;
     top: 0;
     bottom: 0;

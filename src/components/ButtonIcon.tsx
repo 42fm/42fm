@@ -82,7 +82,7 @@ type Placement =
   | "left-end";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: string;
+  icon?: React.ReactNode;
   tooltip?: string;
   placement?: Placement;
   noInvert?: boolean;
@@ -90,8 +90,8 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 function ButtonIcon(props: Props) {
   const [referenceElement, setReferenceElement] = useState<HTMLButtonElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLButtonElement | null>(null);
-  const [arrowElement, setArrowElement] = useState<HTMLButtonElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
+  const [arrowElement, setArrowElement] = useState<HTMLDivElement | null>(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [
       { name: "arrow", options: { element: arrowElement } },
@@ -110,14 +110,12 @@ function ButtonIcon(props: Props) {
         onMouseEnter={() => setShow(true)}
         onMouseLeave={() => setShow(false)}
       >
-        {props.icon && <img src={props.icon} className={props.noInvert ? "" : "icon-42fm"} alt="Icon" />}
+        {props.icon}
         {props.children}
       </Wrapper>
       {props.tooltip && show && (
-        // @ts-ignore
         <Tooltip ref={setPopperElement} style={styles.popper} {...attributes.popper}>
           {props.tooltip}
-          {/* @ts-ignore */}
           <Arrow ref={setArrowElement} style={styles.arrow} className="arrow" />
         </Tooltip>
       )}

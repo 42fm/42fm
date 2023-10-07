@@ -1,8 +1,8 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-function Portal({ children, domNode }: { children: ReactNode; domNode: Element }) {
-  return createPortal(children, domNode);
+function Portal({ children, domNode, key }: { children: ReactNode; domNode: Element; key?: string }) {
+  return createPortal(children, domNode, key);
 }
 
 export default Portal;

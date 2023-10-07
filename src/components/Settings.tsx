@@ -1,16 +1,14 @@
-import React, { ChangeEvent, useEffect, useReducer, useState } from "react";
+import { defaultIconProps } from "@/utils/icon";
+import { UilGithub } from "@iconscout/react-unicons";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
+import logo32 from "../assets/logo-32.png";
+import { getSettings, setSetting } from "../utils/settings";
 import ButtonIcon from "./ButtonIcon";
 import Image from "./Image";
-import Select from "./Select";
-import SettingsGeneral from "./SettingsGeneral";
-import { default_settings, getSettings } from "../utils/settings";
 import SettingsBehaviour from "./SettingBehaviour";
 import SettingsChat from "./SettingsChat";
-import icons from "@/icons";
-import logo from "../assets/logo-32.png";
-import getAsset from "@/utils/getAsset";
-import browser from "webextension-polyfill";
+import SettingsGeneral from "./SettingsGeneral";
 
 const Wrapper = styled.div`
   width: 700px;
@@ -72,6 +70,7 @@ const Container = styled.div`
 
 function Settings() {
   const [tab, setTab] = useState(0);
+  const [version, setVersion] = useState("0.1.3");
   const [settings, setSettings] = useState(() => {
     return getSettings();
   });
@@ -86,7 +85,8 @@ function Settings() {
       ...settings,
       [name]: value,
     });
-    localStorage.setItem(`42FM:settings:${name}`, value.toString());
+
+    setSetting(name, value.toString());
   };
 
   const handleClick = (tab: number) => {
@@ -115,7 +115,7 @@ function Settings() {
     <Wrapper>
       <SidePanel>
         <SectionLeft>
-          <Image src={getAsset("logo-32.png")} />
+          <Image src={logo32} />
         </SectionLeft>
         <Section>
           {tabs.map((tab, index) => (
@@ -125,8 +125,11 @@ function Settings() {
           ))}
         </Section>
         <Horizontal>
-          Version: {browser.runtime.getManifest().version}
-          <ButtonIcon icon={icons.github} onClick={() => window.open("https://github.com/42fm", "_blank")} />
+          Version: {version}
+          <ButtonIcon
+            icon={<UilGithub {...defaultIconProps} />}
+            onClick={() => window.open("https://github.com/42fm", "_blank")}
+          />
         </Horizontal>
       </SidePanel>
       <Container>{tabs[tab].element}</Container>

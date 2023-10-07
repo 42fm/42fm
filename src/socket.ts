@@ -1,17 +1,10 @@
-import { ClientToServerEvents, ServerToClientEvents } from "@typings/index";
-import { io, Socket } from "socket.io-client";
+import { Socket, io } from "socket.io-client";
 import { log } from "./utils/log";
-import { getSetting } from "./utils/settings";
 
-// must be string or else it wont work in firefox
-const URI = import.meta.env.PROD ? "https://api.42fm.app" : "http://localhost:5000";
-
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(URI, {
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(process.env.SOCKET_ENDPOINT!, {
   autoConnect: false,
   transports: ["websocket"],
 });
-
-getSetting("autoConnect") && socket.connect();
 
 socket.onAny((event, ...args) => {
   log("info", `Socket event: ${event}`);

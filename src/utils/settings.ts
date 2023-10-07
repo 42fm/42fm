@@ -6,11 +6,21 @@ export const default_settings: {
   isExpanded: true,
   hideLeaderboard: true,
   disableBadges: false,
-  disablePaints: false
+  disablePaints: false,
+};
+
+const setSetting = (id: string, value: any) => {
+  localStorage.setItem(`42fm:settings:${id}`, value);
+};
+
+const setSettings = (map: { [key: string]: any }) => {
+  for (let key in map) {
+    setSetting(key, map[key]);
+  }
 };
 
 const getSetting = (id: string) => {
-  const value = localStorage.getItem(`42FM:settings:${id}`);
+  const value = localStorage.getItem(`42fm:settings:${id}`);
   if (value === null) {
     return default_settings[id];
   }
@@ -28,12 +38,12 @@ const getSettings = () => {
   let settings: { [key: string]: string | boolean } = { ...default_settings };
 
   for (let key in items) {
-    if (key.startsWith("42FM:settings:")) {
-      const keyWithoutPrefix = key.replace("42FM:settings:", "");
+    if (key.startsWith("42fm:settings:")) {
+      const keyWithoutPrefix = key.replace("42fm:settings:", "");
       settings[keyWithoutPrefix] = getSetting(keyWithoutPrefix);
     }
   }
   return settings;
 };
 
-export { getSetting, getSettings };
+export { getSetting, getSettings, setSetting };

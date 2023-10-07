@@ -30,18 +30,12 @@ function SettingsGeneral({
   handleChange,
 }: {
   settings: any;
-  handleChange: (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }) {
   return (
     <div>
       <Title>Progress bar position in compact mode</Title>
-      <Select
-        name="position"
-        value={settings["position"]}
-        onChange={handleChange}
-      >
+      <Select name="position" value={settings["position"]} onChange={handleChange}>
         <option value="top">Top</option>
         <option value="bottom">Bottom</option>
         <option value="center">Center</option>

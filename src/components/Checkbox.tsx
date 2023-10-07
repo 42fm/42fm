@@ -13,7 +13,7 @@ const ShownCheckbox = styled.div`
     width: 8px;
     height: 8px;
     inset: 2px;
-    background: ${props => props.theme.color.twitch};
+    background: ${(props) => props.theme.color.twitch};
     visibility: hidden;
   }
 `;
@@ -30,7 +30,7 @@ const Wrapper = styled.label`
   font-size: 12px;
   cursor: pointer;
   ${HiddenCheckbox}:checked + ${ShownCheckbox} {
-    border: 2px solid ${props => props.theme.color.twitch};
+    border: 2px solid ${(props) => props.theme.color.twitch};
     ::after {
       visibility: visible;
     }

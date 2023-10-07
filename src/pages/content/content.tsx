@@ -1,20 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { DefaultTheme, ThemeProvider } from "styled-components";
-import browser from "webextension-polyfill";
+import { ThemeProvider } from "styled-components";
+import botBadge from "../../assets/botBadge.png";
+import contributor from "../../assets/contributor.png";
+import devBadge from "../../assets/devBadge.gif";
 import HeaderButton from "../../components/HeaderButton";
-import icons from "../../icons";
-import { darkMode, lightMode } from "../../theme";
+import { darkMode } from "../../theme";
 import { log } from "../../utils/log";
 import { getSetting } from "../../utils/settings";
 import Player from "./Player";
+import YoutubePlayer from "./YoutubePlayer";
 
-try {
-  browser.runtime.sendMessage({ text: "load" });
-  getSetting("hideLeaderboard") && browser.runtime.sendMessage({ text: "leaderboard" });
-} catch (e) {
-  log("error", e);
-}
+log("debug", "Content File");
 
 const channelRegex = /(https:\/\/[a-z]*.twitch.tv\/)(?:(u|popout|moderator)\/)?([a-zA-Z0-9_]{3,25})/;
 const getChannelName = () => {
@@ -42,14 +39,27 @@ const getChat = () => {
   });
 };
 
+const getYT = () => {
+  return new Promise((resolve, reject) => {
+    const interval = setInterval(() => {
+      // @ts-ignore
+      if (window.YT !== undefined) {
+        clearInterval(interval);
+        resolve(true);
+      }
+    }, 500);
+  });
+};
+
 setInterval(async () => {
   const newChannelName = getChannelName();
   if (channelName !== newChannelName) {
     log("debug", `Channel changed: ${channelName} -> ${newChannelName}`);
     channelName = newChannelName;
+    player.pauseVideo();
     render();
   }
-}, 5000);
+}, 1000);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -67,15 +77,15 @@ const badges: {
   };
 } = {
   dev: {
-    icon: icons.devBadge,
+    icon: devBadge,
     tooltip: "42FM Developer",
   },
   contributor: {
-    icon: icons.contributor,
+    icon: contributor,
     tooltip: "42FM Contributor",
   },
   bot: {
-    icon: icons.botBadge,
+    icon: botBadge,
     tooltip: "42FM Bot",
   },
 };
@@ -83,7 +93,7 @@ const badges: {
 const createBadge = (name: string) => {
   const badgeElement = document.createElement("div");
   badgeElement.style.backgroundImage = `url(${badges[name].icon})`;
-  badgeElement.setAttribute("class", "badge-42fm");
+  badgeElement.setAttribute("class", "badge-42fm chat-badge");
   badgeElement.setAttribute("data-42fm-badge-tooltip", badges[name].tooltip);
   return badgeElement;
 };
@@ -110,11 +120,55 @@ const badgeOwners = [
 
 const badge = document.createElement("span");
 badge.style.cssText = `
-background-image: url(${icons.devBadge});
+background-image: "";
 `;
 
 badge.setAttribute("data-42fm-badge-tooltip", "42FM Developer");
 badge.setAttribute("class", "badge-42fm");
+
+let testRoot = document.querySelector("#root");
+let testElement = document.createElement("div");
+testRoot?.after(testElement);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider theme={darkMode}>
+      <YoutubePlayer />
+    </ThemeProvider>
+  </React.StrictMode>,
+  testElement
+);
+
+export let player: YT.Player;
+
+player = new YT.Player("42fm-yt-player", {
+  height: "270",
+  width: "480",
+  videoId: "Yo5QO8K0DrA",
+  // videoId: "3yd_eoMOvqk",
+  playerVars: {
+    playsinline: 1,
+    disablekb: 1,
+    rel: 0,
+    autohide: 1,
+    modestbranding: 1,
+    showinfo: 0,
+    controls: 1,
+  },
+  events: {
+    onReady: onPlayerReady,
+  },
+});
+
+export async function onPlayerReady(event: YT.PlayerEvent) {
+  log("info", "onPlayerReady");
+
+  player.playVideo();
+  player.playVideo();
+  player.pauseVideo();
+
+  await render();
+}
 
 const render = async () => {
   try {
@@ -127,6 +181,12 @@ const render = async () => {
       return;
     }
 
+    log("info", "Getting YT");
+
+    await getYT();
+
+    log("info", "Got YT");
+
     const chatHeader = chat.querySelector(".stream-chat-header")!;
     const chatHeaderElement = document.createElement("div");
     chatHeaderElement.setAttribute("id", "root-42fm");
@@ -135,7 +195,7 @@ const render = async () => {
     ReactDOM.render(
       <React.StrictMode>
         <ThemeProvider theme={darkMode}>
-          <Player room={channelName} />
+          <Player room={channelName} player={player} />
         </ThemeProvider>
       </React.StrictMode>,
       chatHeaderElement
@@ -187,5 +247,3 @@ const render = async () => {
     log("error", e);
   }
 };
-
-render();

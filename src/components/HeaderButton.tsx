@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import icons from "../icons";
+import logo from "../assets/logo-32.png";
 import ButtonIcon from "./ButtonIcon";
 import Portal from "./Portal";
 import Settings from "./Settings";
@@ -38,32 +38,36 @@ const Wrapper = styled.div`
   }
 `;
 
-const root = document.getElementById("root")!;
-
 const Backdrop = styled.div`
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const HeaderButton = () => {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Wrapper>
-      <ButtonIcon icon={icons.logo} onClick={() => setisOpen(!isOpen)} tooltip="42FM Settings" placement="bottom-end" />
-      <Portal domNode={root}>
-        {isOpen && (
-          <Backdrop onClick={() => setisOpen(false)}>
+      <ButtonIcon
+        icon={<img src={logo} />}
+        onClick={() => setIsOpen(!isOpen)}
+        tooltip="42FM Settings"
+        placement="bottom-end"
+      />
+      {isOpen && (
+        <Portal domNode={document.getElementById("root")!}>
+          <Backdrop onClick={() => setIsOpen(false)}>
             <div onClick={(e) => e.stopPropagation()}>
               <Settings />
             </div>
           </Backdrop>
-        )}
-      </Portal>
+        </Portal>
+      )}
     </Wrapper>
   );
 };

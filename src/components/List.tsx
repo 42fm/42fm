@@ -1,11 +1,11 @@
-import icons from "@/icons";
-import { Song } from "@typings/index";
+import { defaultIconProps } from "@/utils/icon";
+import { UilRefresh, UilUser } from "@iconscout/react-unicons";
 import React, { useState } from "react";
 import styled from "styled-components";
+import modcheck from "../assets/modcheck.gif";
+import pepeDS from "../assets/pepeds.gif";
 import ButtonIcon from "./ButtonIcon";
-import History from "./History";
 import { HorizontalLine } from "./HorizontalLine";
-import Playlist from "./Playlist";
 import SongInfo from "./SongInfo";
 
 const Wrapper = styled.div`
@@ -73,12 +73,12 @@ const UserCount = styled.div`
   }
 `;
 
-const Dot = styled.div`
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #00f593;
-  margin-right: 8px;
+const UserCountText = styled.span`
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #00f593;
+  margin-right: 4px;
 `;
 
 interface Props {
@@ -95,7 +95,7 @@ function List({ userCount, playlist, history }: Props) {
       <Wrapper>
         <Title>
           <TitleText>History</TitleText>
-          <AbsoluteButton icon={icons.history} onClick={() => setIsHistoryOpen((prev) => !prev)} />
+          <AbsoluteButton icon={<UilRefresh {...defaultIconProps} />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
         </Title>
         <Content>
           {history.length > 0 ? (
@@ -112,7 +112,7 @@ function List({ userCount, playlist, history }: Props) {
             ))
           ) : (
             <SongWrapper>
-              <img src={icons.modcheck} alt="modCheck" />
+              <img src={modcheck} alt="modCheck" />
               Any songs?
             </SongWrapper>
           )}
@@ -125,12 +125,12 @@ function List({ userCount, playlist, history }: Props) {
   return (
     <Wrapper>
       <Title>
-        {/* <UserCount>
-          <Dot />
-          <span>{userCount}</span>
-        </UserCount> */}
+        <UserCount>
+          <UserCountText>{userCount}</UserCountText>
+          <UilUser {...defaultIconProps} color="#00f593" />
+        </UserCount>
         <TitleText>Playlist</TitleText>
-        <AbsoluteButton icon={icons.history} onClick={() => setIsHistoryOpen((prev) => !prev)} />
+        <AbsoluteButton icon={<UilRefresh {...defaultIconProps} />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
       </Title>
       <Content>
         {playlist.length > 0 ? (
@@ -147,7 +147,7 @@ function List({ userCount, playlist, history }: Props) {
           ))
         ) : (
           <SongWrapper>
-            <img src={icons.pepeds} alt="pepeDS" />
+            <img src={pepeDS} alt="pepeDS" />
             Add a song and make the chat move!
           </SongWrapper>
         )}

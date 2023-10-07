@@ -22,9 +22,7 @@ function SettingsChat({
   handleChange,
 }: {
   settings: any;
-  handleChange: (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }) {
   return (
     <div>

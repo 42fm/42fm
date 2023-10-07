@@ -7,7 +7,8 @@ const StyledInput = styled.input`
   width: 100%;
   background: transparent;
   appearance: none;
-  ::-webkit-slider-thumb {
+  ::-webkit-slider-thumb,
+  ::-moz-range-thumb {
     -webkit-appearance: none;
     height: 16px;
     width: 16px;
@@ -24,6 +25,9 @@ const StyledInput = styled.input`
     cursor: pointer;
     background: #adadb8;
     border-radius: 2px;
+  }
+  ::-moz-range-track {
+    background-color: #adadb8;
   }
 `;
 

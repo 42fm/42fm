@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "./Image";
-// @ts-ignore
 import def from "../assets/logo-64.png";
+import Image from "./Image";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,12 +51,10 @@ function SongInfo({ title = "No Title", description = "No description", image = 
     <Wrapper>
       <Image src={image} width="40px" height="40px" />
       <TextWrapper>
-        <Title href={`https://www.youtube.com/watch?v=${yt_id}`} target="_blank" rel="noreferrer noopener">
-          {title}
+        <Title href={`https://youtube.com/watch?v=${yt_id}`} target="_blank" rel="noreferrer noopener">
+          {title} by {description}
         </Title>
-        <SubTitle>
-          {description} by {username}
-        </SubTitle>
+        <SubTitle>Added by {username}</SubTitle>
       </TextWrapper>
     </Wrapper>
   );

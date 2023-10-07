@@ -49,6 +49,13 @@ function SettingsBehaviour({
           onChange={handleChange}
           label="Hide chat leaderboard"
         />
+        <Checkbox
+          type="checkbox"
+          name="hideProgress"
+          checked={settings["hideProgress"]}
+          onChange={handleChange}
+          label="Hide player progress bar"
+        />
       </CheckboxWrapper>
     </div>
   );

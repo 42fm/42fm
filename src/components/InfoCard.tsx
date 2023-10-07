@@ -1,11 +1,10 @@
 import React from "react";
-import { ReactChild, ReactFragment, ReactPortal } from "react";
 import styled from "styled-components";
 
 interface Props {
-  left?: boolean | ReactChild | ReactFragment | ReactPortal;
+  left?: boolean | React.ReactNode;
   text: string;
-  right?: boolean | ReactChild | ReactFragment | ReactPortal;
+  right?: boolean | React.ReactNode;
 }
 
 const Wrapper = styled.div<Props>`
@@ -14,9 +13,9 @@ const Wrapper = styled.div<Props>`
   justify-content: center;
   flex-direction: row;
   gap: 8px;
-  padding: ${props => (props.left || props.right ? "8px" : "16px")} 16px;
+  padding: ${(props) => (props.left || props.right ? "8px" : "16px")} 16px;
   width: 100%;
-  background: ${props => props.theme.color.primary};
+  background: ${(props) => props.theme.color.primary};
   border-radius: 8px;
 `;
 
