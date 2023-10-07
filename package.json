@@ -2,11 +2,13 @@
   "name": "42fm",
   "version": "0.0.5",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "build:chromium:dev": "webpack --env=DIST=chromium --env=MV=3 --mode development",
-    "build:chromium:prod": "webpack --env=DIST=chromium --env=MV=3 --mode production",
-    "build:firefox:prod": "webpack --env=DIST=firefox --env=MV=2 --mode production"
+    "start:chromium": "webpack --env=DIST=chromium --env=BROWSER=chrome --watch --config webpack.dev.js",
+    "start:firefox": "webpack --env=DIST=firefox --env=BROWSER=firefox --watch --config webpack.dev.js",
+    "build:chromium:prod": "webpack --env=DIST=chromium --env=BROWSER=chrome --config webpack.prod.js",
+    "build:firefox:prod": "webpack --env=DIST=firefox --env=BROWSER=firefox --config webpack.prod.js",
+    "build:chromium:dev": "webpack --env=DIST=chromium --env=BROWSER=chrome --config webpack.dev.js",
+    "build:firefox:dev": "webpack --env=DIST=firefox --env=BROWSER=firefox --config webpack.dev.js"
   },
   "author": "loczek",
   "license": "MIT",
