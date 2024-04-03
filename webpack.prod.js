@@ -8,7 +8,7 @@ module.exports = (env) => {
     mode: "production",
     plugins: [
       new Dotenv({
-        path: "./.env.production.local",
+        path: "./.env.production",
       }),
       new CopyPlugin({
         patterns: [

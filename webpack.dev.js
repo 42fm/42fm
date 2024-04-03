@@ -14,7 +14,7 @@ module.exports = (env) => {
     },
     plugins: [
       new Dotenv({
-        path: "./.env",
+        path: "./.env.development",
       }),
       new CopyPlugin({
         patterns: [
