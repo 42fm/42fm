@@ -1,6 +1,6 @@
 import { defaultIconProps } from "@/utils/icon";
 import { UilGithub } from "@iconscout/react-unicons";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import logo32 from "../assets/logo-32.png";
 import { getSettings, setSetting } from "../utils/settings";
@@ -70,7 +70,7 @@ const Container = styled.div`
 
 function Settings() {
   const [tab, setTab] = useState(0);
-  const [version, setVersion] = useState("0.1.3");
+  const [version, setVersion] = useState("0.1.4");
   const [settings, setSettings] = useState(() => {
     return getSettings();
   });
