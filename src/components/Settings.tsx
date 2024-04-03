@@ -70,7 +70,7 @@ const Container = styled.div`
 
 function Settings() {
   const [tab, setTab] = useState(0);
-  const [version, setVersion] = useState("0.1.4");
+  const [version, setVersion] = useState("0.1.5");
   const [settings, setSettings] = useState(() => {
     return getSettings();
   });
