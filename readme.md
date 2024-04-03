@@ -26,6 +26,7 @@
 1. Clone repo `git clone https://github.com/42fm/42fm --recursive`
 1. Change directory `cd 42fm`
 1. Make sure to use the node version inside the `.nvmrc` file
+1. Be sure to enable corepack with `corepack enable`
 1. Install dependencies `yarn install`
 1. Build for platform `yarn:chromium:prod` or `yarn:firefox:prod`
 1. The output will be in the `dist/chromium` or `dist/firefox` respectively
