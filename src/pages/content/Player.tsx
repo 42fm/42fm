@@ -395,7 +395,7 @@ function Player({ room, player }: Props) {
               placement="bottom-start"
             />
             <StyledRange type="range" name="volume" min={0} max={100} value={volume} onChange={handleVolumeChange} />
-            <span>{distanceFormatHMS(current, total)}</span>
+            <span style={{ fontVariantNumeric: "tabular-nums" }}>{distanceFormatHMS(current, total)}</span>
           </ButtonsWrapper>
           <ButtonsWrapper>
             <ButtonIcon
