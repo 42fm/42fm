@@ -93,7 +93,7 @@ const badges: {
 const createBadge = (name: string) => {
   const badgeElement = document.createElement("div");
   badgeElement.style.backgroundImage = `url(${badges[name].icon})`;
-  badgeElement.setAttribute("class", "badge-42fm chat-badge");
+  badgeElement.setAttribute("class", "badge-42fm");
   badgeElement.setAttribute("data-42fm-badge-tooltip", badges[name].tooltip);
   return badgeElement;
 };
@@ -108,6 +108,16 @@ const badgeOwners = [
   {
     twitch_id: "217273053",
     twitch_name: "mat5son",
+    badge: createBadge("contributor"),
+  },
+  {
+    twitch_id: "96104648",
+    twitch_name: "vcezv",
+    badge: createBadge("contributor"),
+  },
+  {
+    twitch_id: "38871352",
+    twitch_name: "oneeyecat99",
     badge: createBadge("contributor"),
   },
   {
@@ -243,6 +253,53 @@ const render = async () => {
       observer.observe(messagesContainer, { childList: true });
       log("debug", `Started observer for ${channelName}`);
     }
+
+    setTimeout(() => {
+      const sevenTvMessageContainer = chat.querySelector("#seventv-message-container");
+
+      if (!sevenTvMessageContainer) return;
+
+      const sevenTvMessages = sevenTvMessageContainer?.querySelector(".seventv-chat-list");
+
+      if (!sevenTvMessages) return;
+
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            const line = node as Element;
+
+            const username = line.querySelector(".seventv-chat-user-username > span > span")?.textContent;
+
+            if (!username) continue;
+
+            const badgeOwner = badgeOwners.find((b) => b.twitch_name === username?.toLowerCase());
+
+            if (!badgeOwner) continue;
+
+            const chatUser = line.querySelector(".seventv-chat-user");
+
+            if (!chatUser) continue;
+
+            let badges = chatUser.querySelector(".seventv-chat-user-badge-list");
+
+            if (!badges) {
+              badges = document.createElement("span");
+              badges.classList.add("seventv-chat-user-badge-list");
+              chatUser.prepend(badges);
+            }
+
+            if (!getSetting("disableBadges")) {
+              const clone = badgeOwner.badge.cloneNode() as Element;
+              if (badges !== null) {
+                badges.appendChild(clone);
+              }
+            }
+          }
+        }
+      });
+
+      observer.observe(sevenTvMessages, { childList: true });
+    }, 5000);
   } catch (e) {
     log("error", e);
   }

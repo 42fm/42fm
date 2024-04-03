@@ -53,7 +53,6 @@ svg {
   display: inline-block;
   min-width: 1.8rem;
   height: 1.8rem;
-  margin: 0 0.3rem 0.2rem 0;
   vertical-align: middle;
   cursor: pointer;
 }
@@ -76,6 +75,21 @@ svg {
   border-radius: 4px;
   z-index: 10;
   width: max-content;
+}
+
+.seventv-chat-user-badge-list > div:not(:first-child) {
+  display: inline-block;
+  margin-left: 0.25em;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.seventv-chat-user-badge-list {
+  margin-right: 0.25em;
+}
+
+.chat-line__username-container > span > .badge-42fm {
+  margin: 0 0.3rem 0.2rem 0;
 }
 
 .tw-root--theme-light #root-42fm .icon-42fm {
