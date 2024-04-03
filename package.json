@@ -2,13 +2,14 @@
   "name": "42fm",
   "version": "0.1.4",
   "scripts": {
-    "build": "vite build",
+    "build": "yarn build:chromium:prod && yarn build:firefox:prod",
     "start:chromium": "webpack --env=DIST=chromium --env=BROWSER=chrome --watch --config webpack.dev.js",
     "start:firefox": "webpack --env=DIST=firefox --env=BROWSER=firefox --watch --config webpack.dev.js",
-    "build:chromium:prod": "webpack --env=DIST=chromium --env=BROWSER=chrome --config webpack.prod.js",
-    "build:firefox:prod": "webpack --env=DIST=firefox --env=BROWSER=firefox --config webpack.prod.js",
+    "build:chromium:prod": "webpack --mode production --env=DIST=chromium --env=BROWSER=chrome --config webpack.prod.js",
+    "build:firefox:prod": "webpack --mode production --env=DIST=firefox --env=BROWSER=firefox --config webpack.prod.js",
     "build:chromium:dev": "webpack --env=DIST=chromium --env=BROWSER=chrome --config webpack.dev.js",
-    "build:firefox:dev": "webpack --env=DIST=firefox --env=BROWSER=firefox --config webpack.dev.js"
+    "build:firefox:dev": "webpack --env=DIST=firefox --env=BROWSER=firefox --config webpack.dev.js",
+    "package": "(cd dist/chromium && zip -r ../42fm_chromium_$(jq -r .version ../../package.json).zip *) && (cd dist/firefox && zip -r ../42fm_firefox_$(jq -r .version ../../package.json).zip *)"
   },
   "author": "loczek",
   "license": "MIT",
