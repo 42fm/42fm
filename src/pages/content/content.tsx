@@ -78,15 +78,15 @@ const badges: {
   };
 } = {
   dev: {
-    icon: devBadge,
+    icon: badgeDev,
     tooltip: "42FM Developer",
   },
   contributor: {
-    icon: contributor,
+    icon: badgeContributor,
     tooltip: "42FM Contributor",
   },
   bot: {
-    icon: botBadge,
+    icon: badgeBot,
     tooltip: "42FM Bot",
   },
 };
