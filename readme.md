@@ -23,19 +23,12 @@
 
 ## Building
 
-```
-git clone https://github.com/42fm/42fm --recursive
-cd 42fm
-yarn install
-
-# Building for Chromium based browsers (Chrome, Edge, Opera)
-yarn build:chromium:prod
-
-OR
-
-# Building for Firefox
-yarn build:firefox:prod
-```
+1. Clone repo `git clone https://github.com/42fm/42fm --recursive`
+1. Change directory `cd 42fm`
+1. Make sure to use the node vesion inside the `.nvmrc` file
+1. Install dependencies `yarn install`
+1. Build for platform `yarn:chromium:prod` or `yarn:firefox:prod`
+1. The output will be in the `dist/chromium` or `dist/firefox` respectively
 
 ## Contributing
 
