@@ -45,12 +45,13 @@ const Content = styled.div`
 const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
 `;
 
 const StyledRange = styled(Range)`
   width: 100px;
   display: block;
+  margin-right: 4px;
+  margin-left: 4px;
 `;
 
 const Header = styled.header`
