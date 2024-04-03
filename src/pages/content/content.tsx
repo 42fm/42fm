@@ -61,13 +61,13 @@ setInterval(async () => {
   }
 }, 1000);
 
-ReactDOM.render(
+const headerRoot = createRoot(headerElement);
+headerRoot.render(
   <React.StrictMode>
     <ThemeProvider theme={darkMode}>
       <HeaderButton />
     </ThemeProvider>
-  </React.StrictMode>,
-  headerElement
+  </React.StrictMode>
 );
 
 const badges: {
@@ -136,9 +136,9 @@ background-image: "";
 badge.setAttribute("data-42fm-badge-tooltip", "42FM Developer");
 badge.setAttribute("class", "badge-42fm");
 
-let testRoot = document.querySelector("#root");
-let testElement = document.createElement("div");
-testRoot?.after(testElement);
+let root = document.querySelector("#root");
+let youtubePlayer = document.createElement("div");
+root?.after(youtubePlayer);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -146,7 +146,7 @@ ReactDOM.render(
       <YoutubePlayer />
     </ThemeProvider>
   </React.StrictMode>,
-  testElement
+  youtubePlayer
 );
 
 export let player: YT.Player;
@@ -202,13 +202,14 @@ const render = async () => {
     chatHeaderElement.setAttribute("id", "root-42fm");
     chatHeader?.after(chatHeaderElement);
 
-    ReactDOM.render(
+    const playerRoot = createRoot(chatHeaderElement);
+
+    playerRoot.render(
       <React.StrictMode>
         <ThemeProvider theme={darkMode}>
           <Player room={channelName} player={player} />
         </ThemeProvider>
-      </React.StrictMode>,
-      chatHeaderElement
+      </React.StrictMode>
     );
 
     log("debug", `Rendered player for ${channelName}`);
