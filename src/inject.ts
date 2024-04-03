@@ -1,7 +1,7 @@
 import { log } from "./utils/log";
 
 log("debug", "Inject File");
-log("info", process.env.BROWSER, process.env.NODE_ENV);
+log("info", { browser: process.env.BROWSER, clientId: process.env.CLIENT_ID, node_env: process.env.NODE_ENV });
 
 interface Args {
   file_path: string;
