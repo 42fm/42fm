@@ -1,6 +1,5 @@
 const webpack = require("webpack");
 const path = require("path");
-const CopyPlugin = require("copy-webpack-plugin");
 var { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
@@ -46,15 +45,6 @@ const config = (env) => {
     plugins: [
       new CleanWebpackPlugin(),
       new webpack.ProgressPlugin({}),
-      new CopyPlugin({
-        patterns: [
-          { from: "src/assets", to: "assets" },
-          {
-            from: `public/manifest.${env.BROWSER}.json`,
-            to: "manifest.json",
-          },
-        ],
-      }),
       new webpack.DefinePlugin({
         "process.env.BROWSER": JSON.stringify(env.BROWSER),
       }),
