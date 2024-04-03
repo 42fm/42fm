@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { ThemeProvider } from "styled-components";
 import botBadge from "../../assets/botBadge.png";
 import contributor from "../../assets/contributor.png";
