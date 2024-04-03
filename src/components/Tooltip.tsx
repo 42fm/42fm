@@ -1,5 +1,3 @@
-"use client";
-
 import {
   arrow,
   autoUpdate,
@@ -19,25 +17,29 @@ import { mergeRefs } from "react-merge-refs";
 import styled from "styled-components";
 
 const Popper = styled.div`
-  width: 100%;
-  border-radius: 5px;
-  padding: 4px;
   background: white;
   color: black;
   z-index: 10;
+  background: #fff;
+  color: black;
+  font-weight: bold;
+  padding: 4px 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  width: max-content;
 `;
 
 const Arrow = styled.div`
-  height: 10px;
+  height: 8px;
   position: absolute;
-  width: 10px;
+  width: 8px;
   rotate: 45deg;
   background: inherit;
   z-index: 10;
 `;
 
 interface Props {
-  label: string;
+  label?: string;
   placement?: Placement;
   children: JSX.Element;
 }
@@ -92,7 +94,7 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
     <>
       {cloneElement(children, getReferenceProps({ ref, ...children.props }))}
       <div>
-        {open && (
+        {open && label && (
           <Popper
             ref={refs.setFloating}
             style={{
