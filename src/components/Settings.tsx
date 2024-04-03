@@ -127,6 +127,7 @@ function Settings() {
         <Horizontal>
           Version: {version}
           <ButtonIcon
+            tooltip="Github"
             icon={<UilGithub {...defaultIconProps} />}
             onClick={() => window.open("https://github.com/42fm", "_blank")}
           />
