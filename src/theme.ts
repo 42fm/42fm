@@ -8,7 +8,7 @@ const darkMode: DefaultTheme = {
     twitch: "#9146FF",
     input: "#3E3E40",
     hover: "#5E5E60",
-    iconHover: "#3a3a3d",
+    iconHover: "#2C2C2E",
   },
   text: {
     primary: "#FFFFFF",
