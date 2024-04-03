@@ -62,9 +62,6 @@ const config = (env) => {
     resolve: {
       plugins: [new TsconfigPathsPlugin()],
       extensions: [".tsx", ".ts", ".js"],
-      alias: {
-        "react-dom": "@hot-loader/react-dom",
-      },
     },
   };
 };
