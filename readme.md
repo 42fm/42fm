@@ -28,7 +28,7 @@
 1. Make sure to use the node version inside the `.nvmrc` file
 1. Be sure to enable corepack with `corepack enable`
 1. Install dependencies `yarn install`
-1. Build for platform `yarn:chromium:prod` or `yarn:firefox:prod`
+1. Build for platform `yarn build:chromium:prod` or `yarn build:firefox:prod`
 1. The output will be in the `dist/chromium` or `dist/firefox` respectively
 
 ## Contributing
