@@ -23,6 +23,9 @@
 
 ## Building
 
+> [!IMPORTANT]
+> There's a possibility that the build might fail sometimes because it relies on the YouTube iFrame API script, which is not included in the repository and needs to be downloaded in the build process
+
 1. Clone repo `git clone https://github.com/42fm/42fm --recursive`
 1. Change directory `cd 42fm`
 1. Make sure to use the node version inside the `.nvmrc` file
