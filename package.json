@@ -9,7 +9,8 @@
     "build:firefox:prod": "webpack --mode production --env=DIST=firefox --env=BROWSER=firefox --config webpack.prod.js",
     "build:chromium:dev": "webpack --env=DIST=chromium --env=BROWSER=chrome --config webpack.dev.js",
     "build:firefox:dev": "webpack --env=DIST=firefox --env=BROWSER=firefox --config webpack.dev.js",
-    "package": "(cd dist/chromium && zip -r ../42fm_chromium_$(jq -r .version ../../package.json).zip . *) && (cd dist/firefox && zip -r ../42fm_firefox_$(jq -r .version ../../package.json).zip . *)"
+    "package": "(cd dist/chromium && zip -r ../42fm_chromium_$(jq -r .version ../../package.json).zip . *) && (cd dist/firefox && zip -r ../42fm_firefox_$(jq -r .version ../../package.json).zip . *)",
+    "zip-source": "git ls-files --recurse-submodules | tar caf ./source.tar.gz -T-"
   },
   "author": "loczek",
   "license": "MIT",
