@@ -122,6 +122,11 @@ const badgeOwners = [
     badge: createBadge("contributor"),
   },
   {
+    twitch_id: "47930095",
+    twitch_name: "syki_",
+    badge: createBadge("contributor"),
+  },
+  {
     twitch_id: "773987717",
     twitch_name: "42fm",
     badge: createBadge("bot"),
