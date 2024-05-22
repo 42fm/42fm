@@ -72,26 +72,34 @@ function YoutubePlayer() {
     };
   }, [isDown]);
 
-  // Works for now
   useEffect(() => {
-    const interval = setInterval(() => {
-      const val = localStorage.getItem("42fm:hidePlayer") === "true";
+    const savedIsHidden = localStorage.getItem("42fm:hidePlayer") === "true";
 
-      if (val !== isHidden) {
-        setIsHidden(val);
-      }
-    }, 1000);
+    setIsHidden(savedIsHidden);
+
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key !== "42fm:hidePlayer") return;
+
+      const hidePlayer = e.newValue === "true";
+
+      setIsHidden(hidePlayer);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
 
     return () => {
-      clearInterval(interval);
+      window.removeEventListener("storage", handleStorageChange);
     };
-  });
+  }, []);
 
-  const handlePlayerVisiblityChange = () => {
-    let curr = localStorage.getItem("42fm:hidePlayer");
+  const handlePlayerVisibilityChange = () => 
+    setIsHidden(oldValue => {
+      const newValue = !oldValue;
 
-    localStorage.setItem("42fm:hidePlayer", curr === "true" ? "false" : "true");
-  };
+      localStorage.setItem("42fm:hidePlayer", String(newValue));
+    
+      return newValue;
+    });
 
   return (
     <Wrapper
@@ -131,7 +139,7 @@ function YoutubePlayer() {
           tooltip="Hide player"
           placement="right"
           icon={<UilVideoSlash {...defaultIconProps} />}
-          onClick={() => handlePlayerVisiblityChange()}
+          onClick={() => handlePlayerVisibilityChange()}
         />
         <ButtonIcon
           tooltip="Snap to top right"

@@ -301,10 +301,18 @@ function Player({ room, player }: Props) {
     }
   };
 
-  const handlePlayerVisiblityChange = () => {
-    let curr = localStorage.getItem("42fm:hidePlayer");
+  const handlePlayerVisibilityChange = () => {
+    const oldValue = localStorage.getItem('42fm:hidePlayer');
+    const newValue = oldValue === 'true' ? 'false' : 'true';
 
-    localStorage.setItem("42fm:hidePlayer", curr === "true" ? "false" : "true");
+    localStorage.setItem('42fm:hidePlayer', newValue);
+    window.dispatchEvent(
+      new StorageEvent('storage', {
+        key: '42fm:hidePlayer',
+        oldValue: oldValue,
+        newValue,
+      })
+    );
   };
 
   if (!isConnected) {
@@ -360,7 +368,7 @@ function Player({ room, player }: Props) {
                 <ButtonsWrapper>
                   <ButtonIcon
                     icon={<UilVideo {...defaultIconProps} />}
-                    onClick={() => handlePlayerVisiblityChange()}
+                    onClick={() => handlePlayerVisibilityChange()}
                     tooltip="Toggle Player"
                     placement="top-end"
                   />
