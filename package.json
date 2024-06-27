@@ -1,6 +1,6 @@
 {
   "name": "42fm",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "scripts": {
     "build": "yarn build:chromium:prod && yarn build:firefox:prod",
     "start:chromium": "webpack --env=DIST=chromium --env=BROWSER=chrome --watch --config webpack.dev.js",
