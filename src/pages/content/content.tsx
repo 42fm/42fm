@@ -57,8 +57,11 @@ setInterval(async () => {
   if (channelName !== newChannelName) {
     log("debug", `Channel changed: ${channelName} -> ${newChannelName}`);
     channelName = newChannelName;
-    player.pauseVideo();
-    render();
+    if (window.YT) {
+      log("info", "Got Player");
+      player.pauseVideo();
+      render();
+    }
   }
 }, 1000);
 
@@ -196,12 +199,6 @@ const render = async () => {
       log("debug", "Already mounted");
       return;
     }
-
-    log("info", "Getting YT");
-
-    await getYT();
-
-    log("info", "Got YT");
 
     const chatHeader = chat.querySelector(".stream-chat-header")!;
     const chatHeaderElement = document.createElement("div");
