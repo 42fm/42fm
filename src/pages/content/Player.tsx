@@ -302,13 +302,13 @@ function Player({ room, player }: Props) {
   };
 
   const handlePlayerVisibilityChange = () => {
-    const oldValue = localStorage.getItem('42fm:hidePlayer');
-    const newValue = oldValue === 'true' ? 'false' : 'true';
+    const oldValue = localStorage.getItem("42fm:hidePlayer");
+    const newValue = oldValue === "true" ? "false" : "true";
 
-    localStorage.setItem('42fm:hidePlayer', newValue);
+    localStorage.setItem("42fm:hidePlayer", newValue);
     window.dispatchEvent(
-      new StorageEvent('storage', {
-        key: '42fm:hidePlayer',
+      new StorageEvent("storage", {
+        key: "42fm:hidePlayer",
         oldValue: oldValue,
         newValue,
       })
