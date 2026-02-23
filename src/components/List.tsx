@@ -15,14 +15,14 @@ const Wrapper = styled.div`
 const Content = styled.div`
   max-height: 200px;
   overflow-y: scroll;
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 8px;
   }
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     border-radius: 10px;
     background-color: transparent;
   }
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #1d1d20;
     border: 1px solid ${(props) => props.theme.color.outline};
@@ -35,7 +35,7 @@ const SongWrapper = styled.div`
   justify-content: center;
   gap: 16px;
   padding: 8px 16px;
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.color.primary};
   }
 `;

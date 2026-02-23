@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   border-radius: 4px;
   position: relative;
   overflow: hidden;
-  ::before {
+  &::before {
     content: "";
     position: absolute;
     background: "";
@@ -31,7 +31,7 @@ const Content = styled.select`
   border-radius: 4px;
   appearance: none;
   border: 1px solid ${(props) => props.theme.color.input};
-  :hover {
+  &:hover {
     border-color: ${(props) => props.theme.color.hover};
   }
 `;

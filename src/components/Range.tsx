@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   width: 100%;
   background: transparent;
   appearance: none;
-  ::-webkit-slider-thumb {
+  &::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 16px;
     width: 16px;
@@ -17,7 +17,7 @@ const StyledInput = styled.input`
     margin-top: -7px;
     position: relative;
   }
-  ::-moz-range-thumb {
+  &::-moz-range-thumb {
     height: 16px;
     width: 16px;
     border-radius: 16px;
@@ -26,7 +26,7 @@ const StyledInput = styled.input`
     margin-top: -7px;
     position: relative;
   }
-  ::-webkit-slider-runnable-track {
+  &::-webkit-slider-runnable-track {
     -webkit-appearance: none;
     width: 100%;
     height: 2px;
@@ -34,7 +34,7 @@ const StyledInput = styled.input`
     background: #adadb8;
     border-radius: 2px;
   }
-  ::-moz-range-track {
+  &::-moz-range-track {
     background-color: #adadb8;
   }
 `;

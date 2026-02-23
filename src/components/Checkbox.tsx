@@ -7,7 +7,7 @@ const ShownCheckbox = styled.div`
   border: 2px solid white;
   border-radius: 2px;
   position: relative;
-  ::after {
+  &::after {
     content: "";
     position: absolute;
     width: 8px;
@@ -31,7 +31,7 @@ const Wrapper = styled.label`
   cursor: pointer;
   ${HiddenCheckbox}:checked + ${ShownCheckbox} {
     border: 2px solid ${(props) => props.theme.color.twitch};
-    ::after {
+    &::after {
       visibility: visible;
     }
   }

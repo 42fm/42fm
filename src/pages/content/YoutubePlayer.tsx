@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   z-index: 9999;
   border-radius: "8px";
   display: flex;
-  :hover ${Tools} {
+  &:hover ${Tools} {
     visibility: visible;
   }
 `;

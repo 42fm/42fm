@@ -36,7 +36,7 @@ const Tab = styled.span`
   border-radius: 4px;
   box-sizing: border-box;
   cursor: pointer;
-  :hover {
+  &:hover {
     background: ${(props) => props.theme.color.outline};
   }
 `;

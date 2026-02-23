@@ -9,10 +9,10 @@ const Wrapper = styled.button`
   border-radius: 4px;
   background-color: transparent;
   cursor: pointer;
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.color.iconHover};
   }
-  :disabled {
+  &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
   }
