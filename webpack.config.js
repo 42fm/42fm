@@ -1,18 +1,22 @@
-const webpack = require("webpack");
-const path = require("path");
-var { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+import webpack from "webpack";
+import { resolve } from "path";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config = (env) => {
   return {
     entry: {
-      iframe: path.resolve(__dirname, "src/iframe.js"),
-      content: path.resolve(__dirname, "src/pages/content/content.tsx"),
-      inject: path.resolve(__dirname, "src/inject.ts"),
-      background: path.resolve(__dirname, "src/pages/background/background.ts"),
+      iframe: resolve(__dirname, "src", "iframe.js"),
+      content: resolve(__dirname, "src", "pages", "content", "content.tsx"),
+      inject: resolve(__dirname, "src", "inject.ts"),
+      background: resolve(__dirname, "src", "pages", "background", "background.ts"),
     },
     output: {
-      path: path.resolve(__dirname, "dist", env.DIST),
+      path: resolve(__dirname, "dist", env.DIST),
       filename: "[name].js",
       publicPath: "/",
     },
@@ -56,4 +60,4 @@ const config = (env) => {
   };
 };
 
-module.exports = config;
+export default config;

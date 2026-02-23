@@ -1,9 +1,9 @@
-const Dotenv = require("dotenv-webpack");
-const { merge } = require("webpack-merge");
-const config = require("./webpack.config.js");
-const CopyPlugin = require("copy-webpack-plugin");
+import Dotenv from "dotenv-webpack";
+import { merge } from "webpack-merge";
+import config from "./webpack.config.js";
+import CopyPlugin from "copy-webpack-plugin";
 
-module.exports = (env) => {
+export default (env) => {
   return merge(config(env), {
     mode: "development",
     devtool: "inline-source-map",

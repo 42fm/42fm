@@ -1,9 +1,9 @@
-const { merge } = require("webpack-merge");
-const config = require("./webpack.config.js");
-const Dotenv = require("dotenv-webpack");
-const CopyPlugin = require("copy-webpack-plugin");
+import { merge } from "webpack-merge";
+import config from "./webpack.config.js";
+import Dotenv from "dotenv-webpack";
+import CopyPlugin from "copy-webpack-plugin";
 
-module.exports = (env) => {
+export default (env) => {
   return merge(config(env), {
     mode: "production",
     plugins: [
