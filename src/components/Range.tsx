@@ -1,6 +1,27 @@
 import React from "react";
 import styled from "styled-components";
 
+const Wrapper = styled.div`
+  position: relative;
+  height: stretch;
+  display: flex;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    cursor: pointer;
+    transform: translate(0%, -50%);
+    margin: 0px 4px;
+    width: calc(100% - 8px);
+    height: 2px;
+    background: #adadb8;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+`;
+
 const StyledInput = styled.input`
   background: white;
   border-radius: 2px;
@@ -14,7 +35,6 @@ const StyledInput = styled.input`
     border-radius: 16px;
     background: ${(props) => props.theme.text.primary};
     cursor: pointer;
-    margin-top: -7px;
     position: relative;
   }
   &::-moz-range-thumb {
@@ -23,16 +43,13 @@ const StyledInput = styled.input`
     border-radius: 16px;
     background: ${(props) => props.theme.text.primary};
     cursor: pointer;
-    margin-top: -7px;
     position: relative;
   }
   &::-webkit-slider-runnable-track {
     -webkit-appearance: none;
     width: 100%;
-    height: 2px;
+    height: 16px;
     cursor: pointer;
-    background: #adadb8;
-    border-radius: 2px;
   }
   &::-moz-range-track {
     background-color: #adadb8;
@@ -40,7 +57,11 @@ const StyledInput = styled.input`
 `;
 
 function Range(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <StyledInput type="range" {...props} />;
+  return (
+    <Wrapper>
+      <StyledInput type="range" {...props} />
+    </Wrapper>
+  );
 }
 
 export default Range;
