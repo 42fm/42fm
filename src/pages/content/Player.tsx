@@ -27,7 +27,7 @@ import {
   UilVolume,
   UilVolumeMute,
 } from "@iconscout/react-unicons";
-import { intervalToDuration } from "date-fns";
+import { Duration, intervalToDuration } from "date-fns";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
