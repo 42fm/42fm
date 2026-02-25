@@ -70,7 +70,7 @@ const Container = styled.div`
 
 function Settings() {
   const [tab, setTab] = useState(0);
-  const [version, setVersion] = useState("0.1.8");
+  const [version, setVersion] = useState(process.env.APP_VERSION);
   const [settings, setSettings] = useState(() => {
     return getSettings();
   });
@@ -125,7 +125,7 @@ function Settings() {
           ))}
         </Section>
         <Horizontal>
-          Version: {version}
+          Version: {process.env.APP_VERSION}
           <ButtonIcon
             tooltip="Github"
             icon={<UilGithub {...defaultIconProps} />}

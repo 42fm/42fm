@@ -20,6 +20,7 @@ __metadata:
     "@types/node": "npm:^25.3.0"
     "@types/react": "npm:^18.3.28"
     "@types/react-dom": "npm:^18.3.7"
+    "@types/semver": "npm:^7.7.1"
     "@types/webextension-polyfill": "npm:^0.12.5"
     "@types/youtube": "npm:^0.1.2"
     "@vitejs/plugin-react": "npm:^5.1.4"
@@ -36,6 +37,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-hot-loader: "npm:^4.13.1"
     react-merge-refs: "npm:^3.0.2"
+    semver: "npm:^7.7.4"
     socket.io-client: "npm:^4.8.3"
     styled-components: "npm:^6.3.11"
     ts-loader: "npm:^9.5.4"
@@ -2636,6 +2638,13 @@ __metadata:
   version: 0.12.2
   resolution: "@types/retry@npm:0.12.2"
   checksum: 10c0/07481551a988cc90b423351919928b9ddcd14e3f5591cac3ab950851bb20646e55a10e89141b38bc3093d2056d4df73700b22ff2612976ac86a6367862381884
+  languageName: node
+  linkType: hard
+
+"@types/semver@npm:^7.7.1":
+  version: 7.7.1
+  resolution: "@types/semver@npm:7.7.1"
+  checksum: 10c0/c938aef3bf79a73f0f3f6037c16e2e759ff40c54122ddf0b2583703393d8d3127130823facb880e694caa324eb6845628186aac1997ee8b31dc2d18fafe26268
   languageName: node
   linkType: hard
 
@@ -6707,6 +6716,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/fbfe717094ace0aa8d6332d7ef5ce727259815bd8d8815700853f4faf23aacbd7192522f0dc5af6df52ef4fa85a355ebd2f5d39f554bd028200d6cf481ab9b53
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.7.4":
+  version: 7.7.4
+  resolution: "semver@npm:7.7.4"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/5215ad0234e2845d4ea5bb9d836d42b03499546ddafb12075566899fc617f68794bb6f146076b6881d755de17d6c6cc73372555879ec7dce2c2feee947866ad2
   languageName: node
   linkType: hard
 
