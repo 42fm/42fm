@@ -30,7 +30,7 @@ const SidePanel = styled.div`
   justify-content: space-between;
 `;
 
-const Tab = styled.span`
+const Tab = styled.span<{ isSelected: boolean }>`
   width: 100%;
   padding: 8px 16px;
   border-radius: 4px;
@@ -39,6 +39,7 @@ const Tab = styled.span`
   &:hover {
     background: ${(props) => props.theme.color.outline};
   }
+  background: ${(props) => (props.isSelected ? props.theme.color.outline : "transparent")};
 `;
 
 const Section = styled.div`
@@ -69,7 +70,7 @@ const Container = styled.div`
 `;
 
 function Settings() {
-  const [tab, setTab] = useState(0);
+  const [tabIndex, setTabIndex] = useState(0);
   const [version, setVersion] = useState(process.env.APP_VERSION);
   const [settings, setSettings] = useState(() => {
     return getSettings();
@@ -89,8 +90,8 @@ function Settings() {
     setSetting(name, value.toString());
   };
 
-  const handleClick = (tab: number) => {
-    setTab(tab);
+  const handleClick = (tabIndex: number) => {
+    setTabIndex(tabIndex);
   };
 
   const tabs = [
@@ -119,7 +120,7 @@ function Settings() {
         </SectionLeft>
         <Section>
           {tabs.map((tab, index) => (
-            <Tab key={tab.name} onClick={() => handleClick(index)}>
+            <Tab key={tab.name} onClick={() => handleClick(index)} isSelected={tabIndex === index}>
               {tab.label}
             </Tab>
           ))}
