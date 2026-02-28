@@ -146,7 +146,7 @@ function Player({ room, player }: Props) {
         intervalToDuration({
           start: 1,
           end: data.current.duration * 1000,
-        })
+        }),
       );
       setSongs(data.list);
     }
@@ -249,7 +249,7 @@ function Player({ room, player }: Props) {
       intervalToDuration({
         start: 0,
         end: player.getDuration() * 1000,
-      })
+      }),
     );
 
     const interval = setInterval(() => {
@@ -259,7 +259,7 @@ function Player({ room, player }: Props) {
         intervalToDuration({
           start: 1,
           end: Math.floor(player.getCurrentTime()) * 1000,
-        })
+        }),
       );
       setProgress(newProgress);
     }, 1000);
@@ -311,7 +311,7 @@ function Player({ room, player }: Props) {
         key: "42fm:hidePlayer",
         oldValue: oldValue,
         newValue,
-      })
+      }),
     );
   };
 
