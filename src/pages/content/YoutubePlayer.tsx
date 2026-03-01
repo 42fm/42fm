@@ -92,12 +92,12 @@ function YoutubePlayer() {
     };
   }, []);
 
-  const handlePlayerVisibilityChange = () => 
-    setIsHidden(oldValue => {
+  const handlePlayerVisibilityChange = () =>
+    setIsHidden((oldValue) => {
       const newValue = !oldValue;
 
       localStorage.setItem("42fm:hidePlayer", String(newValue));
-    
+
       return newValue;
     });
 
