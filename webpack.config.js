@@ -16,15 +16,17 @@ function debugInfo() {
   let current_version = semver.parse(GIT_TAG);
 
   if (GIT_TAG_COMMIT !== GIT_COMMIT) {
-    current_version = current_version.inc("patch").toString();
+    current_version = current_version.inc("patch");
   }
 
+  let version_string = current_version.toString();
+
   if (!IS_CLEAN) {
-    current_version += "+build";
+    version_string += "+build";
   }
 
   return {
-    APP_VERSION: "v" + current_version,
+    APP_VERSION: "v" + version_string,
     GIT_COMMIT,
   };
 }
