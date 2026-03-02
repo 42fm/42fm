@@ -93,7 +93,6 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
 
   return (
     <>
-      {cloneElement(children, getReferenceProps({ ref, ...children.props }))}
       <div>
         {cloneElement(children, getReferenceProps({ ref, ...children.props }))}
         {open && (
