@@ -331,6 +331,7 @@ function Player({ room, player }: Props) {
             }
           />
         </Content>
+        <HorizontalLine />
       </Wrapper>
     );
   }
@@ -344,6 +345,7 @@ function Player({ room, player }: Props) {
             left={<ButtonIcon icon={<UilExclamationTriangle {...defaultIconProps} color="red" />} noInvert />}
           />
         </Content>
+        <HorizontalLine />
       </Wrapper>
     );
   }
