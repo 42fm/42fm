@@ -149,6 +149,7 @@ function Player({ room, player }: Props) {
         }),
       );
       setSongs(data.list);
+      setIsPlaying(true);
     }
 
     function onPlaylistAddEvent(data: Song) {
