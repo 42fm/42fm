@@ -86,7 +86,6 @@ const InfoWrapper = styled.div`
 
 function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
-  const [version, setVersion] = useState(process.env.APP_VERSION);
   const [settings, setSettings] = useState(() => {
     return getSettings();
   });
