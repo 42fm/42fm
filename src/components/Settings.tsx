@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 `;
 
 const SidePanel = styled.div`
-  width: 180px;
+  width: 200px;
   background: ${(props) => props.theme.color.secondary};
   height: 100%;
   padding: 16px;
@@ -33,13 +33,14 @@ const SidePanel = styled.div`
 const Tab = styled.span<{ isSelected: boolean }>`
   width: 100%;
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 8px;
   box-sizing: border-box;
   cursor: pointer;
+  transition: background 150ms ease-in-out;
   &:hover {
-    background: ${(props) => props.theme.color.outline};
+    background: ${(props) => props.theme.color.hover};
   }
-  background: ${(props) => (props.isSelected ? props.theme.color.outline : "transparent")};
+  background: ${(props) => (props.isSelected ? props.theme.color.primary : "transparent")};
 `;
 
 const Section = styled.div`
@@ -48,16 +49,19 @@ const Section = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 `;
 
-const Horizontal = styled(Section)`
+const Horizontal = styled.div`
+  width: 100%;
+  display: flex;
   flex-direction: row;
-  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const SectionLeft = styled(Section)`
-  align-items: start;
+  align-items: center;
 `;
 
 const Container = styled.div`
@@ -67,6 +71,17 @@ const Container = styled.div`
   padding: 16px;
   flex-direction: column;
   gap: 16px;
+`;
+
+const Info = styled.span`
+  font-size: 10px;
+  opacity: 0.8;
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  align-items: start;
+  flex-direction: column;
 `;
 
 function Settings() {
@@ -126,7 +141,10 @@ function Settings() {
           ))}
         </Section>
         <Horizontal>
-          Version: {process.env.APP_VERSION}
+          <InfoWrapper>
+            <Info>Version: {process.env.APP_VERSION}</Info>
+            <Info>Commit: {process.env.GIT_COMMIT}</Info>
+          </InfoWrapper>
           <ButtonIcon
             tooltip="Github"
             icon={<UilGithub {...defaultIconProps} />}
@@ -134,7 +152,7 @@ function Settings() {
           />
         </Horizontal>
       </SidePanel>
-      <Container>{tabs[tab].element}</Container>
+      <Container>{tabs[tabIndex].element}</Container>
     </Wrapper>
   );
 }

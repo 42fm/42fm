@@ -25,7 +25,7 @@ const Popper = styled.div`
   font-weight: bold;
   padding: 4px 8px;
   font-size: 13px;
-  border-radius: 4px;
+  border-radius: 8px;
   width: max-content;
 `;
 
@@ -57,6 +57,7 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
     context,
     middlewareData,
     placement: finalPlacement,
+    floatingStyles,
   } = useFloating({
     placement,
     open,
@@ -94,16 +95,9 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
     <>
       {cloneElement(children, getReferenceProps({ ref, ...children.props }))}
       <div>
-        {open && label && (
-          <Popper
-            ref={refs.setFloating}
-            style={{
-              position: strategy,
-              top: y ?? 0,
-              left: x ?? 0,
-            }}
-            {...getFloatingProps()}
-          >
+        {cloneElement(children, getReferenceProps({ ref, ...children.props }))}
+        {open && (
+          <Popper ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
             <span>{label}</span>
             <Arrow
               ref={arrowRef}

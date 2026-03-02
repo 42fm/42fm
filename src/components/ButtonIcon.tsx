@@ -6,7 +6,7 @@ import Tooltip from "./Tooltip";
 const Wrapper = styled.button`
   display: block;
   padding: 5px;
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: transparent;
   cursor: pointer;
   &:hover {

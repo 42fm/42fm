@@ -7,7 +7,7 @@ const darkMode: DefaultTheme = {
     outline: "#303032",
     twitch: "#9146FF",
     input: "#3E3E40",
-    hover: "#5E5E60",
+    hover: "#2C2C2E",
     iconHover: "#2C2C2E",
   },
   text: {
