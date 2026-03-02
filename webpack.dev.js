@@ -22,6 +22,7 @@ export default (env) => {
           {
             transform(content) {
               const data = JSON.parse(content.toString());
+              data.name = "42FM - Dev";
               data.action.default_icon["32"] = "assets/logo-32-dev.png";
               data.icons["32"] = "assets/logo-32-dev.png";
               data.icons["64"] = "assets/logo-64-dev.png";
