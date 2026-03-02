@@ -126,8 +126,8 @@ function List({ userCount, playlist, history }: Props) {
     <Wrapper>
       <Title>
         <UserCount>
-          <UserCountText>{userCount}</UserCountText>
           <UilUser {...defaultIconProps} color="#00f593" />
+          <UserCountText>{userCount}</UserCountText>
         </UserCount>
         <TitleText>Playlist</TitleText>
         <AbsoluteButton icon={<UilRefresh {...defaultIconProps} />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
