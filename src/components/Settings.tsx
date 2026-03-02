@@ -6,7 +6,7 @@ import logo32 from "../assets/logo-32.png";
 import { getSettings, setSetting } from "../utils/settings";
 import ButtonIcon from "./ButtonIcon";
 import Image from "./Image";
-import SettingsBehaviour from "./SettingBehaviour";
+import SettingsBehavior from "./SettingBehavior";
 import SettingsChat from "./SettingsChat";
 import SettingsGeneral from "./SettingsGeneral";
 
@@ -116,9 +116,9 @@ function Settings() {
       element: <SettingsGeneral handleChange={handleChange} settings={settings} />,
     },
     {
-      name: "behaviour",
-      label: "Behaviour",
-      element: <SettingsBehaviour handleChange={handleChange} settings={settings} />,
+      name: "behavior",
+      label: "Behavior",
+      element: <SettingsBehavior handleChange={handleChange} settings={settings} />,
     },
     {
       name: "chat",

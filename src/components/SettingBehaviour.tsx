@@ -17,7 +17,7 @@ const CheckboxWrapper = styled.div`
   gap: 8px;
 `;
 
-function SettingsBehaviour({
+function SettingsBehavior({
   settings,
   handleChange,
 }: {
@@ -26,7 +26,7 @@ function SettingsBehaviour({
 }) {
   return (
     <div>
-      <Title>Behaviour</Title>
+      <Title>Behavior</Title>
       <CheckboxWrapper>
         <Checkbox
           type="checkbox"
@@ -61,4 +61,4 @@ function SettingsBehaviour({
   );
 }
 
-export default SettingsBehaviour;
+export default SettingsBehavior;
