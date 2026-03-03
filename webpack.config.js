@@ -52,13 +52,8 @@ const config = (env) => {
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/,
-          use: "babel-loader",
-          exclude: /node_modules/,
-        },
-        {
-          test: /\.ts(x)?$/,
-          loader: "ts-loader",
+          test: /\.(j|t)sx?$/,
+          use: "swc-loader",
           exclude: /node_modules/,
         },
         {
