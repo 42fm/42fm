@@ -40,6 +40,7 @@ __metadata:
     semver: "npm:^7.7.4"
     socket.io-client: "npm:^4.8.3"
     styled-components: "npm:^6.3.11"
+    terser-webpack-plugin: "npm:^5.3.16"
     ts-loader: "npm:^9.5.4"
     tsconfig-paths-webpack-plugin: "npm:^4.2.0"
     typescript: "npm:^5.9.3"

@@ -3,6 +3,7 @@ import webpack from "webpack";
 import { resolve } from "path";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import semver from "semver";
@@ -83,6 +84,14 @@ const config = (env) => {
         "process.env.BROWSER": JSON.stringify(env.BROWSER),
       }),
     ],
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new TerserPlugin({
+          minify: TerserPlugin.swcMinify,
+        }),
+      ],
+    },
     resolve: {
       plugins: [new TsconfigPathsPlugin()],
       extensions: [".tsx", ".ts", ".js"],

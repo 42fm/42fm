@@ -50,6 +50,7 @@
     "dotenv": "^17.3.1",
     "dotenv-webpack": "^8.1.1",
     "semver": "^7.7.4",
+    "terser-webpack-plugin": "^5.3.16",
     "ts-loader": "^9.5.4",
     "typescript": "^5.9.3",
     "val-loader": "^6.0.0",
