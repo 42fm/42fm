@@ -27,6 +27,15 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function ButtonIcon(props: Props) {
+  if (!props.tooltip) {
+    return (
+      <Wrapper type="button" {...props}>
+        {props.icon}
+        {props.children}
+      </Wrapper>
+    );
+  }
+
   return (
     <Tooltip label={props.tooltip} placement={props.placement}>
       <Wrapper type="button" {...props}>
