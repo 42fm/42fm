@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 `;
 
 const SidePanel = styled.div`
-  width: 200px;
+  min-width: 200px;
   background: ${(props) => props.theme.color.secondary};
   height: 100%;
   padding: 16px;
@@ -71,6 +71,7 @@ const Container = styled.div`
   padding: 16px;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 `;
 
 const Info = styled.span`

@@ -1,21 +1,6 @@
+import { SectionContainer, SectionLabel, SectionsContainer } from "@/styles/settings";
 import React, { ChangeEvent } from "react";
-import styled, { css } from "styled-components";
-import Checkbox from "./Checkbox";
-
-const mb16 = css`
-  margin-bottom: 16px;
-`;
-
-const Title = styled.h4`
-  ${() => mb16};
-`;
-
-const CheckboxWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-`;
+import Toggle from "./Toggle";
 
 function SettingsBehavior({
   settings,
@@ -25,39 +10,24 @@ function SettingsBehavior({
   handleChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 }) {
   return (
-    <div>
-      <Title>Behavior</Title>
-      <CheckboxWrapper>
-        <Checkbox
-          type="checkbox"
-          name="autoConnect"
-          checked={settings["autoConnect"]}
-          onChange={handleChange}
-          label="Connect automatically"
-        />
-        <Checkbox
-          type="checkbox"
-          name="isExpanded"
-          checked={settings["isExpanded"]}
-          onChange={handleChange}
-          label="Start in expanded mode"
-        />
-        <Checkbox
-          type="checkbox"
-          name="hideLeaderboard"
-          checked={settings["hideLeaderboard"]}
-          onChange={handleChange}
-          label="Hide chat leaderboard"
-        />
-        <Checkbox
-          type="checkbox"
-          name="hideProgress"
-          checked={settings["hideProgress"]}
-          onChange={handleChange}
-          label="Hide player progress bar"
-        />
-      </CheckboxWrapper>
-    </div>
+    <SectionsContainer>
+      <SectionContainer>
+        <SectionLabel>Connect automatically</SectionLabel>
+        <Toggle name="autoConnect" checked={settings["autoConnect"]} onChange={handleChange} />
+      </SectionContainer>
+      <SectionContainer>
+        <SectionLabel>Start in expanded mode</SectionLabel>
+        <Toggle name="isExpanded" checked={settings["isExpanded"]} onChange={handleChange} />
+      </SectionContainer>
+      <SectionContainer>
+        <SectionLabel>Hide chat leaderboard</SectionLabel>
+        <Toggle name="hideLeaderboard" checked={settings["hideLeaderboard"]} onChange={handleChange} />
+      </SectionContainer>
+      <SectionContainer>
+        <SectionLabel>Hide player progress bar</SectionLabel>
+        <Toggle name="hideProgress" checked={settings["hideProgress"]} onChange={handleChange} />
+      </SectionContainer>
+    </SectionsContainer>
   );
 }
 
