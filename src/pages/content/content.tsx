@@ -49,8 +49,13 @@ const getYT = () => {
   });
 };
 
-setInterval(async () => {
-  const newChannelName = getChannelName();
+navigation.addEventListener("currententrychange", () => {
+  if (!navigation.currentEntry?.url) return;
+
+  let match = navigation.currentEntry.url.match(channelRegex);
+  if (!match) return;
+
+  let newChannelName = match[3];
   if (channelName !== newChannelName) {
     log("debug", `Channel changed: ${channelName} -> ${newChannelName}`);
     channelName = newChannelName;
@@ -60,7 +65,7 @@ setInterval(async () => {
       render();
     }
   }
-}, 1000);
+});
 
 const headerRoot = createRoot(headerElement);
 headerRoot.render(
