@@ -16,10 +16,10 @@ import { distanceFormatHMS } from "@/utils/utils";
 import {
   UilArrowDown,
   UilArrowUp,
-  UilBars,
   UilExclamationTriangle,
   UilLink,
   UilLinkBroken,
+  UilListUl,
   UilPause,
   UilPlay,
   UilSync,
@@ -410,7 +410,7 @@ function Player({ room, player }: Props) {
           </ButtonsWrapper>
           <ButtonsWrapper>
             <ButtonIcon
-              icon={<UilBars {...defaultIconProps} />}
+              icon={<UilListUl {...defaultIconProps} />}
               onClick={() => {
                 setIsPlaylistOpen(!isPlaylistOpen);
               }}
