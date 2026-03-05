@@ -87,36 +87,41 @@ badge.setAttribute("class", "badge-42fm");
 let root = document.querySelector("#root");
 let youtubePlayer = document.createElement("div");
 root?.after(youtubePlayer);
+const ytRoot = createRoot(youtubePlayer);
 
-ReactDOM.render(
+ytRoot.render(
   <React.StrictMode>
     <ThemeProvider theme={darkMode}>
       <YoutubePlayer />
     </ThemeProvider>
   </React.StrictMode>,
-  youtubePlayer
 );
 
 export let player: YT.Player;
 
-player = new YT.Player("42fm-yt-player", {
-  height: "270",
-  width: "480",
-  videoId: "Yo5QO8K0DrA",
-  // videoId: "3yd_eoMOvqk",
-  playerVars: {
-    playsinline: 1,
-    disablekb: 1,
-    rel: 0,
-    autohide: 1,
-    modestbranding: 1,
-    showinfo: 0,
-    controls: 1,
-  },
-  events: {
-    onReady: onPlayerReady,
-  },
-});
+async function main() {
+  await getYT();
+
+  player = new YT.Player("42fm-yt-player", {
+    height: "270",
+    width: "480",
+    videoId: "Yo5QO8K0DrA",
+    playerVars: {
+      playsinline: 1,
+      disablekb: 1,
+      rel: 0,
+      autohide: 1,
+      modestbranding: 1,
+      showinfo: 0,
+      controls: 1,
+    },
+    events: {
+      onReady: onPlayerReady,
+    },
+  });
+}
+
+main();
 
 export async function onPlayerReady(event: YT.PlayerEvent) {
   log("info", "onPlayerReady");
