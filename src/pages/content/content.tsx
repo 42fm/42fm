@@ -69,7 +69,7 @@ headerRoot.render(
     <ThemeProvider theme={darkMode}>
       <HeaderButton />
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 const badge = document.createElement("span");
@@ -147,7 +147,7 @@ const render = async () => {
         <ThemeProvider theme={darkMode}>
           <Player room={channelName} player={player} />
         </ThemeProvider>
-      </React.StrictMode>
+      </React.StrictMode>,
     );
 
     log("debug", `Rendered player for ${channelName}`);
@@ -162,7 +162,7 @@ const render = async () => {
             const badgeOwner = badgeOwners.find(
               (b) =>
                 b.twitch_id === line.getAttribute("data-user-id") ||
-                b.twitch_name === line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user")
+                b.twitch_name === line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user"),
             );
             if (badgeOwner) {
               const badges: HTMLElement = line.querySelector(".chat-line__message--badges")!;
