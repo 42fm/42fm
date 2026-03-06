@@ -1,6 +1,14 @@
-declare module "*.jpg" {
-  export default "" as string;
-}
 declare module "*.png" {
-  export default "" as string;
+  const src: string;
+  export = src;
+}
+
+declare module "*.jpg" {
+  const src: string;
+  export = src;
+}
+
+declare module "*.gif" {
+  const src: string;
+  export = src;
 }
