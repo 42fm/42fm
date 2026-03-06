@@ -31,7 +31,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Build
-        run: yarn build:${{matrix.dev}}:prod
+        run: yarn build:${{matrix.engine}}:prod
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
