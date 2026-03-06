@@ -1,0 +1,74 @@
+name: Build
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { engine: chromium }
+          - { engine: firefox }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Build
+        run: yarn build:${{matrix.dev}}:prod
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-${{matrix.engine}}
+          path: dist/${{matrix.engine}}/
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download chromium artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-chromium
+          path: dist/chromium/
+
+      - name: Download firefox artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-firefox
+          path: dist/firefox/
+
+      - name: Package Chromium
+        run: zip -r 42fm_chromium_${{GITHUB_REF_NAME}}.zip dist/chromium/
+
+      - name: Package Firefox
+        run: zip -r 42fm_firefox_${{GITHUB_REF_NAME}}.zip dist/firefox/
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files:
+            - 42fm_chromium_${{GITHUB_REF_NAME}}.zip
+            - 42fm_firefox_${{GITHUB_REF_NAME}}.zip
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
