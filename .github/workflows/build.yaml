@@ -66,9 +66,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files:
-            - 42fm_chromium_${{ github.ref_name }}.zip
-            - 42fm_firefox_${{ github.ref_name }}.zip
+          files: |
+            42fm_chromium_${{ github.ref_name }}.zip
+            42fm_firefox_${{ github.ref_name }}.zip
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
