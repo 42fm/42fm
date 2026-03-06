@@ -57,18 +57,21 @@ jobs:
           name: build-firefox
           path: dist/firefox/
 
+      - name: Set the environment variable
+        run: echo TAG_WITHOUT_PREFIX=${GITHUB_REF_NAME#v} >> $GITHUB_ENV
+
       - name: Package Chromium
-        run: cd dist/chromium && zip -r ../../42fm_chromium_${GITHUB_REF_NAME#v}.zip .
+        run: cd dist/chromium && zip -r ../../42fm_chromium_${{ env.TAG_WITHOUT_PREFIX }}.zip .
 
       - name: Package Firefox
-        run: cd dist/firefox && zip -r ../../42fm_firefox_${GITHUB_REF_NAME#v}.zip .
+        run: cd dist/firefox && zip -r ../../42fm_firefox_${{ env.TAG_WITHOUT_PREFIX }}.zip .
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            42fm_chromium_${GITHUB_REF_NAME#v}.zip
-            42fm_firefox_${GITHUB_REF_NAME#v}.zip
+            42fm_chromium_${{ env.TAG_WITHOUT_PREFIX }}.zip
+            42fm_firefox_${{ env.TAG_WITHOUT_PREFIX }}.zip
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
