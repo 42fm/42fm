@@ -46,13 +46,13 @@ jobs:
       contents: write
     steps:
       - name: Download chromium artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-chromium
           path: dist/chromium/
 
       - name: Download firefox artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-firefox
           path: dist/firefox/
