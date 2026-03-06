@@ -58,10 +58,10 @@ jobs:
           path: dist/firefox/
 
       - name: Package Chromium
-        run: zip -r 42fm_chromium_${{ github.ref_name }}.zip dist/chromium/
+        run: cd dist/chromium && zip -r ../../42fm_chromium_${{ github.ref_name }}.zip .
 
       - name: Package Firefox
-        run: zip -r 42fm_firefox_${{ github.ref_name }}.zip dist/firefox/
+        run: cd dist/firefox && zip -r ../../42fm_firefox_${{ github.ref_name }}.zip .
 
       - name: Release
         uses: softprops/action-gh-release@v2
