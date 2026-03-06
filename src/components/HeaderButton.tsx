@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "../assets/logo-32.png";
 import ButtonIcon from "./ButtonIcon";
 import Portal from "./Portal";
-import Settings from "./Settings";
+import Settings from "./Settings/Settings";
 
 const Wrapper = styled.div`
   margin-left: 0.5rem;

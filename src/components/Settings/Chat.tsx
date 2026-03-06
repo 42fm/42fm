@@ -1,6 +1,6 @@
 import { SectionContainer, SectionLabel, SectionsContainer } from "@/styles/settings";
 import React, { ChangeEvent } from "react";
-import Toggle from "./Toggle";
+import Toggle from "../Toggle";
 
 function SettingsChat({
   settings,

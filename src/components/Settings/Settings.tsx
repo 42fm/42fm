@@ -2,13 +2,13 @@ import { defaultIconProps } from "@/utils/icon";
 import { UilGithub } from "@iconscout/react-unicons";
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
-import logo32 from "../assets/logo-32.png";
-import { getSettings, setSetting } from "../utils/settings";
-import ButtonIcon from "./ButtonIcon";
-import Image from "./Image";
-import SettingsBehavior from "./SettingBehavior";
-import SettingsChat from "./SettingsChat";
-import SettingsGeneral from "./SettingsGeneral";
+import logo32 from "../../assets/logo-32.png";
+import { getSettings, setSetting } from "../../utils/settings";
+import ButtonIcon from "../ButtonIcon";
+import Image from "../Image";
+import SettingsBehavior from "./Behavior";
+import SettingsChat from "./Chat";
+import SettingsGeneral from "./General";
 
 const Wrapper = styled.div`
   width: 700px;

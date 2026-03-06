@@ -1,6 +1,6 @@
 import { SectionContainer, SectionLabel, SectionsContainer } from "@/styles/settings";
 import React, { ChangeEvent } from "react";
-import Select from "./Select";
+import Select from "../Select";
 
 function SettingsGeneral({
   settings,
