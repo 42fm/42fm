@@ -11,6 +11,9 @@
    </a>
    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/42fm/42fm">
    <img alt="Chrome Web Store Stars" src="https://img.shields.io/chrome-web-store/stars/djkopjknjkhhhlbpaooiffegfhibkdka">
+   <a href="https://github.com/42fm/42fm/actions">
+       <img src="https://github.com/42fm/42fm/workflows/Build/badge.svg">
+   </a>
 </p>
 
 ## Overview
