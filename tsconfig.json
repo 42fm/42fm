@@ -4,7 +4,6 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "./dist/",
-    "baseUrl": "./",
     "rootDir": "src",
     "sourceMap": true,
     "noImplicitReturns": true,
@@ -12,8 +11,11 @@
     "allowJs": true,
     "jsx": "react",
     "paths": {
-      "@/*": ["src/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@/*": ["./src/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "esModuleInterop": true,
     "strict": true,
