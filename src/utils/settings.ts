@@ -3,7 +3,7 @@ export const default_settings: {
 } = {
   position: "top",
   autoConnect: true,
-  isExpanded: true,
+  isExpanded: false,
   hideLeaderboard: true,
   disableBadges: false,
   disablePaints: false,
