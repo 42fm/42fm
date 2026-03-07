@@ -19,6 +19,7 @@ const Wrapper = styled.div`
     background: #adadb8;
     border-radius: 2px;
     pointer-events: none;
+    z-index: -1;
   }
 `;
 
