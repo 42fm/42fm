@@ -12,7 +12,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
-import React, { cloneElement, useMemo, useRef, useState } from "react";
+import React, { cloneElement, JSX, useMemo, useRef, useState } from "react";
 import { mergeRefs } from "react-merge-refs";
 import styled from "styled-components";
 
