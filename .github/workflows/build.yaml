@@ -5,7 +5,31 @@ on:
     tags: ["v*.*.*"]
 
 jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+
+      - name: Typecheck
+        run: yarn typecheck
+
   build:
+    needs: typecheck
     runs-on: ubuntu-latest
     strategy:
       matrix:
