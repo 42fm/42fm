@@ -13,7 +13,7 @@
     "zip-source": "git ls-files --recurse-submodules | tar caf ./source.tar.gz -T-"
   },
   "author": "loczek",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "dependencies": {
     "@floating-ui/react": "^0.27.19",
     "@iconscout/react-unicons": "^2.2.5",
