@@ -24,7 +24,6 @@ export const badges: {
 
 const createBadge = (name: string) => {
   const badgeElement = document.createElement("div");
-  console.log(badges);
   badgeElement.style.backgroundImage = `url(${badges[name].icon})`;
   badgeElement.setAttribute("class", "badge-42fm ffz-badge");
   badgeElement.setAttribute("data-42fm-badge-tooltip", badges[name].tooltip);
