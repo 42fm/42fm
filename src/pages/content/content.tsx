@@ -3,13 +3,13 @@ import { createRoot } from "react-dom/client";
 import { ThemeProvider } from "styled-components";
 import HeaderButton from "../../components/HeaderButton";
 import { darkMode } from "../../theme";
-import { log } from "../../utils/log";
+import { logger } from "../../utils/log";
 import { getSetting } from "../../utils/settings";
 import Player from "./Player";
 import YoutubePlayer from "./YoutubePlayer";
 import { badgeOwners } from "./badges";
 
-log("debug", "Content File");
+logger.debug("Content File");
 
 const channelRegex = /(https:\/\/[a-z]*.twitch.tv\/)(?:(u|popout|moderator)\/)?([a-zA-Z0-9_]{3,25})/;
 const getChannelName = () => {
@@ -57,7 +57,7 @@ navigation.addEventListener("currententrychange", () => {
 
   let newChannelName = match[3];
   if (channelName !== newChannelName) {
-    log("debug", `Channel changed: ${channelName} -> ${newChannelName}`);
+    logger.debug(`Channel changed: ${channelName} -> ${newChannelName}`);
     channelName = newChannelName;
     if (window.YT) {
       log("info", "Got Player");
@@ -124,7 +124,7 @@ async function main() {
 main();
 
 export async function onPlayerReady(event: YT.PlayerEvent) {
-  log("info", "onPlayerReady");
+  logger.info("onPlayerReady");
 
   player.playVideo();
   player.playVideo();
@@ -140,7 +140,7 @@ const render = async () => {
     const isMounted = chat.querySelector("#root-42fm");
 
     if (isMounted) {
-      log("debug", "Already mounted");
+      logger.debug("Already mounted");
       return;
     }
 
@@ -159,7 +159,7 @@ const render = async () => {
       </React.StrictMode>,
     );
 
-    log("debug", `Rendered player for ${channelName}`);
+    logger.debug(`Rendered player for ${channelName}`);
 
     const messagesContainer = chat.querySelector(".chat-scrollable-area__message-container");
 
@@ -199,7 +199,7 @@ const render = async () => {
       });
 
       observer.observe(messagesContainer, { childList: true });
-      log("debug", `Started observer for ${channelName}`);
+      logger.debug(`Started observer for ${channelName}`);
     }
 
     setTimeout(() => {
@@ -249,6 +249,6 @@ const render = async () => {
       observer.observe(sevenTvMessages, { childList: true });
     }, 5000);
   } catch (e) {
-    log("error", e);
+    logger.error(e);
   }
 };

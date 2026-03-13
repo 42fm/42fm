@@ -10,7 +10,7 @@ import useHistory from "@/hooks/useHistory";
 import useIsConnected from "@/hooks/useIsConnected";
 import socket from "@/socket";
 import { defaultIconProps } from "@/utils/icon";
-import { log } from "@/utils/log";
+import { logger } from "@/utils/log";
 import { getSetting } from "@/utils/settings";
 import { distanceFormatHMS } from "@/utils/utils";
 import {
@@ -162,7 +162,7 @@ function Player({ room, player }: Props) {
     }
 
     function onPlayEvent() {
-      log("info", "Player started playing");
+      logger.info("Player started playing");
       setIsPlaying(true);
       player.playVideo();
     }

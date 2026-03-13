@@ -1,11 +1,21 @@
-type LogTypes = "info" | "error" | "warn" | "debug";
-
-const log = (type: LogTypes, ...data: any[]) => {
-  if (type === "error") {
-    console.error("%c[42FM]", "color: #7f00ff", `[${type}]: ${data}`);
-  } else {
-    console.log("%c[42FM]", "color: #7f00ff", `[${type}]: ${data}`);
+class Logger {
+  public error(...data: any[]) {
+    console.error("%c[42FM]", "color: #FF7A00", `[error]`, data);
   }
-};
 
-export { log };
+  public warn(...data: any[]) {
+    console.warn("%c[42FM]", "color: #FF7A00", `[warn]`, data);
+  }
+
+  public info(...data: any[]) {
+    console.log("%c[42FM]", "color: #FF7A00", `[info]`, data);
+  }
+
+  public debug(...data: any[]) {
+    console.debug("%c[42FM]", "color: #FF7A00", `[debug]`, data);
+  }
+}
+
+const logger = new Logger();
+
+export { logger };
