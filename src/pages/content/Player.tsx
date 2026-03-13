@@ -65,20 +65,20 @@ const Header = styled.header`
 const Wrapper = styled.div``;
 
 const ProgressLine = styled.hr<{
-  progress: number;
-  duration?: number;
-  position: "top" | "bottom" | "center" | undefined;
+  $progress: number;
+  $duration?: number;
+  $position: "top" | "bottom" | "center" | undefined;
 }>`
   position: absolute;
-  ${(props) => (props.position === "center" ? `height: auto;` : `height: 1px;`)}
-  width: ${(props) => `${props.progress}%`};
+  ${(props) => (props.$position === "center" ? `height: auto;` : `height: 1px;`)}
+  width: ${(props) => `${props.$progress}%`};
   background-color: #7f00ff;
-  transition: width ${(props) => (props.duration ? props.duration / 100 : 1)} + "s" linear;
+  transition: width ${(props) => (props.$duration ? props.$duration / 100 : 1)} + "s" linear;
   z-index: 10;
   left: 0;
-  ${(props) => props.position === "top" && `top: -1px;`}
-  ${(props) => props.position === "bottom" && `bottom: -1px`}
-  ${(props) => props.position === "center" && `top: 0; bottom: 0`}
+  ${(props) => props.$position === "top" && `top: -1px;`}
+  ${(props) => props.$position === "bottom" && `bottom: -1px`}
+  ${(props) => props.$position === "center" && `top: 0; bottom: 0`}
 `;
 
 interface Props {

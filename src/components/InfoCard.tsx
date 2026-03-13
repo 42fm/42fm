@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-interface Props {
-  left?: boolean | React.ReactNode;
-  text: string;
-  right?: boolean | React.ReactNode;
+interface WrapperProps {
+  $left?: boolean;
+  $right?: boolean;
 }
 
-const Wrapper = styled.div<Props>`
+const Wrapper = styled.div<WrapperProps>`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   gap: 8px;
-  padding: ${(props) => (props.left || props.right ? "8px" : "16px")} 16px;
+  padding: ${(props) => (props.$left || props.$right ? "8px" : "16px")} 16px;
   width: 100%;
   background: ${(props) => props.theme.color.primary};
   border-radius: 8px;
@@ -25,9 +24,15 @@ const Title = styled.span`
   line-height: 17px;
 `;
 
+interface Props {
+  left?: boolean | React.ReactNode;
+  text: string;
+  right?: boolean | React.ReactNode;
+}
+
 function InfoCard(props: Props) {
   return (
-    <Wrapper {...props}>
+    <Wrapper $left={!!props.left} $right={!!props.right}>
       {props.left}
       <Title>{props.text}</Title>
       {props.right}
