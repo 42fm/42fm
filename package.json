@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "author": "loczek",
   "license": "AGPL-3.0-only",
+  "type": "module",
   "scripts": {
     "build": "yarn build:chromium:prod && yarn build:firefox:prod",
     "start:chromium": "webpack --env=DIST=chromium --env=BROWSER=chrome --watch --config webpack.dev.js",
