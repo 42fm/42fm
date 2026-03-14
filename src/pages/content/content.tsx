@@ -60,7 +60,7 @@ navigation.addEventListener("currententrychange", () => {
     logger.debug(`Channel changed: ${channelName} -> ${newChannelName}`);
     channelName = newChannelName;
     if (window.YT) {
-      log("info", "Got Player");
+      logger.info("Got Player");
       player.pauseVideo();
       render();
     }
