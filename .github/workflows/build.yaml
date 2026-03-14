@@ -81,7 +81,7 @@ jobs:
           path: source.tar.gz
 
   release:
-    needs: build
+    needs: [build, package-source]
     runs-on: ubuntu-latest
     permissions:
       contents: write
