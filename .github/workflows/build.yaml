@@ -105,7 +105,6 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: source
-          path: source_${{ env.TAG_WITHOUT_PREFIX }}.tar.gz
 
       - name: Package Chromium
         run: cd dist/chromium && zip -r ../../42fm_chromium_${{ env.TAG_WITHOUT_PREFIX }}.zip .
@@ -119,7 +118,7 @@ jobs:
           files: |
             42fm_chromium_${{ env.TAG_WITHOUT_PREFIX }}.zip
             42fm_firefox_${{ env.TAG_WITHOUT_PREFIX }}.zip
-            source_${{ env.TAG_WITHOUT_PREFIX }}.tar.gz
+            source.tar.gz
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
