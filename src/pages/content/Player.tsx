@@ -354,7 +354,7 @@ function Player({ room, player }: Props) {
   return (
     <Wrapper>
       <Content>
-        {isCompact && <ProgressLine progress={progress} duration={currentSong?.duration} position={getPosition()} />}
+        {isCompact && <ProgressLine $progress={progress} $duration={currentSong?.duration} $position={getPosition()} />}
         {!isCompact &&
           (!currentSong ? (
             <InfoCard text="Type &#34;!fm &lt;link&gt;&#34; to add a song" />
