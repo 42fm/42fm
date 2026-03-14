@@ -63,6 +63,23 @@ jobs:
           name: build-${{matrix.engine}}
           path: dist/${{matrix.engine}}/
 
+  package-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Create source archive
+        run: git ls-files --recurse-submodules | tar caf ./source.tar.gz -T-
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: source
+          path: source.tar.gz
+
   release:
     needs: build
     runs-on: ubuntu-latest
@@ -81,6 +98,11 @@ jobs:
           name: build-firefox
           path: dist/firefox/
 
+      - name: Download source artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: source
+
       - name: Set the environment variable
         run: echo TAG_WITHOUT_PREFIX=${GITHUB_REF_NAME#v} >> $GITHUB_ENV
 
@@ -96,6 +118,7 @@ jobs:
           files: |
             42fm_chromium_${{ env.TAG_WITHOUT_PREFIX }}.zip
             42fm_firefox_${{ env.TAG_WITHOUT_PREFIX }}.zip
+            source_${{ env.TAG_WITHOUT_PREFIX }}.tar.gz
           draft: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
