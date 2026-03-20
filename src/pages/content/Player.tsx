@@ -125,9 +125,9 @@ function Player({ room, player }: Props) {
       socket.emit("joinRoom", { room });
     }
 
-    socket.io.on("reconnect", () => {
+    function onReconnect() {
       socket.emit("joinRoom", { room });
-    });
+    }
 
     function onSongEvent(data: Channel) {
       let prevCurrent: CurrentSong | null = null;
@@ -208,6 +208,7 @@ function Player({ room, player }: Props) {
       setUserCount(count);
     }
 
+    socket.io.on("reconnect", onReconnect);
     socket.on("song", onSongEvent);
     socket.on("playlistAdd", onPlaylistAddEvent);
     socket.on("pause", onPauseEvent);
@@ -219,6 +220,7 @@ function Player({ room, player }: Props) {
     socket.on("userCount", onUserCountEvent);
 
     return () => {
+      socket.io.off("reconnect", onReconnect);
       socket.off("song", onSongEvent);
       socket.off("playlistAdd", onPlaylistAddEvent);
       socket.off("pause", onPauseEvent);
