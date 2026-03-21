@@ -1,7 +1,6 @@
 import { execSync } from "child_process";
 import webpack from "webpack";
 import { resolve } from "path";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -47,6 +46,7 @@ const config = (env) => {
       path: resolve(__dirname, "dist", env.DIST),
       filename: "[name].js",
       publicPath: "/",
+      clean: true,
     },
     module: {
       rules: [
@@ -70,7 +70,6 @@ const config = (env) => {
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new webpack.ProgressPlugin({}),
       new webpack.DefinePlugin({
         "process.env.APP_VERSION": JSON.stringify(info.APP_VERSION),
