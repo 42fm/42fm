@@ -1,11 +1,12 @@
 import { merge } from "webpack-merge";
-import config from "./webpack.config.js";
+import baseConfig from "./webpack.config.js";
 import Dotenv from "dotenv-webpack";
 import CopyPlugin from "copy-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
 
-export default (env) => {
-  return merge(config(env), {
+/** @returns {webpack.Configuration} */
+const config = () => {
+  return {
     mode: "production",
     optimization: {
       minimize: true,
@@ -32,5 +33,7 @@ export default (env) => {
         ],
       }),
     ],
-  });
+  };
 };
+
+export default (env) => merge(baseConfig(env), config(env));

@@ -1,10 +1,12 @@
 import Dotenv from "dotenv-webpack";
 import { merge } from "webpack-merge";
-import config from "./webpack.config.js";
+import baseConfig from "./webpack.config.js";
 import CopyPlugin from "copy-webpack-plugin";
+import webpack from "webpack";
 
-export default (env) => {
-  return merge(config(env), {
+/** @returns {webpack.Configuration} */
+const config = (env) => {
+  return {
     mode: "development",
     devtool: "inline-source-map",
     devServer: {
@@ -35,5 +37,7 @@ export default (env) => {
         ],
       }),
     ],
-  });
+  };
 };
+
+export default (env) => merge(baseConfig(env), config(env));

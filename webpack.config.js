@@ -33,6 +33,7 @@ const info = debugInfo();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+/** @returns {webpack.Configuration} */
 const config = (env) => {
   return {
     entry: {
