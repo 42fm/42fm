@@ -1,7 +1,6 @@
 import { execSync } from "child_process";
 import webpack from "webpack";
 import { resolve } from "path";
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import semver from "semver";
@@ -78,7 +77,7 @@ const config = (env) => {
       }),
     ],
     resolve: {
-      plugins: [new TsconfigPathsPlugin()],
+      tsconfig: resolve(__dirname, "tsconfig.json"),
       extensions: [".tsx", ".ts", ".js"],
     },
   };
