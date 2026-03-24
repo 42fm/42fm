@@ -45,7 +45,6 @@ const config = (env) => {
       path: resolve(__dirname, "dist", env.DIST),
       filename: "[name].js",
       publicPath: "/",
-      clean: true,
     },
     module: {
       rules: [

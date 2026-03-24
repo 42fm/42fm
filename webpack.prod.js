@@ -15,6 +15,9 @@ export default (env) => {
         }),
       ],
     },
+    output: {
+      clean: true,
+    },
     plugins: [
       new Dotenv({
         path: "./.env.production",
