@@ -36,7 +36,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const config = (env) => {
   return {
     entry: {
-      iframe: resolve(__dirname, "src", "iframe.js"),
+      iframe: resolve(__dirname, "src", "iframe.ts"),
       content: resolve(__dirname, "src", "pages", "content", "content.tsx"),
       inject: resolve(__dirname, "src", "inject.ts"),
       background: resolve(__dirname, "src", "pages", "background", "background.ts"),
@@ -63,7 +63,7 @@ const config = (env) => {
           loader: "html-loader",
         },
         {
-          test: /iframe\.js$/,
+          test: /iframe\.ts$/,
           loader: "val-loader",
         },
       ],
