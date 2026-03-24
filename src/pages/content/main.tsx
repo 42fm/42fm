@@ -99,7 +99,7 @@ ytRoot.render(
 
 export let player: YT.Player;
 
-async function main() {
+export default async function main() {
   await getYT();
 
   player = new YT.Player("42fm-yt-player", {
@@ -120,8 +120,6 @@ async function main() {
     },
   });
 }
-
-main();
 
 export async function onPlayerReady(event: YT.PlayerEvent) {
   logger.info("onPlayerReady");
