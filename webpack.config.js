@@ -39,7 +39,7 @@ const config = (env) => {
     output: {
       path: resolve(__dirname, "dist", env.DIST),
       filename: "[name].js",
-      publicPath: "/",
+      publicPath: "http://localhost:8080/",
     },
     module: {
       rules: [
