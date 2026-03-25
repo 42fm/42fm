@@ -2,19 +2,42 @@ import Dotenv from "dotenv-webpack";
 import { merge } from "webpack-merge";
 import baseConfig from "./webpack.config.js";
 import CopyPlugin from "copy-webpack-plugin";
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import webpack from "webpack";
+import { dirname, resolve } from "path";
+import { fileURLToPath } from "url";
+import CrxLoadScriptWebpackPlugin from "@cooby/crx-load-script-webpack-plugin";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** @returns {webpack.Configuration} */
 const config = (env) => {
   return {
     mode: "development",
     devtool: "inline-source-map",
+    entry: {
+      content: resolve(__dirname, "src", "pages", "content", "content.tsx"),
+      background: resolve(__dirname, "src", "pages", "background", "background.ts"),
+    },
     devServer: {
       static: {
-        directory: "./dist",
+        watch: false,
       },
+      client: {
+        webSocketURL: "ws://localhost:8080/ws",
+      },
+      devMiddleware: {
+        writeToDisk: true, // writes all output files to disk
+      },
+      allowedHosts: "all",
+      hot: false,
+      liveReload: false,
+      compress: true,
     },
     plugins: [
+      new webpack.HotModuleReplacementPlugin(),
+      new ReactRefreshWebpackPlugin({ overlay: false }),
+      new CrxLoadScriptWebpackPlugin(),
       new Dotenv({
         path: "./.env.development",
       }),
