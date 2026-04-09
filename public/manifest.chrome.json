@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": ["*://twitch.tv/*", "*://www.twitch.tv/*"],
-      "js": ["inject.js"]
+      "js": ["iframe.js", "content.js"]
     }
   ],
   "background": {
