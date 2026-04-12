@@ -30,7 +30,7 @@ const SidePanel = styled.div`
   justify-content: space-between;
 `;
 
-const Tab = styled.span<{ isSelected: boolean }>`
+const Tab = styled.span<{ $isSelected: boolean }>`
   width: 100%;
   padding: 8px 16px;
   border-radius: 8px;
@@ -40,7 +40,7 @@ const Tab = styled.span<{ isSelected: boolean }>`
   &:hover {
     background: ${(props) => props.theme.color.hover};
   }
-  background: ${(props) => (props.isSelected ? props.theme.color.primary : "transparent")};
+  background: ${(props) => (props.$isSelected ? props.theme.color.primary : "transparent")};
 `;
 
 const Section = styled.div`
@@ -135,7 +135,7 @@ function Settings() {
         </SectionLeft>
         <Section>
           {tabs.map((tab, index) => (
-            <Tab key={tab.name} onClick={() => handleClick(index)} isSelected={tabIndex === index}>
+            <Tab key={tab.name} onClick={() => handleClick(index)} $isSelected={tabIndex === index}>
               {tab.label}
             </Tab>
           ))}
