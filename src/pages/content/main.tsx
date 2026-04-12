@@ -102,7 +102,7 @@ export let player: YT.Player;
 export default async function main() {
   await getYT();
 
-  player = new YT.Player("42fm-yt-player", {
+  player = new window.YT.Player("42fm-yt-player", {
     height: "270",
     width: "480",
     videoId: "Yo5QO8K0DrA",
