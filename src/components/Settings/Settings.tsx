@@ -3,7 +3,7 @@ import { UilGithub } from "@iconscout/react-unicons";
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 import logo32 from "../../assets/logo-32.png";
-import { getSettings, setSetting } from "../../utils/settings";
+import { getNonDefaultSettings, getSettings, setSetting } from "../../utils/settings";
 import ButtonIcon from "../ButtonIcon";
 import Image from "../Image";
 import SettingsBehavior from "./Behavior";
@@ -90,6 +90,9 @@ function Settings() {
   const [settings, setSettings] = useState(() => {
     return getSettings();
   });
+  const [nonDefaultSettings, setNonDefaultSettings] = useState(() => {
+    return getNonDefaultSettings();
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = event.target;
@@ -97,12 +100,23 @@ function Settings() {
     //@ts-ignore
     const value = target.type === "checkbox" ? target.checked : target.value;
 
-    setSettings({
-      ...settings,
-      [name]: value,
+    setSettings((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
     });
 
     setSetting(name, value.toString());
+
+    setNonDefaultSettings(getNonDefaultSettings());
+  };
+
+  const handleReset = (key: string) => {
+    localStorage.removeItem(`42fm:settings:${key}`);
+
+    setSettings(getSettings());
+    setNonDefaultSettings(getNonDefaultSettings());
   };
 
   const handleClick = (tabIndex: number) => {
@@ -113,17 +127,38 @@ function Settings() {
     {
       name: "general",
       label: "General",
-      element: <SettingsGeneral handleChange={handleChange} settings={settings} />,
+      element: (
+        <SettingsGeneral
+          handleChange={handleChange}
+          handleReset={handleReset}
+          settings={settings}
+          nonDefaultSettings={nonDefaultSettings}
+        />
+      ),
     },
     {
       name: "behavior",
       label: "Behavior",
-      element: <SettingsBehavior handleChange={handleChange} settings={settings} />,
+      element: (
+        <SettingsBehavior
+          handleChange={handleChange}
+          handleReset={handleReset}
+          settings={settings}
+          nonDefaultSettings={nonDefaultSettings}
+        />
+      ),
     },
     {
       name: "chat",
       label: "Chat",
-      element: <SettingsChat handleChange={handleChange} settings={settings} />,
+      element: (
+        <SettingsChat
+          handleChange={handleChange}
+          handleReset={handleReset}
+          settings={settings}
+          nonDefaultSettings={nonDefaultSettings}
+        />
+      ),
     },
   ];
 

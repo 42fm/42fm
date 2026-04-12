@@ -13,3 +13,9 @@ export const SectionContainer = styled.div`
 `;
 
 export const SectionLabel = styled.label``;
+
+export const SectionInputs = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;

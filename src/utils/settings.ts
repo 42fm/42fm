@@ -47,4 +47,19 @@ const getSettings = () => {
   return settings;
 };
 
-export { getSetting, getSettings, setSetting };
+const getNonDefaultSettings = () => {
+  const items = { ...localStorage };
+
+  let settings = new Set<string>();
+
+  for (let key in items) {
+    if (key.startsWith("42fm:settings:")) {
+      const keyWithoutPrefix = key.replace("42fm:settings:", "");
+      settings.add(keyWithoutPrefix);
+    }
+  }
+
+  return settings;
+};
+
+export { getSetting, getSettings, setSetting, getNonDefaultSettings };
