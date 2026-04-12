@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack serve --env=DIST=chromium --env=BROWSER=chrome --config webpack.dev.js --config webpack.iframe.js",
     "build": "yarn build:chromium:prod && yarn build:firefox:prod",
-    "typecheck": "tsgo -p ./tsconfig.json",
+    "typecheck": "tsgo --noEmit -p ./tsconfig.json",
     "start:chromium": "webpack --env=DIST=chromium --env=BROWSER=chrome --watch --config webpack.dev.js",
     "start:firefox": "webpack --env=DIST=firefox --env=BROWSER=firefox --watch --config webpack.dev.js",
     "build:chromium:prod": "webpack --mode production --env=DIST=chromium --env=BROWSER=chrome --config webpack.prod.js",
