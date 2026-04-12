@@ -21,6 +21,7 @@ __metadata:
     "@types/react-dom": "npm:^19.2.3"
     "@types/react-refresh": "npm:^0.14.7"
     "@types/semver": "npm:^7.7.1"
+    "@types/stylis": "npm:^4.2.7"
     "@types/webextension-polyfill": "npm:^0.12.5"
     "@types/webpack-env": "npm:^1.18.8"
     "@types/youtube": "npm:^0.2.0"
@@ -1228,6 +1229,13 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/b20b7820ee813f22de4f2ce98bdd12c68c930e016a8912b1ed967595ac0d8a4cbbff44f4d486dd97f77f5927e7b5725bdac7472c9ec5b27f53a5a13179f0612f
+  languageName: node
+  linkType: hard
+
+"@types/stylis@npm:^4.2.7":
+  version: 4.2.7
+  resolution: "@types/stylis@npm:4.2.7"
+  checksum: 10c0/01a9679addb3f63951a9c09729564e2205581f2db40875a28b25cc461efc52ba17a711cc50cdb5e7d3a67c5f2cd60580e078c8a69b8df7b67699d89060d2a977
   languageName: node
   linkType: hard
 
