@@ -9,7 +9,7 @@ import baseConfig from "./webpack.config.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** @returns {webpack.Configuration} */
-const config = () => {
+const config = (env) => {
   return {
     mode: "production",
     entry: {
