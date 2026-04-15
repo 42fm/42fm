@@ -20,10 +20,6 @@ const getChannelName = () => {
 
 let channelName = getChannelName();
 
-const header = document.querySelector(".top-nav__menu");
-const headerElement = document.createElement("div");
-header?.lastChild?.lastChild?.before(headerElement);
-
 const getChat = () => {
   return new Promise<HTMLDivElement>((resolve, reject) => {
     const interval = setInterval(() => {
@@ -63,10 +59,14 @@ navigation.addEventListener("currententrychange", () => {
       logger.info("Got Player");
       player.pauseVideo();
       render();
+      renderDecorations()
     }
   }
 });
 
+const headerSelector = document.querySelector(".top-nav__menu");
+const headerElement = document.createElement("div");
+headerSelector?.lastChild?.lastChild?.before(headerElement);
 const headerRoot = createRoot(headerElement);
 headerRoot.render(
   <React.StrictMode>
@@ -76,17 +76,9 @@ headerRoot.render(
   </React.StrictMode>,
 );
 
-const badge = document.createElement("span");
-badge.style.cssText = `
-background-image: "";
-`;
-
-badge.setAttribute("data-42fm-badge-tooltip", "42FM Developer");
-badge.setAttribute("class", "badge-42fm");
-
-let root = document.querySelector("#root");
+let rootSelector = document.querySelector("#root");
 let youtubePlayer = document.createElement("div");
-root?.after(youtubePlayer);
+rootSelector?.after(youtubePlayer);
 const ytRoot = createRoot(youtubePlayer);
 
 ytRoot.render(
@@ -129,6 +121,7 @@ export async function onPlayerReady(event: YT.PlayerEvent) {
   player.pauseVideo();
 
   await render();
+  await renderDecorations();
 }
 
 const render = async () => {
@@ -158,6 +151,14 @@ const render = async () => {
     );
 
     logger.debug(`Rendered player for ${channelName}`);
+  } catch (e) {
+    logger.error(e);
+  }
+};
+
+const renderDecorations = async () => {
+  try {
+    const chat = await getChat();
 
     const messagesContainer = chat.querySelector(".chat-scrollable-area__message-container");
 
