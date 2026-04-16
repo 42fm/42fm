@@ -176,12 +176,12 @@ const renderDecorations = async () => {
               continue;
             }
 
-            const badges: HTMLElement = line.querySelector(".chat-line__message--badges")!;
-            const badges2: HTMLElement = line.querySelector(".chat-line__username-container")!;
-            const author: HTMLElement = line.querySelector(".chat-author__display-name")!;
+            const badgesFFZ: HTMLDivElement | null = line.querySelector(".chat-line__message--badges");
+            const badgesTwitch: HTMLDivElement | null = line.querySelector(".chat-line__username-container");
+            const author: HTMLSpanElement | null = line.querySelector(".chat-author__display-name");
 
             if (!getSetting("disablePaints")) {
-              if (badgeOwner.paint) {
+              if (badgeOwner.paint && author) {
                 author.classList.add("transparent42fm");
                 author.classList.add(badgeOwner.paint);
               }
@@ -189,10 +189,10 @@ const renderDecorations = async () => {
 
             if (!getSetting("disableBadges")) {
               const clone = badgeOwner.badge.cloneNode();
-              if (badges !== null) {
-                badges.appendChild(clone);
-              } else if (badges2) {
-                badges2.firstChild?.appendChild(clone);
+              if (badgesFFZ !== null) {
+                badgesFFZ.appendChild(clone);
+              } else if (badgesTwitch) {
+                badgesTwitch.firstChild?.appendChild(clone);
               }
             }
           }
