@@ -218,19 +218,15 @@ const renderDecorations = async () => {
             const line = node as Element;
 
             const username = line.querySelector(".seventv-chat-user-username > span > span")?.textContent;
-
             if (!username) continue;
 
             const badgeOwner = badgeOwners.find((b) => b.twitch_name === username?.toLowerCase());
-
             if (!badgeOwner) continue;
 
             const chatUser = line.querySelector(".seventv-chat-user");
-
             if (!chatUser) continue;
 
             let badges = chatUser.querySelector(".seventv-chat-user-badge-list");
-
             if (!badges) {
               badges = document.createElement("span");
               badges.classList.add("seventv-chat-user-badge-list");
