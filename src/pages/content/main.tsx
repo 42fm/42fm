@@ -172,25 +172,27 @@ const renderDecorations = async () => {
                 b.twitch_id === line.getAttribute("data-user-id") ||
                 b.twitch_name === line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user"),
             );
-            if (badgeOwner) {
-              const badges: HTMLElement = line.querySelector(".chat-line__message--badges")!;
-              const badges2: HTMLElement = line.querySelector(".chat-line__username-container")!;
-              const author: HTMLElement = line.querySelector(".chat-author__display-name")!;
+            if (!badgeOwner) {
+              continue;
+            }
 
-              if (!getSetting("disablePaints")) {
-                if (badgeOwner.paint) {
-                  author.classList.add("transparent42fm");
-                  author.classList.add(badgeOwner.paint);
-                }
+            const badges: HTMLElement = line.querySelector(".chat-line__message--badges")!;
+            const badges2: HTMLElement = line.querySelector(".chat-line__username-container")!;
+            const author: HTMLElement = line.querySelector(".chat-author__display-name")!;
+
+            if (!getSetting("disablePaints")) {
+              if (badgeOwner.paint) {
+                author.classList.add("transparent42fm");
+                author.classList.add(badgeOwner.paint);
               }
+            }
 
-              if (!getSetting("disableBadges")) {
-                const clone = badgeOwner.badge.cloneNode();
-                if (badges !== null) {
-                  badges.appendChild(clone);
-                } else if (badges2) {
-                  badges2.firstChild?.appendChild(clone);
-                }
+            if (!getSetting("disableBadges")) {
+              const clone = badgeOwner.badge.cloneNode();
+              if (badges !== null) {
+                badges.appendChild(clone);
+              } else if (badges2) {
+                badges2.firstChild?.appendChild(clone);
               }
             }
           }
