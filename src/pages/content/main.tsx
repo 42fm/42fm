@@ -164,8 +164,8 @@ const renderDecorations = async () => {
 
     if (messagesContainer) {
       const observer = new MutationObserver((mutations) => {
-        for (const mut of mutations) {
-          for (const node of mut.addedNodes) {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
             const line = node as Element;
             const badgeOwner = badgeOwners.find(
               (b) =>
