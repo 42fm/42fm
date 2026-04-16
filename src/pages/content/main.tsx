@@ -167,10 +167,13 @@ const renderDecorations = async () => {
         for (const mutation of mutations) {
           for (const node of mutation.addedNodes) {
             const line = node as Element;
+
             const badgeOwner = badgeOwners.find(
               (b) =>
                 b.twitch_id === line.getAttribute("data-user-id") ||
-                b.twitch_name === line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user"),
+                b.twitch_name === line.querySelector(".chat-author__display-name")?.getAttribute("data-a-user") ||
+                b.twitch_id === line.querySelector(".chat-line__message")?.getAttribute("data-user-id") || // ffz
+                b.twitch_name === line.querySelector(".chat-line__message")?.getAttribute("data-a-user"), // ffz
             );
             if (!badgeOwner) {
               continue;
