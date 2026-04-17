@@ -7,7 +7,7 @@ export const default_settings: {
   hideLeaderboard: true,
   disableBadges: false,
   disablePaints: false,
-  hideProgress: false,
+  hideProgress: true,
 };
 
 const setSetting = (id: string, value: any) => {
