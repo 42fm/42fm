@@ -17,13 +17,13 @@ function SettingsChat({
   return (
     <SectionsContainer>
       <SectionContainer>
-        <SectionLabel>Disable badges</SectionLabel>
+        <SectionLabel>Hide badges</SectionLabel>
         <SectionInputReset settingsKey="disableBadges" handleReset={handleReset} nonDefaultSettings={nonDefaultSettings}>
           <Toggle name="disableBadges" checked={settings["disableBadges"]} onChange={handleChange} />
         </SectionInputReset>
       </SectionContainer>
       <SectionContainer>
-        <SectionLabel>Disable paints</SectionLabel>
+        <SectionLabel>Hide paints</SectionLabel>
         <SectionInputReset settingsKey="disablePaints" handleReset={handleReset} nonDefaultSettings={nonDefaultSettings}>
           <Toggle name="disablePaints" checked={settings["disablePaints"]} onChange={handleChange} />
         </SectionInputReset>
