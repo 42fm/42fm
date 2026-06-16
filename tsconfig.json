@@ -20,7 +20,12 @@
     "esModuleInterop": true,
     "strict": true,
     "resolveJsonModule": true,
-    "types": ["node", "chrome", "youtube", "./types", "webpack-env"]
+    "types": ["node", "chrome", "youtube", "./types", "webpack-env"],
+    "plugins": [
+      {
+        "name": "@styled/typescript-styled-plugin"
+      }
+    ]
   },
   "include": ["./src/**/*"],
   "exclude": ["./src/**/*.js"]
