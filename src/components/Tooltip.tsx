@@ -89,7 +89,7 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
     left: "right",
   }[finalPlacement.split("-")[0]];
 
-  const { x: arrowX, y: arrowY } = middlewareData.arrow ?? { x: null, y: null };
+  const { x: arrowX, y: arrowY } = middlewareData.arrow ?? { x: 0, y: 0 };
 
   return (
     <>
@@ -101,8 +101,8 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
             <Arrow
               ref={arrowRef}
               style={{
-                top: arrowY ?? "",
-                left: arrowX ?? "",
+                top: arrowY,
+                left: arrowX,
                 [staticSide!]: "-4px",
               }}
             />
