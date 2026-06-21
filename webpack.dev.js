@@ -1,5 +1,5 @@
 import Dotenv from "dotenv-webpack";
-import { merge } from "webpack-merge";
+import { mergeWithRules } from "webpack-merge";
 import baseConfig from "./webpack.config.js";
 import CopyPlugin from "copy-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
