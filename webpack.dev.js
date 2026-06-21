@@ -72,13 +72,20 @@ const config = (env) => {
           { from: "src/assets", to: "assets" },
           {
             transform(content) {
-              const data = JSON.parse(content.toString());
-              data.name = "42FM - Dev";
-              data.action.default_icon["32"] = "assets/logo-32-dev.png";
-              data.icons["32"] = "assets/logo-32-dev.png";
-              data.icons["64"] = "assets/logo-64-dev.png";
-              data.icons["128"] = "assets/logo-128-dev.png";
-              return JSON.stringify(data, null, 2);
+              const manifest = JSON.parse(content.toString());
+              manifest.name = "42FM - Dev";
+              manifest.action.default_icon["32"] = "assets/logo-32-dev.png";
+              manifest.icons["32"] = "assets/logo-32-dev.png";
+              manifest.icons["64"] = "assets/logo-64-dev.png";
+              manifest.icons["128"] = "assets/logo-128-dev.png";
+
+              manifest.web_accessible_resources[0].resources = [
+                ...manifest.web_accessible_resources[0].resources,
+                "*.hot-update.json",
+                "*.hot-update.js",
+              ];
+
+              return JSON.stringify(manifest, null, 2);
             },
             from: `public/manifest.${env.BROWSER}.json`,
             to: "manifest.json",
