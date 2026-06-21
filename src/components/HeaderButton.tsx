@@ -4,6 +4,7 @@ import logo from "../assets/logo-32.png";
 import ButtonIcon from "./ButtonIcon";
 import Portal from "./Portal";
 import Settings from "./Settings/Settings";
+import Devtools from "./Devtools";
 
 const Wrapper = styled.div`
   margin-left: 0.5rem;
@@ -36,6 +37,11 @@ const HeaderButton = () => {
               <Settings />
             </div>
           </Backdrop>
+        </Portal>
+      )}
+      {!isOpen && process.env.NODE_ENV === "development" && (
+        <Portal domNode={document.getElementById("root")!}>
+          <Devtools />
         </Portal>
       )}
     </Wrapper>
