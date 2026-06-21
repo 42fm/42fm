@@ -95,7 +95,7 @@ function List({ userCount, playlist, history }: Props) {
       <Wrapper>
         <Title>
           <TitleText>History</TitleText>
-          <AbsoluteButton icon={<UilRefresh {...defaultIconProps} />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
+          <AbsoluteButton icon={<UilRefresh />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
         </Title>
         <Content>
           {history.length > 0 ? (
@@ -130,7 +130,7 @@ function List({ userCount, playlist, history }: Props) {
           <UserCountText>{userCount}</UserCountText>
         </UserCount>
         <TitleText>Playlist</TitleText>
-        <AbsoluteButton icon={<UilRefresh {...defaultIconProps} />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
+        <AbsoluteButton icon={<UilRefresh />} onClick={() => setIsHistoryOpen((prev) => !prev)} />
       </Title>
       <Content>
         {playlist.length > 0 ? (

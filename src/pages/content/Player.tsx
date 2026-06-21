@@ -9,7 +9,6 @@ import useDebounce from "@/hooks/useDebounce";
 import useHistory from "@/hooks/useHistory";
 import useIsConnected from "@/hooks/useIsConnected";
 import socket from "@/socket";
-import { defaultIconProps } from "@/utils/icon";
 import { logger } from "@/utils/log";
 import { getSetting } from "@/utils/settings";
 import { distanceFormatHMS } from "@/utils/utils";
@@ -324,14 +323,7 @@ function Player({ room, player }: Props) {
         <Content>
           <InfoCard
             text="Not connected to server"
-            right={
-              <ButtonIcon
-                icon={<UilLink {...defaultIconProps} />}
-                onClick={() => connect()}
-                tooltip="Connect"
-                placement="left"
-              />
-            }
+            right={<ButtonIcon icon={<UilLink />} onClick={() => connect()} tooltip="Connect" placement="left" />}
           />
         </Content>
         <HorizontalLine />
@@ -345,7 +337,7 @@ function Player({ room, player }: Props) {
         <Content>
           <InfoCard
             text="42FM is not added on this channel"
-            left={<ButtonIcon icon={<UilExclamationTriangle {...defaultIconProps} color="red" />} noInvert />}
+            left={<ButtonIcon icon={<UilExclamationTriangle color="red" />} noInvert />}
           />
         </Content>
         <HorizontalLine />
@@ -372,19 +364,14 @@ function Player({ room, player }: Props) {
                 />
                 <ButtonsWrapper>
                   <ButtonIcon
-                    icon={<UilVideo {...defaultIconProps} />}
+                    icon={<UilVideo />}
                     onClick={() => handlePlayerVisibilityChange()}
                     tooltip="Toggle Player"
                     placement="top-end"
                   />
+                  <ButtonIcon icon={<UilSync />} onClick={() => sync()} tooltip="Sync" placement="top-end" />
                   <ButtonIcon
-                    icon={<UilSync {...defaultIconProps} />}
-                    onClick={() => sync()}
-                    tooltip="Sync"
-                    placement="top-end"
-                  />
-                  <ButtonIcon
-                    icon={<UilLinkBroken {...defaultIconProps} />}
+                    icon={<UilLinkBroken />}
                     onClick={() => disconnect()}
                     tooltip="Disconnect"
                     placement="top-end"
@@ -397,12 +384,12 @@ function Player({ room, player }: Props) {
         <Header>
           <ButtonsWrapper>
             <ButtonIcon
-              icon={isPlaying ? <UilPause {...defaultIconProps} /> : <UilPlay {...defaultIconProps} />}
+              icon={isPlaying ? <UilPause /> : <UilPlay />}
               tooltip={isPlaying ? "Playing" : "Paused"}
               placement="bottom-start"
             />
             <ButtonIcon
-              icon={isMuted ? <UilVolumeMute {...defaultIconProps} /> : <UilVolume {...defaultIconProps} />}
+              icon={isMuted ? <UilVolumeMute /> : <UilVolume />}
               onClick={() => mute()}
               tooltip={isMuted ? "Unmute" : "Mute"}
               placement="bottom-start"
@@ -412,7 +399,7 @@ function Player({ room, player }: Props) {
           </ButtonsWrapper>
           <ButtonsWrapper>
             <ButtonIcon
-              icon={<UilListUl {...defaultIconProps} />}
+              icon={<UilListUl />}
               onClick={() => {
                 setIsPlaylistOpen(!isPlaylistOpen);
               }}
@@ -420,7 +407,7 @@ function Player({ room, player }: Props) {
               placement="bottom-end"
             />
             <ButtonIcon
-              icon={isCompact ? <UilArrowDown {...defaultIconProps} /> : <UilArrowUp {...defaultIconProps} />}
+              icon={isCompact ? <UilArrowDown /> : <UilArrowUp />}
               onClick={() => {
                 setIsCompact(!isCompact);
               }}

@@ -1,4 +1,3 @@
-import { defaultIconProps } from "@/utils/icon";
 import { UilGithub } from "@iconscout/react-unicons";
 import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components";
@@ -182,7 +181,7 @@ function Settings() {
           </InfoWrapper>
           <ButtonIcon
             tooltip="Github"
-            icon={<UilGithub {...defaultIconProps} />}
+            icon={<UilGithub />}
             onClick={() => window.open("https://github.com/42fm", "_blank")}
           />
         </Horizontal>

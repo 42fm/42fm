@@ -1,7 +1,8 @@
 import { Placement } from "@floating-ui/react";
-import React from "react";
+import React, { JSX } from "react";
 import styled from "styled-components";
 import Tooltip from "./Tooltip";
+import Icon from "./Icon";
 
 const Wrapper = styled.button`
   display: block;
@@ -20,7 +21,7 @@ const Wrapper = styled.button`
 `;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: React.ReactNode;
+  icon?: JSX.Element
   tooltip?: string;
   placement?: Placement;
   noInvert?: boolean;
@@ -32,7 +33,7 @@ function ButtonIcon(props: Props) {
   if (!props.tooltip) {
     return (
       <Wrapper type="button" {...propsRest}>
-        {props.icon}
+        {icon && <Icon>{icon}</Icon>}
         {props.children}
       </Wrapper>
     );
@@ -41,7 +42,7 @@ function ButtonIcon(props: Props) {
   return (
     <Tooltip label={props.tooltip} placement={props.placement}>
       <Wrapper type="button" {...propsRest}>
-        {props.icon}
+        {icon && <Icon>{icon}</Icon>}
         {props.children}
       </Wrapper>
     </Tooltip>
