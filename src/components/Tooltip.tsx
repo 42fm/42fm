@@ -50,10 +50,7 @@ const Tooltip = ({ children, label, placement = "top" }: Props) => {
   const arrowRef = useRef(null);
 
   const {
-    x,
-    y,
     refs,
-    strategy,
     context,
     middlewareData,
     placement: finalPlacement,
