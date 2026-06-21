@@ -19,6 +19,32 @@ const config = (env) => {
       content: resolve(__dirname, "src", "pages", "content", "content.tsx"),
       background: resolve(__dirname, "src", "pages", "background", "background.ts"),
     },
+    module: {
+      rules: [
+        {
+          test: /\.(j|t)sx?$/,
+          use: {
+            loader: "swc-loader",
+            options: {
+              jsc: {
+                experimental: {
+                  plugins: [
+                    [
+                      "@swc/plugin-styled-components",
+                      {
+                        displayName: true,
+                        meaninglessFileNames: ["index", "styles"],
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          },
+          exclude: /node_modules/,
+        },
+      ],
+    },
     devServer: {
       static: {
         watch: false,
@@ -63,4 +89,12 @@ const config = (env) => {
   };
 };
 
-export default (env) => merge(baseConfig(env), config(env));
+export default (env) =>
+  mergeWithRules({
+    module: {
+      rules: {
+        test: "match",
+        use: "replace",
+      },
+    },
+  })(baseConfig(env), config(env));

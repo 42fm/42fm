@@ -35,6 +35,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
     "@styled/typescript-styled-plugin": "^1.0.1",
     "@swc/core": "^1.15.41",
+    "@swc/plugin-styled-components": "^12.13.0",
     "@types/chrome": "^0.1.43",
     "@types/node": "^25.9.0",
     "@types/react": "^19.2.17",
