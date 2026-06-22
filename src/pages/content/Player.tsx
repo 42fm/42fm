@@ -394,7 +394,14 @@ function Player({ room, player }: Props) {
               tooltip={isMuted ? "Unmute" : "Mute"}
               placement="bottom-start"
             />
-            <StyledRange type="range" name="volume" min={0} max={100} value={volume} onChange={handleVolumeChange} />
+            <StyledRange
+              type="range"
+              name="volume"
+              min={0}
+              max={100}
+              value={isMuted ? 0 : volume}
+              onChange={handleVolumeChange}
+            />
             <span style={{ fontVariantNumeric: "tabular-nums" }}>{distanceFormatHMS(current, total)}</span>
           </ButtonsWrapper>
           <ButtonsWrapper>
