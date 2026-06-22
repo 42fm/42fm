@@ -13,13 +13,13 @@ import styled from "styled-components";
 
 const Tools = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 4px;
   flex-direction: column;
-  padding: 5px;
+  padding: 4px;
   visibility: hidden;
-  background-color: ${(props) => props.theme.color.secondary};
-  border-radius: 5px;
-  margin-left: 5px;
+  background-color: ${(props) => props.theme.color.primary};
+  border-radius: 12px;
+  margin-left: 4px;
   height: fit-content;
 `;
 
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 `;
 
 const PlayerWrapper = styled.div`
-  background-color: ${(props) => props.theme.color.primary};
+  background-color: ${(props) => props.theme.color.secondary};
 `;
 
 type Vertical = "top" | "bottom";
