@@ -5,8 +5,8 @@ import HeaderButton from "../../components/HeaderButton";
 import { darkMode } from "../../theme";
 import { logger } from "../../utils/log";
 import { getSetting } from "../../utils/settings";
-import Player from "./Player";
-import YoutubePlayer from "./YoutubePlayer";
+import Player from "./components/Player";
+import YoutubePlayer from "./components/YoutubePlayer";
 import { badgeOwners } from "./badges";
 
 logger.debug("Content File");
