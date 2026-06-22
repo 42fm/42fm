@@ -1,5 +1,4 @@
 import ButtonIcon from "@/components/ButtonIcon";
-import { defaultIconProps } from "@/utils/icon";
 import {
   UilArrowDownLeft,
   UilArrowDownRight,
@@ -123,7 +122,7 @@ function YoutubePlayer() {
       </PlayerWrapper>
       <Tools>
         <ButtonIcon
-          icon={<UilExpandArrows {...defaultIconProps} />}
+          icon={<UilExpandArrows />}
           tooltip="Move"
           placement="right"
           onMouseDown={(e) => {
@@ -138,31 +137,31 @@ function YoutubePlayer() {
         <ButtonIcon
           tooltip="Hide player"
           placement="right"
-          icon={<UilVideoSlash {...defaultIconProps} />}
+          icon={<UilVideoSlash />}
           onClick={() => handlePlayerVisibilityChange()}
         />
         <ButtonIcon
           tooltip="Snap to top right"
           placement="right"
-          icon={<UilArrowUpRight {...defaultIconProps} />}
+          icon={<UilArrowUpRight />}
           onClick={() => handleSnap("top", "right")}
         />
         <ButtonIcon
           tooltip="Snap to top left"
           placement="right"
-          icon={<UilArrowUpLeft {...defaultIconProps} />}
+          icon={<UilArrowUpLeft />}
           onClick={() => handleSnap("top", "left")}
         />
         <ButtonIcon
           tooltip="Snap to bottom left"
           placement="right"
-          icon={<UilArrowDownLeft {...defaultIconProps} />}
+          icon={<UilArrowDownLeft />}
           onClick={() => handleSnap("bottom", "left")}
         />
         <ButtonIcon
           tooltip="Snap to bottom right"
           placement="right"
-          icon={<UilArrowDownRight {...defaultIconProps} />}
+          icon={<UilArrowDownRight />}
           onClick={() => handleSnap("bottom", "right")}
         />
       </Tools>
