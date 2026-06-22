@@ -47,11 +47,11 @@ function YoutubePlayer() {
   const ref = useRef<HTMLDivElement>(null);
 
   const handleSnap = (y: Vertical, x: Horizontal) => {
-    const element = document.querySelector(`[data-a-target="video-player"]`);
-    const rect = element?.getBoundingClientRect();
+    const element = document.querySelector(`[data-a-target="video-player"]`)!;
+    const rect = element.getBoundingClientRect();
 
-    let top = y === "top" ? rect?.top! : rect?.top! + rect?.height! - ref.current?.clientHeight!;
-    let left = x === "left" ? rect?.left! : rect?.left! + rect?.width! - ref.current?.clientWidth!;
+    let top = y === "top" ? rect.top : rect.top + rect.height - ref.current?.clientHeight!;
+    let left = x === "left" ? rect.left : rect.left + rect.width - ref.current?.clientWidth!;
 
     setPosition({ top, left });
   };
