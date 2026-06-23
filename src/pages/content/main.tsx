@@ -59,7 +59,7 @@ navigation.addEventListener("currententrychange", () => {
       logger.info("Got Player");
       player.pauseVideo();
       render();
-      renderDecorations()
+      renderDecorations();
     }
   }
 });
