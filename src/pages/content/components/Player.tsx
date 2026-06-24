@@ -75,6 +75,7 @@ const ProgressLine = styled.hr<{
   transition: width ${(props) => (props.$duration ? props.$duration / 100 : 1)} + "s" linear;
   z-index: 10;
   left: 0;
+  border: none;
   ${(props) => props.$position === "top" && `top: -1px;`}
   ${(props) => props.$position === "bottom" && `bottom: -1px`}
   ${(props) => props.$position === "center" && `top: 0; bottom: 0`}

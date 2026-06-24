@@ -10,6 +10,7 @@ const Wrapper = styled.button`
   border-radius: 8px;
   background-color: transparent;
   cursor: pointer;
+  border: none;
   &:hover {
     background-color: ${(props) => props.theme.color.iconHover};
   }
