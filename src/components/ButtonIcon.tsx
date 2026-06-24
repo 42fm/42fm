@@ -34,7 +34,7 @@ function ButtonIcon(props: Props) {
   if (!props.tooltip) {
     return (
       <Wrapper type="button" {...propsRest}>
-        {icon && <Icon>{icon}</Icon>}
+        {icon && <Icon {...icon.props}>{icon}</Icon>}
         {props.children}
       </Wrapper>
     );
@@ -43,7 +43,7 @@ function ButtonIcon(props: Props) {
   return (
     <Tooltip label={props.tooltip} placement={props.placement}>
       <Wrapper type="button" {...propsRest}>
-        {icon && <Icon>{icon}</Icon>}
+        {icon && <Icon {...icon.props}>{icon}</Icon>}
         {props.children}
       </Wrapper>
     </Tooltip>
