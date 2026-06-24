@@ -1,8 +1,8 @@
 import { Placement } from "@floating-ui/react";
 import React, { JSX } from "react";
 import styled from "styled-components";
-import Tooltip from "./Tooltip";
 import Icon from "./Icon";
+import Tooltip from "./Tooltip";
 
 const Wrapper = styled.button`
   display: block;
