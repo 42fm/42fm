@@ -38,6 +38,7 @@ const Content = styled.div`
   flex-direction: column;
   gap: 8px;
   background: ${(props) => props.theme.color.secondary};
+  color: ${(props) => props.theme.text.primary};
   position: relative;
 `;
 

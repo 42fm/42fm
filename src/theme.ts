@@ -10,6 +10,10 @@ const darkMode: DefaultTheme = {
     hover: "#2C2C2E",
     iconHover: "#2C2C2E",
   },
+  tooltip: {
+    background: "#FFFFFF",
+    text: "#000000",
+  },
   text: {
     primary: "#FFFFFF",
     secondary: "#ADADB8",
@@ -26,8 +30,12 @@ const lightMode: DefaultTheme = {
     hover: "#ffffff",
     iconHover: "#eeeeee",
   },
+  tooltip: {
+    background: "#0e0e10",
+    text: "#ffffff",
+  },
   text: {
-    primary: "#000000",
+    primary: "#0e0e10",
     secondary: "#ADADB8",
   },
 };

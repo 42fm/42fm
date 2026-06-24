@@ -11,6 +11,10 @@ declare module "styled-components" {
       hover: string;
       iconHover: string;
     };
+    tooltip: {
+      background: string;
+      text: string;
+    };
     text: {
       primary: string;
       secondary: string;

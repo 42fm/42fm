@@ -28,7 +28,12 @@ const Title = styled.a`
   font-weight: bold;
   font-size: 14px;
   line-height: 17px;
-  color: white;
+  color: ${(props) => props.theme.text.primary};
+  text-decoration: none;
+  &:hover {
+    color: ${(props) => props.theme.color.twitch};
+    text-decoration: underline;
+  }
 `;
 
 const SubTitle = styled.p`

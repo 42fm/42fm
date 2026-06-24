@@ -17,11 +17,9 @@ import { mergeRefs } from "react-merge-refs";
 import styled from "styled-components";
 
 const Popper = styled.div`
-  background: white;
-  color: black;
+  background: ${(props) => props.theme.tooltip.background};
+  color: ${(props) => props.theme.tooltip.text};
   z-index: 10;
-  background: #fff;
-  color: black;
   font-weight: bold;
   padding: 4px 8px;
   font-size: 13px;
