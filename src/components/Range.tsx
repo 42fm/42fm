@@ -5,22 +5,46 @@ const Wrapper = styled.div`
   position: relative;
   height: stretch;
   display: flex;
-  &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    cursor: pointer;
-    transform: translate(0%, -50%);
-    margin: 0px 4px;
-    width: calc(100% - 8px);
-    height: 2px;
-    background: #adadb8;
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: -1;
-  }
+  width: 100px;
+`;
+
+const Fill = styled.div.attrs<{ $value: number }>((props) => ({
+  style: {
+    width: `calc(calc(${props.$value * 1.05}% * 0.8) + 10px - 8px)`,
+  },
+}))`
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  cursor: pointer;
+  transform: translate(0%, -50%);
+  margin: 0px 4px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
+`;
+
+const Track = styled.div`
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  cursor: pointer;
+  transform: translate(0%, -50%);
+  margin: 0px 4px;
+  width: calc(100% - 8px);
+  height: 2px;
+  background: #adadb8;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.6;
 `;
 
 const StyledInput = styled.input`
@@ -60,6 +84,8 @@ const StyledInput = styled.input`
 function Range(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <Wrapper>
+      <Track />
+      <Fill $value={props.value as number} />
       <StyledInput type="range" {...props} />
     </Wrapper>
   );

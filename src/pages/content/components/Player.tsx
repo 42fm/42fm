@@ -63,11 +63,16 @@ const Header = styled.header`
 
 const Wrapper = styled.div``;
 
-const ProgressLine = styled.hr<{
+const ProgressLine = styled.hr.attrs<{
   $progress: number;
   $duration?: number;
   $position: "top" | "bottom" | "center" | undefined;
-}>`
+}>((props) => ({
+  style: {
+    width: `${props.$progress}%`,
+    transition: (props.$duration ? props.$duration / 100 : 1) + "s linear",
+  },
+}))`
   position: absolute;
   ${(props) => (props.$position === "center" ? `height: auto;` : `height: 1px;`)}
   width: ${(props) => `${props.$progress}%`};

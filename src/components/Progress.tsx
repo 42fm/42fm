@@ -19,10 +19,14 @@ const White = styled.div`
   }
 `;
 
-const Purple = styled(White)<{ value: number }>`
+const Purple = styled(White).attrs<{ $value: number }>((props) => ({
+  style: {
+    clipPath: `clip-path: inset(0 ${100 - props.$value}% 0 0)`,
+  },
+}))`
   position: absolute;
   right: 0;
-  clip-path: ${(props) => `inset(0 ${100 - props.value}% 0 0)`};
+
   div {
     background-color: #7f00ff;
   }
@@ -43,12 +47,12 @@ function Progress({ audioProgress }: { audioProgress: number }) {
           }}
         />
       )),
-    []
+    [],
   );
 
   return (
     <Wrapper>
-      <Purple value={audioProgress}>{divs}</Purple>
+      <Purple $value={audioProgress}>{divs}</Purple>
       <White>{divs}</White>
     </Wrapper>
   );
