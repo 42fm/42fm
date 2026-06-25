@@ -62,7 +62,9 @@ const Header = styled.header`
   z-index: 20;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  color: ${(props) => props.theme.text.primary};
+`;
 
 const ProgressLine = styled.hr.attrs<{
   $progress: number;
