@@ -102,7 +102,6 @@ function YoutubePlayer() {
 
   return (
     <Wrapper
-      id="42fm-yt-player-wrapper"
       style={{
         top: isHidden ? "-9999px" : position.top,
         left: isHidden ? "-9999px" : position.left,
@@ -113,6 +112,7 @@ function YoutubePlayer() {
         ref={ref}
         style={{
           padding: "4px",
+          width: "380px",
           resize: "horizontal",
           overflow: "auto",
           aspectRatio: "16 / 9",

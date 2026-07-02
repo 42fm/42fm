@@ -1,4 +1,4 @@
-import main from "./main";
+import { render } from "./main";
 
 /**
  * This will change `publicPath` to `chrome-extension://<extension_id>/`.
@@ -17,4 +17,4 @@ if (import.meta.webpackHot) {
   require("webpack-dev-server/client?hot=true&protocol=ws&hostname=localhost&port=8080");
 }
 
-main();
+render();
