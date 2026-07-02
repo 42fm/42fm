@@ -283,6 +283,10 @@ function Player({ room, player }: Props) {
   }, [debouncedVolume]);
 
   const handleVolumeChange = (event: any) => {
+    if (isMuted) {
+      setIsMuted(false);
+      player.unMute();
+    }
     setVolume(event.target.value);
     player.setVolume(event.target.value);
   };
