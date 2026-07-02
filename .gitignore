@@ -26,6 +26,7 @@ requests.http
 .env.test.local
 .env.production.local
 .prettierrc.json
+temp
 
 npm-debug.log*
 yarn-debug.log*
