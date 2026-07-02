@@ -26,7 +26,7 @@
   "permissions": ["scripting"],
   "web_accessible_resources": [
     {
-      "resources": ["assets/*", "content.js", "inject.js", "iframe.js"],
+      "resources": ["assets/*", "content.js", "iframe.js"],
       "matches": ["*://*.twitch.tv/*"]
     }
   ],
