@@ -6,10 +6,14 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(process.en
   transports: ["websocket"],
 });
 
-const logger = new Logger("WS");
+const logger = new Logger("Socket");
 
-socket.onAny((event, ...args) => {
-  logger.debug(`Event: ${event}`);
+socket.onAny((event, ..._args) => {
+  logger.debug(`Received event: ${event}`);
+});
+
+socket.onAnyOutgoing((event, ..._args) => {
+  logger.debug(`Sent event: ${event}`);
 });
 
 export default socket;
