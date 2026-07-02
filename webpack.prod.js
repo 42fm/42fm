@@ -22,7 +22,7 @@ const config = (env) => {
       minimizer: [
         new TerserPlugin({
           minify: TerserPlugin.swcMinify,
-          terserOptions: {
+          minimizerOptions: {
             compress: {
               drop_console: ["debug"],
             },
