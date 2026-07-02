@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import { useSettingsState } from "@/pages/content/stores/settings";
+import React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo-32.png";
 import ButtonIcon from "./ButtonIcon";
-import Portal from "./Portal";
-import Settings from "./Settings/Settings";
-import Devtools from "./Devtools";
 
 const Wrapper = styled.div`
   margin-left: 0.5rem;
@@ -14,36 +12,13 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Backdrop = styled.div`
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const HeaderButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpen = useSettingsState((state) => state.isOpen);
+  const setIsOpen = useSettingsState((state) => state.setIsOpen);
 
   return (
     <Wrapper>
       <ButtonIcon icon={<img src={logo} />} onClick={() => setIsOpen(!isOpen)} tooltip="42FM Settings" placement="bottom" />
-      {isOpen && (
-        <Portal domNode={document.getElementById("root")!}>
-          <Backdrop onClick={() => setIsOpen(false)}>
-            <div onClick={(e) => e.stopPropagation()}>
-              <Settings />
-            </div>
-          </Backdrop>
-        </Portal>
-      )}
-      {!isOpen && process.env.NODE_ENV === "development" && (
-        <Portal domNode={document.getElementById("root")!}>
-          <Devtools />
-        </Portal>
-      )}
     </Wrapper>
   );
 };
