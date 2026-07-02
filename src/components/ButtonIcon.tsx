@@ -22,7 +22,7 @@ const Wrapper = styled.button`
 `;
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: JSX.Element
+  icon?: JSX.Element;
   tooltip?: string;
   placement?: Placement;
   noInvert?: boolean;
