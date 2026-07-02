@@ -40,4 +40,12 @@ chrome.runtime.onMessageExternal.addListener(function (request, sender, senderRe
   }
 });
 
+browser.runtime.onSuspend.addListener(() => {
+  console.log("suspended");
+});
+
+browser.runtime.onConnect.addListener(() => {
+  console.log("connected");
+});
+
 export {};
