@@ -1,4 +1,4 @@
-import { darkMode, DarkOverrides, theme } from "@/theme";
+import { DarkOverrides, theme } from "@/theme";
 import { Logger } from "@/utils/log";
 import React from "react";
 import { createRoot, Root } from "react-dom/client";

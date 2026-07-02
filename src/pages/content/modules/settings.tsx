@@ -1,4 +1,4 @@
-import { darkMode, DarkOverrides, theme } from "@/theme";
+import { DarkOverrides, theme } from "@/theme";
 import { Logger } from "@/utils/log";
 import { watchParentNode } from "@/utils/observer";
 import React from "react";
