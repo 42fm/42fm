@@ -61,7 +61,7 @@ function waitElementID(
 
     options.signal.addEventListener("abort", () => {
       observer.disconnect();
-      reject("wait for element timeout exceeded");
+      reject(new Error("wait for element timeout exceeded"));
     });
 
     observer.observe(options?.target ?? document.getElementById("root")!, { childList: true, subtree: true });
@@ -87,7 +87,7 @@ function waitElement(query: string, options: { target: Element; signal?: AbortSi
 
     signal.addEventListener("abort", () => {
       observer.disconnect();
-      reject("wait for element timeout exceeded");
+      reject(new Error("wait for element timeout exceeded"));
     });
 
     observer.observe(options.target, { childList: true, subtree: true });
