@@ -25,7 +25,7 @@ class PlayerModule implements AttachableElement {
 
     this.containerReact = createRoot(this.containerShadow);
 
-    this.containerReact!.render(
+    this.containerReact.render(
       <React.StrictMode>
         <StyleSheetManager target={this.containerShadow} disableCSSOMInjection>
           <ThemeProvider theme={theme}>
