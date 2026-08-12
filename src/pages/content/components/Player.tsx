@@ -147,7 +147,7 @@ function Player({ room, player }: Props) {
         push(prevCurrent);
       }
       player.loadVideoById({
-        videoId: data.current.yt_id!,
+        videoId: data.current.yt_id,
         startSeconds: data.current.duration - data.current.durationRemaining,
       });
       setTotal(
@@ -282,13 +282,13 @@ function Player({ room, player }: Props) {
     localStorage.setItem("42fm:volume", debouncedVolume.toString());
   }, [debouncedVolume]);
 
-  const handleVolumeChange = (event: any) => {
+  const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
     if (isMuted) {
       setIsMuted(false);
       player.unMute();
     }
-    setVolume(event.target.value);
-    player.setVolume(event.target.value);
+    setVolume(event.target.valueAsNumber);
+    player.setVolume(event.target.valueAsNumber);
   };
 
   const sync = () => {
