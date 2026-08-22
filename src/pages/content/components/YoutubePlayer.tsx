@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 const Tools = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 8px;
   flex-direction: column;
   padding: 4px;
   visibility: hidden;
@@ -33,7 +33,9 @@ const Wrapper = styled.div`
 `;
 
 const PlayerWrapper = styled.div`
-  background-color: ${(props) => props.theme.color.secondary};
+  &:active iframe {
+    pointer-events: none;
+  }
 `;
 
 type Vertical = "top" | "bottom";
@@ -111,7 +113,6 @@ function YoutubePlayer() {
       <PlayerWrapper
         ref={ref}
         style={{
-          padding: "4px",
           width: "380px",
           resize: "horizontal",
           overflow: "auto",
