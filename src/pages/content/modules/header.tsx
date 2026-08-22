@@ -18,6 +18,7 @@ class HeaderModule implements AttachableElement {
 
   constructor() {
     this.container = document.createElement("div");
+    this.container.setAttribute("id", "42fm-header-root");
     this.containerShadow = this.container.attachShadow({ mode: "closed" });
     this.containerReact = createRoot(this.containerShadow);
     this.logger = new Logger("HeaderModule");
