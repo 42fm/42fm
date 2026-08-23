@@ -6,6 +6,7 @@ import InfoCard from "@/components/InfoCard";
 import ButtonIcon from "@/components/ButtonIcon";
 import { UilSpinner } from "@iconscout/react-unicons";
 import { HorizontalLine } from "@/components/HorizontalLine";
+import { Logger } from "@/utils/log";
 
 const Content = styled.div`
   padding: 10px;
@@ -18,28 +19,37 @@ const Content = styled.div`
   position: relative;
 `;
 
-const channelRegex = /(https:\/\/[a-z]*.twitch.tv\/)(?:(u|popout|moderator)\/)?([a-zA-Z0-9_]{3,25})/;
+const channelRegex =
+  /(https:\/\/[a-z]*.twitch.tv\/)(?:(u|popout|moderator)\/)?(?:(?:(creatorcamp|directory|downloads|drops|embed|extensions|jobs|privacy|settings|store|subscriptions|turbo|twitchartists|videos|wallet))|(?:([a-zA-Z0-9_]{3,25})))/;
+
 const getChannelName = (url: string) => {
   const match = url.match(channelRegex);
-  if (!match) return "";
-  return match[3];
+  if (!match) return null;
+  return match[4];
 };
 
+const logger = new Logger("PlayerWrapper");
+
 function PlayerWrapper() {
-  let player = useYoutubePlayerStore((state) => state.player);
-  let [room, setRoom] = useState<string | null>(getChannelName(window.location.href));
+  const player = useYoutubePlayerStore((state) => state.player);
+  const [room, setRoom] = useState<string | null>(getChannelName(window.location.href));
 
   useEffect(() => {
-    const handleCallback = (_: Event) => {
+    const handleCallback = () => {
       if (!navigation.currentEntry?.url) {
         return;
       }
 
-      let url = navigation.currentEntry.url;
-
-      let name = getChannelName(url);
+      const url = navigation.currentEntry.url;
+      const name = getChannelName(url);
 
       setRoom(name);
+
+      if (!name) {
+        logger.info("Channel not detected");
+      } else {
+        logger.info("Channel detected");
+      }
     };
 
     navigation.addEventListener("navigatesuccess", handleCallback);
