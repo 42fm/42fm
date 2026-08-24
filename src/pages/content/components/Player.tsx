@@ -241,6 +241,13 @@ function Player({ room, player }: Props) {
       socket.off("yes42fm", onYes42fmEvent);
       socket.off("userCount", onUserCountEvent);
     };
+  }, [room]);
+
+  useEffect(() => {
+    logger.info("player mounted");
+    return () => {
+      logger.warn("player unmounted");
+    };
   }, []);
 
   useEffect(() => {
