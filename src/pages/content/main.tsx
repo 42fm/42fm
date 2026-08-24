@@ -42,29 +42,29 @@ function onYouTubeIframeAPIReady() {
   youtubeModule.attach();
 }
 
-let youtubeModule = new YoutubeModule();
-let headerModule = new HeaderModule();
-let settingsModule = new SettingsModule();
+const youtubeModule = new YoutubeModule();
+const headerModule = new HeaderModule();
+const settingsModule = new SettingsModule();
 const playerModule = new PlayerModule();
 const devtoolsModule = new DevtoolsModule();
 
 export const render = async () => {
   try {
-    let chat = await waitElementID("live-page-chat");
-    let streamChatContainer = await waitElement(".stream-chat", { target: chat });
-    let playerContainer = await waitElement(".stream-chat-header", { target: streamChatContainer });
+    const chat = await waitElementID("live-page-chat");
+    const streamChatContainer = await waitElement(".stream-chat", { target: chat });
+    const playerContainer = await waitElement(".stream-chat-header", { target: streamChatContainer });
 
     playerModule.attach(playerContainer);
 
-    let messagesContainer = await waitElement(".chat-scrollable-area__message-container", { target: streamChatContainer });
+    const messagesContainer = await waitElement(".chat-scrollable-area__message-container", { target: streamChatContainer });
     const decorationModule = new DecorationsModule({ element: messagesContainer });
 
     decorationModule.attach();
     settingsModule.attach();
     devtoolsModule.attach();
 
-    let root = document.getElementById("root")!;
-    let headerElement = await waitElement(".top-nav__menu", { target: root });
+    const root = document.getElementById("root")!;
+    const headerElement = await waitElement(".top-nav__menu", { target: root });
 
     headerModule.attach(headerElement);
   } catch (err) {
