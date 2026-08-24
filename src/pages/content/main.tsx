@@ -5,35 +5,6 @@ import { PlayerModule } from "./modules/player";
 import { SettingsModule } from "./modules/settings";
 import { YoutubeModule } from "./modules/youtube";
 import { DevtoolsModule } from "./modules/devtools";
-import { Logger } from "@/utils/log";
-
-let prevURL: string | null | undefined = navigation.currentEntry?.url;
-const channelRegex = /(https:\/\/[a-z]*.twitch.tv\/)(?:(u|popout|moderator)\/)?([a-zA-Z0-9_]{3,25})/;
-
-const navLogger = new Logger("Navigation");
-
-navigation.addEventListener("navigatesuccess", async () => {
-  if (!navigation.currentEntry?.url) {
-    return;
-  }
-
-  let url = navigation.currentEntry.url;
-
-  if (!url.match(channelRegex)) {
-    navLogger.info("Not a channel, skipping");
-    return;
-  }
-
-  if (navigation.currentEntry.url === prevURL) {
-    return;
-  }
-
-  prevURL = navigation.currentEntry.url;
-
-  navLogger.info("url changed");
-
-  await render();
-});
 
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
