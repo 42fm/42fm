@@ -227,6 +227,9 @@ function Player({ room, player }: Props) {
     socket.on("userCount", onUserCountEvent);
 
     return () => {
+      player.pauseVideo();
+      socket.emit("leaveRoom", { room });
+
       socket.io.off("reconnect", onReconnect);
       socket.off("song", onSongEvent);
       socket.off("playlistAdd", onPlaylistAddEvent);
