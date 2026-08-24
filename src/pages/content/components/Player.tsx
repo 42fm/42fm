@@ -78,9 +78,7 @@ const ProgressLine = styled.hr.attrs<{
 }))`
   position: absolute;
   ${(props) => (props.$position === "center" ? `height: auto;` : `height: 1px;`)}
-  width: ${(props) => `${props.$progress}%`};
   background-color: #7f00ff;
-  transition: width ${(props) => (props.$duration ? props.$duration / 100 : 1)} + "s" linear;
   z-index: 10;
   left: 0;
   border: none;
