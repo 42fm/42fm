@@ -186,6 +186,7 @@ function Player({ room, player }: Props) {
         setTotal({ seconds: 0, minutes: 0 });
         setCurrentSong(null);
         setIsPlaying(false);
+        player.pauseVideo();
       } else if (data.type === "playlist") {
         let prevCurrent: Song | null = null;
         setCurrentSong((prev) => {
