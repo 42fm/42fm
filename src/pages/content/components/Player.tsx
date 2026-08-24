@@ -9,7 +9,7 @@ import useDebounce from "@/hooks/useDebounce";
 import useHistory from "@/hooks/useHistory";
 import useIsConnected from "@/hooks/useIsConnected";
 import socket from "@/socket";
-import { logger } from "@/utils/log";
+import { Logger } from "@/utils/log";
 import { getSetting } from "@/utils/settings";
 import { distanceFormatHMS } from "@/utils/utils";
 import {
@@ -90,11 +90,12 @@ const ProgressLine = styled.hr.attrs<{
 interface Props {
   room: string;
   player: YT.Player;
-  // togglePlayerVisibility: () => void;
 }
 
+const logger = new Logger("Player");
+
 function Player({ room, player }: Props) {
-  const [isAvailable, setIsAvailable] = useState<boolean>();
+  const [isAvailable, setIsAvailable] = useState<boolean | undefined>();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -339,7 +340,7 @@ function Player({ room, player }: Props) {
     );
   };
 
-  if (!isConnected) {
+  if (!isConnected && isAvailable === undefined) {
     return (
       <Wrapper>
         <Content>
