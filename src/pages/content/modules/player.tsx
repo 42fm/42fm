@@ -1,15 +1,32 @@
 import { GlobalStyle } from "@/styles/global";
 import { DarkOverrides, theme } from "@/theme";
 import { Logger } from "@/utils/log";
-import { watchParentNode } from "@/utils/observer";
 import React from "react";
 import { createRoot, Root } from "react-dom/client";
 import { StyleSheetManager, ThemeProvider } from "styled-components";
-import { AttachableElement } from ".";
+import { AttachableOnce } from ".";
 import PlayerWrapper from "../components/PlayerWrapper";
-import { useYoutubePlayerStore } from "../stores/youtube";
 
-class PlayerModule implements AttachableElement {
+function createCallback(element: Element, callback: (element: Element) => void) {
+  const detachCallback = (mutations: MutationRecord[]) => {
+    for (const mutation of mutations) {
+      if (mutation.addedNodes.length > 0) {
+        callback(element);
+      }
+    }
+  };
+  return detachCallback;
+}
+
+function watchParentNode(element: Element, callback: (element: Element) => void) {
+  const observer = new MutationObserver(createCallback(element, callback));
+
+  observer.observe(document.body.querySelector("#root")!, { childList: true, subtree: true });
+
+  return observer;
+}
+
+class PlayerModule implements AttachableOnce {
   private container: Element;
   private containerShadow: ShadowRoot;
   private containerReact?: Root;
@@ -45,21 +62,20 @@ class PlayerModule implements AttachableElement {
 
     this.root = element;
 
-    this.containerObserver = watchParentNode(this.container, () => {
-      this.detach();
-    });
-
     this.root.after(this.container);
-  }
 
-  detach() {
-    this.logger.info("Detaching");
-    this.containerObserver?.disconnect();
-    let { player } = useYoutubePlayerStore.getState();
+    this.containerObserver = watchParentNode(this.container, () => {
+      if (this.container.isConnected) {
+        return;
+      }
 
-    if (player?.getPlayerState() === YT.PlayerState.PLAYING) {
-      player?.pauseVideo();
-    }
+      const streamChatHeaderElement = document.querySelector(".stream-chat-header");
+
+      if (streamChatHeaderElement) {
+        this.root = streamChatHeaderElement;
+        this.root?.after(this.container);
+      }
+    });
   }
 }
 

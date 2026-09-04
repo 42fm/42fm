@@ -5,10 +5,10 @@ import { watchParentNode } from "@/utils/observer";
 import React from "react";
 import { createRoot, Root } from "react-dom/client";
 import { StyleSheetManager, ThemeProvider } from "styled-components";
-import { Attachable, AttachableElement } from ".";
+import { AttachableOnce } from ".";
 import { GlobalStyle } from "@/styles/global";
 
-class HeaderModule implements AttachableElement {
+class HeaderModule implements AttachableOnce {
   private container: Element;
   private containerShadow?: ShadowRoot;
   private containerReact?: Root;
@@ -44,14 +44,9 @@ class HeaderModule implements AttachableElement {
     this.root?.lastChild?.lastChild?.before(this.container);
 
     this.containerObserver = watchParentNode(this.container, () => {
-      this.detach();
+      this.logger.info("Detaching");
+      this.containerObserver?.disconnect();
     });
-  }
-
-  detach() {
-    this.logger.info("Detaching");
-
-    this.containerObserver?.disconnect();
   }
 }
 

@@ -1,9 +1,8 @@
 export interface Attachable {
-  attach(): void;
-  detach(): void;
+  attach(element?: Element): Promise<void> | void;
+  detach(element?: Element): Promise<void> | void;
 }
 
-export interface AttachableElement {
-  attach(element: Element): void;
-  detach(): void;
+export interface AttachableOnce {
+  attach(element?: Element): Promise<void> | void;
 }
