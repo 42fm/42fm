@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://www.youtube.com/s/player/140dafda/www-widgetapi.vflset/www-widgetapi.js";
+const SCRIPT_URL = "https://www.youtube.com/s/player/f572e43c/www-widgetapi.vflset/www-widgetapi.js";
 
 export default async function () {
   const response = await fetch(SCRIPT_URL);
