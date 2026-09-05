@@ -6,11 +6,13 @@ const Wrapper = styled.div`
   height: stretch;
   display: flex;
   width: 100px;
+  margin-right: 4px;
+  margin-left: 4px;
 `;
 
 const Fill = styled.div.attrs<{ $value: number }>((props) => ({
   style: {
-    width: `calc(calc(${props.$value * 1.05}% * 0.8) + 10px - 8px)`,
+    width: `${props.$value}%`,
   },
 }))`
   content: "";
@@ -20,7 +22,6 @@ const Fill = styled.div.attrs<{ $value: number }>((props) => ({
   left: 0;
   cursor: pointer;
   transform: translate(0%, -50%);
-  margin: 0px 4px;
   height: 2px;
   background: white;
   border-radius: 2px;
@@ -34,11 +35,10 @@ const Track = styled.div`
   display: block;
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 0px;
   cursor: pointer;
   transform: translate(0%, -50%);
-  margin: 0px 4px;
-  width: calc(100% - 8px);
+  width: 100%;
   height: 2px;
   background: #adadb8;
   border-radius: 2px;
@@ -51,6 +51,7 @@ const StyledInput = styled.input`
   background: white;
   border-radius: 2px;
   width: 100%;
+  height: 100%;
   background: transparent;
   appearance: none;
   &::-webkit-slider-thumb {
@@ -76,17 +77,16 @@ const StyledInput = styled.input`
     height: 16px;
     cursor: pointer;
   }
-  &::-moz-range-track {
-    background-color: #adadb8;
-  }
 `;
 
 function Range(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  const { className, value, ...rest } = props;
+
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <Track />
-      <Fill $value={props.value as number} />
-      <StyledInput type="range" {...props} />
+      <Fill $value={value as number} />
+      <StyledInput type="range" value={value} {...rest} />
     </Wrapper>
   );
 }

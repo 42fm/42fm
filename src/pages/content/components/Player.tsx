@@ -50,8 +50,6 @@ const ButtonsWrapper = styled.div`
 const StyledRange = styled(Range)`
   width: 100px;
   display: block;
-  margin-right: 4px;
-  margin-left: 4px;
 `;
 
 const Header = styled.header`
