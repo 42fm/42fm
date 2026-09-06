@@ -12,7 +12,7 @@ import styled from "styled-components";
 
 const Tools = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 4px;
   flex-direction: column;
   padding: 4px;
   visibility: hidden;

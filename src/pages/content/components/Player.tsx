@@ -45,10 +45,12 @@ const Content = styled.div`
 const ButtonsWrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 4px;
 `;
 
 const StyledRange = styled(Range)`
-  width: 100px;
+  width: fit-content;
+  max-width: 100px;
   display: block;
 `;
 
