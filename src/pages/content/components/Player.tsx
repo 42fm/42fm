@@ -29,6 +29,7 @@ import {
 import { Duration, intervalToDuration } from "date-fns";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { default_settings, useSettingsStore } from "../stores/settings";
 
 const Content = styled.div`
   padding: 10px;
@@ -117,17 +118,12 @@ function Player({ room, player }: Props) {
   const [userCount, setUserCount] = useState(0);
   const isConnected = useIsConnected();
 
-  const getPosition = () => {
-    const pos = getSetting("position");
-    if (pos === "top" || pos === "bottom" || pos === "center") {
-      return pos;
-    } else {
-      return "top";
-    }
-  };
+  const position = useSettingsStore((settings) => settings.position ?? default_settings.position);
+  const hideProgress = useSettingsStore((settings) => settings.hideProgress ?? default_settings.hideProgress);
+  const autoConnect = useSettingsStore((settings) => settings.autoConnect ?? default_settings.autoConnect);
 
   useEffect(() => {
-    if (getSetting("autoConnect")) {
+    if (autoConnect) {
       socket.connect();
       socket.emit("joinRoom", { room });
     }
@@ -371,7 +367,7 @@ function Player({ room, player }: Props) {
   return (
     <Wrapper>
       <Content>
-        {isCompact && <ProgressLine $progress={progress} $duration={currentSong?.duration} $position={getPosition()} />}
+        {isCompact && <ProgressLine $progress={progress} $duration={currentSong?.duration} $position={position} />}
         {!isCompact &&
           (!currentSong ? (
             <InfoCard text="Type &#34;!fm &lt;link&gt;&#34; to add a song" />
@@ -401,7 +397,7 @@ function Player({ room, player }: Props) {
                   />
                 </ButtonsWrapper>
               </Header>
-              {getSetting("hideProgress") === false && <Progress audioProgress={progress} />}
+              {!hideProgress && <Progress audioProgress={progress} />}
             </>
           ))}
         <Header>
