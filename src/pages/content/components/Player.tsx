@@ -31,6 +31,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { default_settings, useSettingsStore } from "../stores/settings";
 
+const Wrapper = styled.div`
+  color: ${(props) => props.theme.text.primary};
+`;
+
 const Content = styled.div`
   padding: 10px;
   display: flex;
@@ -39,7 +43,6 @@ const Content = styled.div`
   flex-direction: column;
   gap: 8px;
   background: ${(props) => props.theme.color.secondary};
-  color: ${(props) => props.theme.text.primary};
   position: relative;
 `;
 
@@ -61,10 +64,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   z-index: 20;
-`;
-
-const Wrapper = styled.div`
-  color: ${(props) => props.theme.text.primary};
+  gap: 4px;
 `;
 
 const ProgressLine = styled.hr.attrs<{
