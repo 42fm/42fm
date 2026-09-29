@@ -97,8 +97,8 @@ const logger = new Logger("Player");
 
 function Player({ room, player }: Props) {
   const [isAvailable, setIsAvailable] = useState<boolean | undefined>();
-  const [isPlaying, setIsPlaying] = useState(player.getPlayerState() === YT.PlayerState.PLAYING);
-  const [isMuted, setIsMuted] = useState(player.isMuted());
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [total, setTotal] = useState<Duration>({ seconds: 0, minutes: 0 });
   const [current, setCurrent] = useState<Duration>({ seconds: 0, minutes: 0 });
