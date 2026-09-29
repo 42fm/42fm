@@ -155,6 +155,10 @@ function Player({ room, player }: Props) {
       setIsPlaying(true);
     }
 
+    function onSongEndEvent() {
+      setIsPlaying(false);
+    }
+
     function onPlaylistAddEvent(data: Song) {
       setSongs((prev) => [...prev, data]);
     }
@@ -214,6 +218,7 @@ function Player({ room, player }: Props) {
 
     socket.io.on("reconnect", onReconnect);
     socket.on("song", onSongEvent);
+    socket.on("songEnd", onSongEndEvent);
     socket.on("playlistAdd", onPlaylistAddEvent);
     socket.on("pause", onPauseEvent);
     socket.on("play", onPlayEvent);
@@ -229,6 +234,7 @@ function Player({ room, player }: Props) {
 
       socket.io.off("reconnect", onReconnect);
       socket.off("song", onSongEvent);
+      socket.off("songEnd", onSongEndEvent);
       socket.off("playlistAdd", onPlaylistAddEvent);
       socket.off("pause", onPauseEvent);
       socket.off("play", onPlayEvent);
