@@ -74,7 +74,7 @@ const ProgressLine = styled.hr.attrs<{
 }>((props) => ({
   style: {
     width: `${props.$progress}%`,
-    transition: (props.$duration ? props.$duration / 100 : 1) + "s linear",
+    transition: "1s linear",
   },
 }))`
   position: absolute;
