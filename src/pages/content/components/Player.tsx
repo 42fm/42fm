@@ -268,27 +268,24 @@ function Player({ room, player }: Props) {
   }, [currentSong]);
 
   useEffect(() => {
-    setTotal(
-      intervalToDuration({
-        start: 0,
-        end: player.getDuration() * 1000,
-      }),
-    );
+    let interval: NodeJS.Timeout;
 
-    const interval = setInterval(() => {
-      const newProgress = Math.floor((player.getCurrentTime() / player.getDuration()) * 100);
+    if (isPlaying) {
+      interval = setInterval(() => {
+        const newProgress = Math.floor((player.getCurrentTime() / player.getDuration()) * 100);
 
-      setCurrent(
-        intervalToDuration({
-          start: 1,
-          end: Math.floor(player.getCurrentTime()) * 1000,
-        }),
-      );
-      setProgress(newProgress);
-    }, 1000);
+        setCurrent(
+          intervalToDuration({
+            start: 0,
+            end: Math.floor(player.getCurrentTime()) * 1000,
+          }),
+        );
+        setProgress(newProgress);
+      }, 1000);
+    }
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isPlaying]);
 
   useEffect(() => {
     localStorage.setItem("42fm:volume", debouncedVolume.toString());
