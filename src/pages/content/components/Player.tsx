@@ -360,7 +360,7 @@ function Player({ room, player }: Props) {
         <Content>
           <InfoCard
             text="42FM is not added on this channel"
-            left={<ButtonIcon icon={<UilExclamationTriangle color="red" />} noInvert />}
+            left={<ButtonIcon icon={<UilExclamationTriangle fill="red" />} />}
           />
         </Content>
         <HorizontalLine />

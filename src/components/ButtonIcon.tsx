@@ -25,13 +25,12 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: JSX.Element;
   tooltip?: string;
   placement?: Placement;
-  noInvert?: boolean;
 }
 
 function ButtonIcon(props: Props) {
-  const { icon, tooltip, placement, noInvert, ...propsRest } = props;
+  const { icon, tooltip, placement, ...propsRest } = props;
 
-  if (!props.tooltip) {
+  if (!tooltip) {
     return (
       <Wrapper type="button" {...propsRest}>
         {icon && <Icon {...icon.props}>{icon}</Icon>}
@@ -41,7 +40,7 @@ function ButtonIcon(props: Props) {
   }
 
   return (
-    <Tooltip label={props.tooltip} placement={props.placement}>
+    <Tooltip label={tooltip} placement={placement}>
       <Wrapper type="button" {...propsRest}>
         {icon && <Icon {...icon.props}>{icon}</Icon>}
         {props.children}
