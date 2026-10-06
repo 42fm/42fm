@@ -92,3 +92,10 @@ svg {
   margin: 0 0.3rem 0.2rem 0;
 }
 
+.stream-chat-header {
+  height: 50px !important;
+}
+
+.stream-chat-header div:nth-child(2) div + div {
+  margin-inline-end: 0px !important;
+}
