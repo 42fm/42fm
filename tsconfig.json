@@ -12,9 +12,10 @@
     "jsx": "react",
     "paths": {
       "@/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@styles/*": ["./src/styles/*"],
-      "@components/*": ["./src/components/*"],
       "@utils/*": ["./src/utils/*"]
     },
     "esModuleInterop": true,
