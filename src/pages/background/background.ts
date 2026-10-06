@@ -5,18 +5,6 @@ import browser from "webextension-polyfill";
 const isChrome = typeof browser !== "object";
 
 browser.runtime.onMessage.addListener((msg: any, sender: browser.Runtime.MessageSender) => {
-  if (sender.tab?.id && msg.text === "load") {
-    if (isChrome) {
-      browser.scripting.insertCSS({
-        target: { tabId: sender.tab.id },
-        files: ["assets/style.css"],
-      });
-    } else {
-      browser.tabs.insertCSS(sender.tab.id, {
-        file: "assets/style.css",
-      });
-    }
-  }
   if (sender.tab?.id && msg.text === "leaderboard") {
     if (isChrome) {
       browser.scripting.insertCSS({
