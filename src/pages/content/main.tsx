@@ -5,6 +5,7 @@ import { PlayerModule } from "./modules/player";
 import { SettingsModule } from "./modules/settings";
 import { YoutubeModule } from "./modules/youtube";
 import { DevtoolsModule } from "./modules/devtools";
+import { IndicatorModule } from "./modules/indicator";
 
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
@@ -17,6 +18,7 @@ const youtubeModule = new YoutubeModule();
 const headerModule = new HeaderModule();
 const settingsModule = new SettingsModule();
 const playerModule = new PlayerModule();
+const indicatorModule = new IndicatorModule();
 const devtoolsModule = new DevtoolsModule();
 
 export const render = async () => {
@@ -26,6 +28,10 @@ export const render = async () => {
     const playerContainer = await waitElement(".stream-chat-header", { target: streamChatContainer });
 
     playerModule.attach(playerContainer);
+
+    const indicatorContainer = await waitElement("div:nth-child(2)", { target: playerContainer });
+
+    indicatorModule.attach(indicatorContainer);
 
     const messagesContainer = await waitElement(".chat-scrollable-area__message-container", { target: streamChatContainer });
     const decorationModule = new DecorationsModule({ element: messagesContainer });
