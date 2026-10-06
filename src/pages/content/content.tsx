@@ -10,11 +10,13 @@ __webpack_public_path__ = chrome.runtime.getURL("");
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept();
 
-  require("webpack/hot/dev-server");
+  // @ts-expect-error no type definition found
+  await import("webpack/hot/dev-server");
   /**
    * Set WebSocket url to dev-server, instead of the default `${publicPath}/ws`
    */
-  require("webpack-dev-server/client?hot=true&protocol=ws&hostname=localhost&port=8080");
+  // @ts-expect-error no type definition found
+  await import("webpack-dev-server/client/index?hot=true&protocol=ws&hostname=localhost&port=8080");
 }
 
-render();
+await render();
