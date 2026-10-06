@@ -30,6 +30,7 @@ import { Duration, intervalToDuration } from "date-fns";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { default_settings, useSettingsStore } from "../stores/settings";
+import { usePlayerState } from "../stores/player";
 
 const Wrapper = styled.div`
   color: ${(props) => props.theme.text.primary};
