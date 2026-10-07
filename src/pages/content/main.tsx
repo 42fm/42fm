@@ -19,7 +19,6 @@ const headerModule = new HeaderModule();
 const settingsModule = new SettingsModule();
 const playerModule = new PlayerModule();
 const indicatorModule = new IndicatorModule();
-const devtoolsModule = new DevtoolsModule();
 
 export const render = async () => {
   try {
@@ -38,12 +37,16 @@ export const render = async () => {
 
     decorationModule.attach();
     settingsModule.attach();
-    devtoolsModule.attach();
 
     const root = document.getElementById("root")!;
     const headerElement = await waitElement(".top-nav__menu", { target: root });
 
     headerModule.attach(headerElement);
+
+    if (process.env.NODE_ENV === "development") {
+      const devtoolsModule = new DevtoolsModule();
+      devtoolsModule.attach();
+    }
   } catch (err) {
     console.warn("Failed to render decorations", err);
   }
