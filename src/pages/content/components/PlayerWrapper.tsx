@@ -63,7 +63,7 @@ function PlayerWrapper() {
     return (
       <div>
         <Content>
-          <InfoCard text="Loading..." left={<ButtonIcon icon={<UilSpinner />} tooltip="Connect" placement="left" />} />
+          <InfoCard text="Loading" left={<ButtonIcon icon={<UilSpinner />} />} />
         </Content>
         <HorizontalLine />
       </div>
