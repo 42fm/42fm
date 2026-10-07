@@ -149,7 +149,7 @@ function Player({ room, player }: Props) {
       });
       setTotal(
         intervalToDuration({
-          start: 1,
+          start: 0,
           end: data.current.duration * 1000,
         }),
       );
