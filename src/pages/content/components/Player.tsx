@@ -97,8 +97,10 @@ interface Props {
 const logger = new Logger("Player");
 
 function Player({ room, player }: Props) {
-  const [isAvailable, setIsAvailable] = useState<boolean | undefined>();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const isAvailable = usePlayerState((state) => state.isAvailable);
+  const setIsAvailable = usePlayerState((state) => state.setIsAvailable);
+  const isPlaying = usePlayerState((state) => state.isPlaying);
+  const setIsPlaying = usePlayerState((state) => state.setIsPlaying);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [total, setTotal] = useState<Duration>({ seconds: 0, minutes: 0 });
