@@ -33,6 +33,7 @@ const logger = new Logger("PlayerWrapper");
 function PlayerWrapper() {
   const player = useYoutubePlayerStore((state) => state.player);
   const [room, setRoom] = useState<string | null>(getChannelName(window.location.href));
+  const isPlayerOpen = usePlayerState((state) => state.isOpen);
 
   useEffect(() => {
     const handleCallback = () => {
@@ -70,7 +71,7 @@ function PlayerWrapper() {
     );
   }
 
-  return room && <Player room={room} player={player} />;
+  return room && <Player room={room} player={player} isPlayerOpen={isPlayerOpen} />;
 }
 
 export default PlayerWrapper;

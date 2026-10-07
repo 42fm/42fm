@@ -35,8 +35,7 @@ const Wrapper = styled.div`
   color: ${(props) => props.theme.text.primary};
 `;
 
-const Content = styled.div`
-  padding: 10px;
+const ContentCard = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -44,6 +43,10 @@ const Content = styled.div`
   gap: 8px;
   background: ${(props) => props.theme.color.secondary};
   position: relative;
+`;
+
+const Content = styled(ContentCard)`
+  padding: 10px;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -79,7 +82,7 @@ const ProgressLine = styled.hr.attrs<{
 }))`
   position: absolute;
   ${(props) => (props.$position === "center" ? `height: auto;` : `height: 1px;`)}
-  background-color: #7f00ff;
+  background: linear-gradient(90deg, transparent 0%, #00f593 95%, white 100%);
   z-index: 10;
   left: 0;
   border: none;
@@ -91,11 +94,12 @@ const ProgressLine = styled.hr.attrs<{
 interface Props {
   room: string;
   player: YT.Player;
+  isPlayerOpen: boolean;
 }
 
 const logger = new Logger("Player");
 
-function Player({ room, player }: Props) {
+function Player({ room, player, isPlayerOpen }: Props) {
   const isAvailable = usePlayerState((state) => state.isAvailable);
   const setIsAvailable = usePlayerState((state) => state.setIsAvailable);
   const isPlaying = usePlayerState((state) => state.isPlaying);
@@ -341,15 +345,17 @@ function Player({ room, player }: Props) {
     );
   };
 
-  if (!isConnected && isAvailable === undefined) {
+  if (!isPlayerOpen) return null;
+
+  if (!isConnected && isAvailable !== false) {
     return (
       <Wrapper>
-        <Content>
+        <ContentCard>
           <InfoCard
             text="Not connected to server"
             right={<ButtonIcon icon={<UilLink />} onClick={() => connect()} tooltip="Connect" placement="left" />}
           />
-        </Content>
+        </ContentCard>
         <HorizontalLine />
       </Wrapper>
     );
@@ -358,12 +364,9 @@ function Player({ room, player }: Props) {
   if (isAvailable === false) {
     return (
       <Wrapper>
-        <Content>
-          <InfoCard
-            text="42FM is not added on this channel"
-            left={<ButtonIcon icon={<UilExclamationTriangle fill="red" />} />}
-          />
-        </Content>
+        <ContentCard>
+          <InfoCard text="42FM is disabled on this channel" left={<ButtonIcon icon={<UilExclamationTriangle />} />} />
+        </ContentCard>
         <HorizontalLine />
       </Wrapper>
     );
@@ -448,8 +451,13 @@ function Player({ room, player }: Props) {
           </ButtonsWrapper>
         </Header>
       </Content>
+      {isPlaylistOpen && (
+        <>
+          <HorizontalLine />
+          <List userCount={userCount} history={history} playlist={songs} />
+        </>
+      )}
       <HorizontalLine />
-      {isPlaylistOpen && <List userCount={userCount} history={history} playlist={songs} />}
     </Wrapper>
   );
 }
