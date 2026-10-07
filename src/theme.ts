@@ -8,7 +8,7 @@ const theme = createTheme({
     twitch: "#9146FF",
     input: "#ffffff",
     hover: "#ffffff",
-    iconHover: "#eeeeee",
+    iconHover: "rgb(0 0 0 / 10%)",
   },
   tooltip: {
     background: "#0e0e10",
@@ -29,7 +29,7 @@ const lightVars = css`
   ${vars.color.twitch}: #9146FF;
   ${vars.color.input}: #ffffff;
   ${vars.color.hover}: #ffffff;
-  ${vars.color.iconHover}: #eeeeee;
+  ${vars.color.iconHover}: rgb(0 0 0 / 10%);
   ${vars.tooltip.background}: #0e0e10;
   ${vars.tooltip.text}: #efeff1;
   ${vars.text.primary}: #0e0e10;
@@ -43,7 +43,7 @@ const darkVars = css`
   ${vars.color.twitch}: #9146FF;
   ${vars.color.input}: #3E3E40;
   ${vars.color.hover}: #2C2C2E;
-  ${vars.color.iconHover}: #2C2C2E;
+  ${vars.color.iconHover}: rgb(255 255 255 / 10%);
   ${vars.tooltip.background}: #ffffff;
   ${vars.tooltip.text}: #000000;
   ${vars.text.primary}: #FFFFFF;
