@@ -10,7 +10,6 @@ import useHistory from "@/hooks/useHistory";
 import useIsConnected from "@/hooks/useIsConnected";
 import socket from "@/socket";
 import { Logger } from "@/utils/log";
-import { getSetting } from "@/utils/settings";
 import { distanceFormatHMS } from "@/utils/utils";
 import {
   UilArrowDown,
@@ -115,7 +114,7 @@ function Player({ room, player }: Props) {
     return vol;
   });
   const [isCompact, setIsCompact] = useState(() => {
-    return !getSetting("isExpanded");
+    return !(useSettingsStore.getInitialState().isExpanded ?? default_settings.isExpanded);
   });
   const debouncedVolume = useDebounce(volume, 1000);
   const [userCount, setUserCount] = useState(0);

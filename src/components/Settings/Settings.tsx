@@ -1,8 +1,7 @@
 import { UilGithub } from "@iconscout/react-unicons";
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import logo32 from "../../assets/logo-32.png";
-import { getNonDefaultSettings, getSettings, setSetting } from "../../utils/settings";
 import ButtonIcon from "../ButtonIcon";
 import Image from "../Image";
 import SettingsBehavior from "./Behavior";
@@ -86,38 +85,6 @@ const InfoWrapper = styled.div`
 
 function Settings() {
   const [tabIndex, setTabIndex] = useState(0);
-  const [settings, setSettings] = useState(() => {
-    return getSettings();
-  });
-  const [nonDefaultSettings, setNonDefaultSettings] = useState(() => {
-    return getNonDefaultSettings();
-  });
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const target = event.target;
-    const name = target.name;
-    //@ts-ignore
-    const value = target.type === "checkbox" ? target.checked : target.value;
-
-    setSettings((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-
-    setSetting(name, value.toString());
-
-    setNonDefaultSettings(getNonDefaultSettings());
-  };
-
-  const handleReset = (key: string) => {
-    localStorage.removeItem(`42fm:settings:${key}`);
-
-    setSettings(getSettings());
-    setNonDefaultSettings(getNonDefaultSettings());
-  };
-
   const handleClick = (tabIndex: number) => {
     setTabIndex(tabIndex);
   };
@@ -126,38 +93,17 @@ function Settings() {
     {
       name: "general",
       label: "General",
-      element: (
-        <SettingsGeneral
-          handleChange={handleChange}
-          handleReset={handleReset}
-          settings={settings}
-          nonDefaultSettings={nonDefaultSettings}
-        />
-      ),
+      element: <SettingsGeneral />,
     },
     {
       name: "behavior",
       label: "Behavior",
-      element: (
-        <SettingsBehavior
-          handleChange={handleChange}
-          handleReset={handleReset}
-          settings={settings}
-          nonDefaultSettings={nonDefaultSettings}
-        />
-      ),
+      element: <SettingsBehavior />,
     },
     {
       name: "chat",
       label: "Chat",
-      element: (
-        <SettingsChat
-          handleChange={handleChange}
-          handleReset={handleReset}
-          settings={settings}
-          nonDefaultSettings={nonDefaultSettings}
-        />
-      ),
+      element: <SettingsChat />,
     },
   ];
 
@@ -178,6 +124,7 @@ function Settings() {
           <InfoWrapper>
             <Info>Version: {process.env.APP_VERSION}</Info>
             <Info>Commit: {process.env.GIT_COMMIT}</Info>
+            <Info>Commit: {process.env.NODE_ENV}</Info>
           </InfoWrapper>
           <ButtonIcon
             tooltip="Github"

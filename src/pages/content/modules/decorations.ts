@@ -1,17 +1,30 @@
 import { Logger } from "@/utils/log";
 import { badgeOwners } from "../badges";
-import { getSetting } from "@/utils/settings";
 import { watchParentNode } from "@/utils/observer";
 import { Attachable } from ".";
+import { useSettingsStore, default_settings } from "../stores/settings";
 
 class DecorationsModule implements Attachable {
   private messagesContainer: Element;
   private messagesObserver?: MutationObserver;
   private elementObserver?: MutationObserver;
   private logger: Logger;
+  private disableBadges: boolean;
+  private disablePaints: boolean;
 
   constructor({ element }: { element: Element }) {
     this.messagesContainer = element;
+
+    this.disableBadges = default_settings.disableBadges;
+    this.disablePaints = default_settings.disablePaints;
+
+    useSettingsStore.subscribe(
+      (settings) => (this.disableBadges = settings.disableBadges ?? default_settings.disableBadges),
+    );
+    useSettingsStore.subscribe(
+      (settings) => (this.disablePaints = settings.disablePaints ?? default_settings.disablePaints),
+    );
+
     this.logger = new Logger("DecorationsModule");
   }
 
@@ -36,14 +49,14 @@ class DecorationsModule implements Attachable {
           const badgesTwitch: HTMLDivElement | null = line.querySelector(".chat-line__username-container");
           const author: HTMLSpanElement | null = line.querySelector(".chat-author__display-name");
 
-          if (!getSetting("disablePaints")) {
+          if (!this.disablePaints) {
             if (badgeOwner.paint && author) {
               author.classList.add("transparent42fm");
               author.classList.add(badgeOwner.paint);
             }
           }
 
-          if (!getSetting("disableBadges")) {
+          if (!this.disableBadges) {
             const clone = badgeOwner.badge.cloneNode();
             if (badgesFFZ !== null) {
               badgesFFZ.appendChild(clone);
