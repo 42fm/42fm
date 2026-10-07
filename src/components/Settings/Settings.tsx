@@ -124,7 +124,6 @@ function Settings() {
           <InfoWrapper>
             <Info>Version: {process.env.APP_VERSION}</Info>
             <Info>Commit: {process.env.GIT_COMMIT}</Info>
-            <Info>Commit: {process.env.NODE_ENV}</Info>
           </InfoWrapper>
           <ButtonIcon
             tooltip="Github"
