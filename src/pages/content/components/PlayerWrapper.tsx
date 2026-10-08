@@ -7,6 +7,7 @@ import ButtonIcon from "@/components/ButtonIcon";
 import { UilSpinner } from "@iconscout/react-unicons";
 import { HorizontalLine } from "@/components/HorizontalLine";
 import { Logger } from "@/utils/log";
+import { usePlayerState } from "../stores/player";
 
 const Content = styled.div`
   padding: 10px;
