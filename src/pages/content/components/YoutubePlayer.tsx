@@ -9,6 +9,7 @@ import {
 } from "@iconscout/react-unicons";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useYoutubePlayerStore } from "../stores/youtube";
 
 const Tools = styled.div`
   display: flex;
@@ -45,15 +46,25 @@ function YoutubePlayer() {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isDown, setIsDown] = useState(false);
-  const [isHidden, setIsHidden] = useState(true);
+  const isOpen = useYoutubePlayerStore((state) => state.isOpen);
+  const setIsOpen = useYoutubePlayerStore((state) => state.setIsOpen);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleSnap = (y: Vertical, x: Horizontal) => {
     const element = document.querySelector(`[data-a-target="video-player"]`)!;
     const rect = element.getBoundingClientRect();
 
-    let top = y === "top" ? rect.top : rect.top + rect.height - ref.current?.clientHeight!;
-    let left = x === "left" ? rect.left : rect.left + rect.width - ref.current?.clientWidth!;
+    let top = rect.top;
+
+    if (y == "bottom" && ref.current) {
+      top += rect.height - ref.current.clientHeight;
+    }
+
+    let left = rect.left;
+
+    if (x == "right" && ref.current) {
+      left += rect.width - ref.current.clientWidth;
+    }
 
     setPosition({ top, left });
   };
@@ -66,48 +77,23 @@ function YoutubePlayer() {
       });
     };
 
-    isDown && window.addEventListener("mousemove", handleMouseMove);
+    if (isDown) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
 
     return () => {
-      isDown && window.removeEventListener("mousemove", handleMouseMove);
+      if (isDown) {
+        window.removeEventListener("mousemove", handleMouseMove);
+      }
     };
   }, [isDown]);
-
-  useEffect(() => {
-    const savedIsHidden = localStorage.getItem("42fm:hidePlayer") === "true";
-
-    setIsHidden(savedIsHidden);
-
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key !== "42fm:hidePlayer") return;
-
-      const hidePlayer = e.newValue === "true";
-
-      setIsHidden(hidePlayer);
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  const handlePlayerVisibilityChange = () =>
-    setIsHidden((oldValue) => {
-      const newValue = !oldValue;
-
-      localStorage.setItem("42fm:hidePlayer", String(newValue));
-
-      return newValue;
-    });
 
   return (
     <Wrapper
       style={{
-        top: isHidden ? "-9999px" : position.top,
-        left: isHidden ? "-9999px" : position.left,
-        zIndex: isHidden ? "-9999" : "9999",
+        top: !isOpen ? "-9999px" : position.top,
+        left: !isOpen ? "-9999px" : position.left,
+        zIndex: !isOpen ? "-9999" : "9999",
       }}
     >
       <PlayerWrapper
@@ -139,7 +125,7 @@ function YoutubePlayer() {
           tooltip="Hide player"
           placement="right"
           icon={<UilVideoSlash />}
-          onClick={() => handlePlayerVisibilityChange()}
+          onClick={() => setIsOpen((prev) => !prev)}
         />
         <ButtonIcon
           tooltip="Snap to top right"

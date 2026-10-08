@@ -2,6 +2,7 @@ import { UilArrowLeft, UilArrowRight, UilVideo } from "@iconscout/react-unicons"
 import React from "react";
 import styled from "styled-components";
 import ButtonIcon from "./ButtonIcon";
+import { useYoutubePlayerStore } from "@/pages/content/stores/youtube";
 
 const Tools = styled.div`
   position: absolute;
@@ -16,28 +17,16 @@ const Tools = styled.div`
   height: fit-content;
 `;
 
-const handlePlayerVisibilityChange = () => {
-  const oldValue = localStorage.getItem("42fm:hidePlayer");
-  const newValue = oldValue === "true" ? "false" : "true";
-
-  localStorage.setItem("42fm:hidePlayer", newValue);
-  window.dispatchEvent(
-    new StorageEvent("storage", {
-      key: "42fm:hidePlayer",
-      oldValue: oldValue,
-      newValue,
-    }),
-  );
-};
-
 function Devtools() {
+  const setIsOpen = useYoutubePlayerStore((state) => state.setIsOpen);
+
   const handleGoForward = () => {
     history.pushState(null, "", "/42fm");
     window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
   };
 
   const handleGoBack = () => {
-    history.pushState(null, "", "/loczuk");
+    history.pushState(null, "", "/videos/2855135807");
     window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
   };
 
@@ -45,7 +34,7 @@ function Devtools() {
     <Tools>
       <ButtonIcon
         icon={<UilVideo />}
-        onClick={() => handlePlayerVisibilityChange()}
+        onClick={() => setIsOpen((prev) => !prev)}
         tooltip="Toggle Player"
         placement="top-start"
       />
