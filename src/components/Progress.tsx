@@ -28,7 +28,7 @@ const Purple = styled(White).attrs<{ $value: number }>((props) => ({
   right: 0;
 
   div {
-    background-color: #7f00ff;
+    background-color: #00f593;
   }
 `;
 

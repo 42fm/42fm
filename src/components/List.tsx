@@ -5,7 +5,6 @@ import styled from "styled-components";
 import modcheck from "../assets/modcheck.gif";
 import pepeDS from "../assets/pepeds.gif";
 import ButtonIcon from "./ButtonIcon";
-import { HorizontalLine } from "./HorizontalLine";
 import SongInfo from "./SongInfo";
 
 const Wrapper = styled.div`
@@ -117,7 +116,6 @@ function List({ userCount, playlist, history }: Props) {
             </SongWrapper>
           )}
         </Content>
-        <HorizontalLine />
       </Wrapper>
     );
   }
@@ -152,7 +150,6 @@ function List({ userCount, playlist, history }: Props) {
           </SongWrapper>
         )}
       </Content>
-      <HorizontalLine />
     </Wrapper>
   );
 }
