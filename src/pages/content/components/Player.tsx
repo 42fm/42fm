@@ -239,6 +239,9 @@ function Player({ room, player, isPlayerOpen }: Props) {
 
     return () => {
       player.pauseVideo();
+      setIsAvailable(undefined);
+      setIsPlaying(false);
+
       socket.emit("leaveRoom", { room });
 
       socket.io.off("reconnect", onReconnect);

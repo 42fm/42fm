@@ -5,7 +5,7 @@ interface PlayerState {
   isAvailable: boolean | undefined;
   isPlaying: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  setIsAvailable: (isAvailable: boolean) => void;
+  setIsAvailable: (isAvailable: boolean | undefined) => void;
   setIsPlaying: (isPlaying: boolean) => void;
 }
 
