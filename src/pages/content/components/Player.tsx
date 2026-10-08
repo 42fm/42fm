@@ -91,6 +91,10 @@ const ProgressLine = styled.hr.attrs<{
   ${(props) => props.$position === "center" && `top: 0; bottom: 0`}
 `;
 
+const InfoCardBright = styled(InfoCard)`
+  background: ${(props) => props.theme.color.primary};
+`;
+
 interface Props {
   room: string;
   player: YT.Player;
@@ -378,7 +382,7 @@ function Player({ room, player, isPlayerOpen }: Props) {
         {isCompact && <ProgressLine $progress={progress} $duration={currentSong?.duration} $position={position} />}
         {!isCompact &&
           (!currentSong ? (
-            <InfoCard text="Type &#34;!fm &lt;link&gt;&#34; to add a song" />
+            <InfoCardBright text="Type &#34;!fm &lt;link&gt;&#34; to add a song" />
           ) : (
             <>
               <Header>
