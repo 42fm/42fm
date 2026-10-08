@@ -58,7 +58,6 @@ const ButtonsWrapper = styled.div`
 const StyledRange = styled(Range)`
   width: fit-content;
   max-width: 100px;
-  display: block;
 `;
 
 const Header = styled.header`
