@@ -5,7 +5,9 @@ import indicatorAvailable from "@assets/indicator-available.svg";
 import indicatorClose from "@assets/indicator-close.svg";
 import indicatorNotReady from "@assets/indicator-not-ready.svg";
 import indicatorNotAvailable from "@assets/indicator-not-available.svg";
+import indicatorDisconnected from "@assets/indicator-disconnected.svg";
 import { usePlayerState } from "../stores/player";
+import useIsConnected from "@/hooks/useIsConnected";
 
 const Content = styled.div`
   width: 32px;
@@ -110,6 +112,7 @@ function Indicator() {
   const player = useYoutubePlayerStore((state) => state.player);
   const [state, setState] = useState<"playing" | "available" | "not-available" | "disconnected">("available");
 
+  const isConnected = useIsConnected();
   const isAvailable = usePlayerState((state) => state.isAvailable);
   const isPlaying = usePlayerState((state) => state.isPlaying);
 
@@ -170,6 +173,13 @@ function Indicator() {
     return (
       <Content onClick={() => setisPlayerOpen(!isPlayerOpen)}>
         <IndicatorActive progress={progress} />
+      </Content>
+    );
+
+  if (!isConnected && isAvailable !== false)
+    return (
+      <Content onClick={() => setisPlayerOpen(!isPlayerOpen)}>
+        <img src={indicatorDisconnected} />
       </Content>
     );
 
