@@ -2,22 +2,29 @@ import React from "react";
 import styled from "styled-components";
 
 const ShownCheckbox = styled.div`
-  width: 36px;
+  width: 42px;
   height: 20px;
-  outline: 2px solid white;
-  outline-offset: -1px;
   border-radius: 10px;
   position: relative;
-  transition: outline 100ms ease-out;
+  transition: all 100ms ease-in-out;
   &::after {
     content: "";
     position: absolute;
-    width: 12px;
+    width: 18px;
     height: 12px;
     border-radius: 6px;
     inset: 4px;
-    background: white;
-    transition: all 100ms ease-out;
+    background: #ccc;
+    transition: inherit;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    margin: 2px;
+    background: ${(props) => props.theme.color.primary};
+    transition: inherit;
   }
 `;
 
@@ -32,11 +39,20 @@ const Wrapper = styled.label`
   gap: 8px;
   font-size: 12px;
   cursor: pointer;
+  border-radius: 12px;
+  background: white;
+  transition: all 100ms ease-in-out;
   ${HiddenCheckbox}:checked + ${ShownCheckbox} {
-    outline: 2px solid ${(props) => props.theme.color.twitch};
     &::after {
+      background: white;
       left: 20px;
     }
+    &::before {
+      background: #0a0a0a;
+    }
+  }
+  &:has(${HiddenCheckbox}:checked) {
+    background: linear-gradient(to top right, #ff7a00, #ff00f5);
   }
 `;
 
