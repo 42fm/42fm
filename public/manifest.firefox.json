@@ -17,7 +17,8 @@
     {
       "matches": ["*://twitch.tv/*", "*://www.twitch.tv/*"],
       "js": ["content.js", "iframe.js"],
-      "css": ["assets/style.css"]
+      "css": ["assets/style.css"],
+      "world": "MAIN"
     }
   ],
   "background": {
