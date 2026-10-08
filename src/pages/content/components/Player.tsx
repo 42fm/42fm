@@ -113,7 +113,7 @@ function Player({ room, player, isPlayerOpen }: Props) {
   const [history, push] = useHistory<Song>([]);
   const [isPlaylistOpen, setIsPlaylistOpen] = useState(false);
   const [volume, setVolume] = useState(() => {
-    const vol = Number(localStorage.getItem("42fm:volume")) || 50;
+    const vol = Number(localStorage.getItem("42fm:volume")) || 20;
     player.setVolume(vol);
     return vol;
   });
