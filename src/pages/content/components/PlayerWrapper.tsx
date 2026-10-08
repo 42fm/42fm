@@ -10,7 +10,6 @@ import { Logger } from "@/utils/log";
 import { usePlayerState } from "../stores/player";
 
 const Content = styled.div`
-  padding: 10px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
