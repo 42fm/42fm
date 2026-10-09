@@ -30,6 +30,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { default_settings, useSettingsStore } from "../stores/settings";
 import { usePlayerState } from "../stores/player";
+import { useYoutubePlayerStore } from "../stores/youtube";
 
 const Wrapper = styled.div`
   color: ${(props) => props.theme.text.primary};
@@ -126,6 +127,7 @@ function Player({ room, player, isPlayerOpen }: Props) {
   const debouncedVolume = useDebounce(volume, 1000);
   const [userCount, setUserCount] = useState(0);
   const isConnected = useIsConnected();
+  const setIsPlayerOpen = useYoutubePlayerStore((state) => state.setIsOpen);
 
   const position = useSettingsStore((settings) => settings.position ?? default_settings.position);
   const hideProgress = useSettingsStore((settings) => settings.hideProgress ?? default_settings.hideProgress);
@@ -337,20 +339,6 @@ function Player({ room, player, isPlayerOpen }: Props) {
     }
   };
 
-  const handlePlayerVisibilityChange = () => {
-    const oldValue = localStorage.getItem("42fm:hidePlayer");
-    const newValue = oldValue === "true" ? "false" : "true";
-
-    localStorage.setItem("42fm:hidePlayer", newValue);
-    window.dispatchEvent(
-      new StorageEvent("storage", {
-        key: "42fm:hidePlayer",
-        oldValue: oldValue,
-        newValue,
-      }),
-    );
-  };
-
   if (!isPlayerOpen) return null;
 
   if (!isConnected && isAvailable !== false) {
@@ -398,7 +386,7 @@ function Player({ room, player, isPlayerOpen }: Props) {
                 <ButtonsWrapper>
                   <ButtonIcon
                     icon={<UilVideo />}
-                    onClick={() => handlePlayerVisibilityChange()}
+                    onClick={() => setIsPlayerOpen((prev) => !prev)}
                     tooltip="Toggle Player"
                     placement="top-end"
                   />
