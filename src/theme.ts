@@ -54,10 +54,9 @@ const DarkOverrides = createGlobalStyle`
   :host {
     ${lightVars}
   }
-  @media (prefers-color-scheme: dark) {
-    :host {
-      ${darkVars}
-    }
+
+  :host-context(:root.tw-root--theme-dark) {
+    ${darkVars}
   }
 `;
 
