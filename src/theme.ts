@@ -55,8 +55,10 @@ const DarkOverrides = createGlobalStyle`
     ${lightVars}
   }
 
-  :host-context(:root.tw-root--theme-dark) {
-    ${darkVars}
+  @container style(--fm-theme: dark) {
+    :host {
+      ${darkVars}
+    }
   }
 `;
 

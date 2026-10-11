@@ -99,3 +99,11 @@ svg {
 .stream-chat-header div:nth-child(2) div + div {
   margin-inline-end: 0px !important;
 }
+
+.tw-root--theme-dark {
+  --fm-theme: dark;
+}
+
+.tw-root--theme-light {
+  --fm-theme: light;
+}
