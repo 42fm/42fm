@@ -92,6 +92,10 @@ svg {
   margin: 0 0.3rem 0.2rem 0;
 }
 
+#42fm-header-root {
+  order: -1 !important;
+}
+
 .stream-chat-header {
   height: 50px !important;
 }
