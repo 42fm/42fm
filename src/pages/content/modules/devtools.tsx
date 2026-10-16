@@ -18,7 +18,7 @@ class DevtoolsModule implements Attachable {
     this.root = document.querySelector("#root")!;
     this.container = document.createElement("div");
     this.container.setAttribute("id", "42fm-devtools-root");
-    this.logger = new Logger("DevtoolsModule");
+    this.logger = new Logger("module::devtools");
   }
 
   attach() {

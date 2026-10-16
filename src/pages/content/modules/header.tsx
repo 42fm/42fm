@@ -21,7 +21,7 @@ class HeaderModule implements AttachableOnce {
     this.container.setAttribute("id", "42fm-header-root");
     this.containerShadow = this.container.attachShadow({ mode: "closed" });
     this.containerReact = createRoot(this.containerShadow);
-    this.logger = new Logger("HeaderModule");
+    this.logger = new Logger("module::header");
 
     this.containerReact.render(
       <React.StrictMode>

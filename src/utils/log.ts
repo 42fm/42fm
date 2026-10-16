@@ -5,20 +5,36 @@ class Logger {
     this.label = label;
   }
 
-  public error(...data: any[]) {
-    console.error(`%c[42fm] %c[error]${this.label ? ` (${this.label})` : ""}:`, "color: #ff7a00", "color: #ef4444", ...data);
+  private common(): [string, string[]] {
+    let message = `%c42FM%c`;
+    const styles = ["color: #ff7a00", ""];
+
+    if (this.label) {
+      message += `${this.label ? ` %c${this.label}%c` : ""}`;
+      styles.push("color:gray", "");
+    }
+
+    return [message, styles];
   }
 
-  public warn(...data: any[]) {
-    console.warn(`%c[42fm] %c[warn]${this.label ? ` (${this.label})` : ""}:`, "color: #ff7a00", "color: #eab308", ...data);
+  public error(...data: unknown[]) {
+    const [message, styles] = this.common();
+    console.error(message + ` %cERROR%c`, ...styles, "color: #ea6c73", "", ...data);
   }
 
-  public info(...data: any[]) {
-    console.log(`%c[42fm] %c[info]${this.label ? ` (${this.label})` : ""}:`, "color: #ff7a00", "color: #22c55e", ...data);
+  public warn(...data: unknown[]) {
+    const [message, styles] = this.common();
+    console.warn(message + ` %cWARN%c`, ...styles, "color: #f9af4f", "", ...data);
   }
 
-  public debug(...data: any[]) {
-    console.debug(`%c[42fm] %c[debug]${this.label ? ` (${this.label})` : ""}:`, "color: #ff7a00", "color: #0ea5e9", ...data);
+  public info(...data: unknown[]) {
+    const [message, styles] = this.common();
+    console.info(message + ` %cINFO%c`, ...styles, "color: #7fd962", "", ...data);
+  }
+
+  public debug(...data: unknown[]) {
+    const [message, styles] = this.common();
+    console.debug(message + ` %cDEBUG%c`, ...styles, "color: #53bdfa", "", ...data);
   }
 }
 

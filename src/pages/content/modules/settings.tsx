@@ -21,7 +21,7 @@ class SettingsModule implements Attachable {
     this.container = document.createElement("div");
     this.container.setAttribute("id", "42fm-settings-root");
     this.containerShadow = this.container.attachShadow({ mode: "closed" });
-    this.logger = new Logger("SettingsModule");
+    this.logger = new Logger("module::settings");
 
     this.containerReact = createRoot(this.containerShadow);
 

@@ -28,7 +28,7 @@ const getChannelName = (url: string) => {
   return match[4];
 };
 
-const logger = new Logger("PlayerWrapper");
+const logger = new Logger("component::playerWrapper");
 
 function PlayerWrapper() {
   const player = useYoutubePlayerStore((state) => state.player);

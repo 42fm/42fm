@@ -6,7 +6,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(process.en
   transports: ["websocket"],
 });
 
-const logger = new Logger("Socket");
+const logger = new Logger("ws::socket");
 
 socket.onAny((event, ..._args) => {
   logger.debug(`Received event: ${event}`);

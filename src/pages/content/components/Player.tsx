@@ -101,7 +101,7 @@ interface Props {
   isPlayerOpen: boolean;
 }
 
-const logger = new Logger("Player");
+const logger = new Logger("component::player");
 
 function Player({ room, player, isPlayerOpen }: Props) {
   const isAvailable = usePlayerState((state) => state.isAvailable);

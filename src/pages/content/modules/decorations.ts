@@ -25,7 +25,7 @@ class DecorationsModule implements Attachable {
       (settings) => (this.disablePaints = settings.disablePaints ?? default_settings.disablePaints),
     );
 
-    this.logger = new Logger("DecorationsModule");
+    this.logger = new Logger("module::decorations");
   }
 
   attach() {

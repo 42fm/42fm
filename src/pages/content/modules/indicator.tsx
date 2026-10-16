@@ -54,7 +54,7 @@ class IndicatorModule implements AttachableOnce {
       </React.StrictMode>,
     );
 
-    this.logger = new Logger("IndicatorModule");
+    this.logger = new Logger("module::indicator");
   }
 
   attach(element: Element) {

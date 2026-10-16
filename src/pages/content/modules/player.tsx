@@ -54,7 +54,7 @@ class PlayerModule implements AttachableOnce {
       </React.StrictMode>,
     );
 
-    this.logger = new Logger("PlayerModule");
+    this.logger = new Logger("module::player");
   }
 
   attach(element: Element) {

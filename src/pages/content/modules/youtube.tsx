@@ -21,7 +21,7 @@ class YoutubeModule implements Attachable {
     this.container = document.createElement("div");
     this.containerShadow = this.container.attachShadow({ mode: "open" });
     this.container.setAttribute("id", "42fm-yt-player-root");
-    this.logger = new Logger("YoutubeModule");
+    this.logger = new Logger("module::youtube");
 
     this.containerReact = createRoot(this.containerShadow);
 
